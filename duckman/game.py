@@ -51,7 +51,9 @@ class Game:
         self.events, self.positions_log = [], []
         self.done, self.end_reason, self._tagged = False, None, False
         self.down_t = 0.0
-        self.counts = dict(coins=0, pellets=0, ghosts=0, lives_lost=0)
+        self.p_fall_t = 0.0
+        self.counts = dict(coins=0, pellets=0, ghosts=0, lives_lost=0, falls=0)
+        self._down = {p: False for p in self.policies}
         self.view = self._view([])
         return self.view
 
@@ -110,6 +112,13 @@ class Game:
                     if m == "frightened":
                         self.ghost_mode[g] = "chase"
         self.immune = max(0.0, self.immune - CTRL_DT)
+        if self.phase == "play" and self.sim.ducks["P_"].fallen():
+            self.p_fall_t += CTRL_DT
+            if self.p_fall_t > 3.0 and not self.done:
+                self.lives = 0
+                self._end("fell_unrecoverable", ev)
+        else:
+            self.p_fall_t = 0.0
         if self.phase == "play":
             for g in list(self.ghost_mode):
                 if not self.sim.contact("P_", g):
@@ -142,16 +151,28 @@ class Game:
                     or self.down_t >= self.RESET_CAP_S:
                 self.phase = "reset_done"
         if self.phase == "reset_done" and self.policies["P_"].ready():
-            self.phase = "play"
-            self.immune = self.IMMUNE_S
-            self._event("resume", ev)
-            for g in self.ghost_mode:
-                self.ghost_mode[g] = "chase"
+            if self.sim.ducks["P_"].fallen():
+                self.lives = 0
+                self._end("fell_unrecoverable", ev)
+            else:
+                self.phase = "play"
+                self.immune = self.IMMUNE_S
+                self._event("resume", ev)
+                for g in self.ghost_mode:
+                    self.ghost_mode[g] = "chase"
         if not self.done and not any(self.coins.values()):
             self.score += SCORE["clear"]
             self._end("cleared", ev)
         if not self.done and self.sim.t >= CLOCK_S - 1e-9:
             self._end("timeout", ev)
+        for p, d in self.sim.ducks.items():
+            fallen = d.fallen()
+            if fallen and not self._down[p]:
+                self.counts["falls"] += 1
+                pol = self.policies[p]
+                self._event("fell", ev, duck=p, phase=self.phase, mode=self.ghost_mode.get(p, getattr(pol, "mode", None)),
+                            target=getattr(getattr(pol, "nav", None), "target", None), gait=pol.active)
+            self._down[p] = fallen
         if self.log_positions:
             self.positions_log.append(self.sim.root_positions())
         self.view = self._view(ev)

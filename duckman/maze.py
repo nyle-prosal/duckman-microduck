@@ -85,12 +85,25 @@ class Maze:
             d += 1
         return d
 
-    def bfs_next(self, src, dst, ghost):
+    def bfs_next(self, src, dst, ghost, blocked=()):
+        """First step from src toward dst. `blocked` cells are avoided if a path exists without them."""
         if src == dst:
             return None
-        prev = self._bfs(src, ghost)
-        if dst not in prev:
-            return None
+        if blocked:
+            prev = {src: None}
+            q = deque([src])
+            while q:
+                u = q.popleft()
+                for v in self.neighbors(u, ghost):
+                    if v not in prev and v not in blocked:
+                        prev[v] = u
+                        q.append(v)
+            if dst not in prev:
+                return self.bfs_next(src, dst, ghost)
+        else:
+            prev = self._bfs(src, ghost)
+            if dst not in prev:
+                return None
         x = dst
         while prev[x] != src:
             x = prev[x]

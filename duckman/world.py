@@ -95,8 +95,8 @@ class Sim:
     def __init__(self, maze: Maze, seed: int):
         self.maze, self.seed = maze, seed
         spec, self.info = build_spec(maze, seed)
-        self.model, self.data, self.bam = compile_with_bam(spec)
-        self.ducks = {p: Duck(self.model, self.data, self.bam, p) for p in self.info["ducks"]}
+        self.model, self.data, self.bams = compile_with_bam(spec, {p: p for p in self.info["ducks"]})
+        self.ducks = {p: Duck(self.model, self.data, self.bams[p], p) for p in self.info["ducks"]}
         self._tok = {n: mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, n)
                      for n in self.info["coins"] + self.info["pellets"]}
         self._collision_groups()
@@ -122,17 +122,25 @@ class Sim:
         self.reset(seed)
 
     def _collision_groups(self):
-        """Arcade semantics via MuJoCo collision bitmasks: tokens live in group 2, the Duck-Man's collision
-        geoms in groups 1+2, ghosts stay in group 1, floor/walls in 1+2. Ghosts therefore pass through
-        tokens and only the Duck-Man can knock them; all duck-duck and duck-floor contacts are unchanged."""
+        """Arcade semantics via MuJoCo collision bitmasks (a pair collides if contype_a & conaffinity_b or
+        contype_b & conaffinity_a):
+          Duck-Man collision geoms  contype 3 / conaffinity 3
+          tokens                    contype 2 / conaffinity 2   -> only the Duck-Man (and floor/walls) touch them
+          ghosts                    contype 8 / conaffinity 1   -> collide with Duck-Man, floor, walls; pass through
+                                                                   other ghosts and tokens, as in the arcade
+          floor and walls           contype 3 / conaffinity 3
+        Physics inside each duck (joints, actuators, self-collision geoms) is untouched."""
         m = self.model
         for g in range(m.ngeom):
             body = m.body(m.geom_bodyid[g]).name
-            if body.startswith("P_") and m.geom_contype[g] == 1 and m.geom_conaffinity[g] == 1:
+            plain = m.geom_contype[g] == 1 and m.geom_conaffinity[g] == 1
+            if body.startswith("P_") and plain:
                 m.geom_contype[g], m.geom_conaffinity[g] = 3, 3
+            elif body.startswith("G") and plain:
+                m.geom_contype[g], m.geom_conaffinity[g] = 8, 1
             elif body in self._tok:
                 m.geom_contype[g], m.geom_conaffinity[g] = 2, 2
-            elif body == "world" and m.geom_contype[g] == 1 and m.geom_conaffinity[g] == 1:
+            elif body == "world" and plain:
                 m.geom_contype[g], m.geom_conaffinity[g] = 3, 3
 
     def reset(self, seed=None):
@@ -140,18 +148,20 @@ class Sim:
         mujoco.mj_resetData(self.model, self.data)
         for p, d in self.ducks.items():
             d.set_pose(*self.info["starts"][p])
-        self.bam.q_target[:] = self.data.qpos[self.bam.qpos_indexes]
-        if hasattr(self.bam, "last_ts"):
-            self.bam.last_ts = 0.0
-        if hasattr(self.bam, "_prev_motor_torque"):
-            self.bam._prev_motor_torque = np.zeros_like(self.bam._prev_motor_torque)
+        for b in self.bams.values():
+            b.q_target[:] = self.data.qpos[b.qpos_indexes]
+            if hasattr(b, "last_ts"):
+                b.last_ts = 0.0
+            if hasattr(b, "_prev_motor_torque"):
+                b._prev_motor_torque = np.zeros_like(b._prev_motor_torque)
         self.touched = {n: False for n in self._tok}
         self.t = 0.0
         mujoco.mj_forward(self.model, self.data)
 
     def step_physics(self):
         for _ in range(DECIMATION):
-            self.bam.update()
+            for b in self.bams.values():
+                b.update()
             mujoco.mj_step(self.model, self.data)
         self.t += CTRL_DT
         n = self.data.ncon

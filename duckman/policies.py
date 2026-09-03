@@ -72,6 +72,8 @@ class _Base:
 
 
 class DuckManPolicy(_Base):
+    REPLAN_S = 8.0   # a target not reached within this long (blocked by a ghost) is re-decided
+
     def __init__(self, strategy, recovery="sitstand"):
         super().__init__()
         self.strategy, self.recovery = strategy, recovery
@@ -92,6 +94,7 @@ class DuckManPolicy(_Base):
         self.calls = 0
         self.last = np.zeros(14, np.float32)
         self.strategy_calls = 0
+        self.target_t = 0.0
 
     def ready(self):
         return self.mode == "play"
@@ -102,8 +105,18 @@ class DuckManPolicy(_Base):
         self.nav.maze = view.maze
         pos, yaw = view.duck_pos["P_"], view.duck_yaw["P_"]
         if view.tagged and self.mode == "play":
-            self.mode, self.mode_t = "down", 0.0
+            self.mode, self.mode_t = ("stunned" if self.recovery == "sitstand" else "down"), 0.0
             self.nav.target = None
+        if self.mode == "stunned":
+            # tagged: hold a balanced stand while the ghosts turn away (a sitting duck is easy to topple),
+            # then sit down for the rest of the reset.
+            self.mode_t += CTRL_DT
+            t = self._run(obs, np.zeros(13, np.float32), "stand")
+            pc = view.duck_cell["P_"]
+            clear = all(abs(view.duck_cell[g][0] - pc[0]) + abs(view.duck_cell[g][1] - pc[1]) >= 2 for g in view.ghost_mode)
+            if clear or self.mode_t > 8.0 or view.phase == "reset_done":
+                self.mode, self.mode_t = "down", 0.0
+            return t
         if self.mode == "down":
             self.mode_t += CTRL_DT
             if self.recovery == "sitstand":
@@ -126,14 +139,17 @@ class DuckManPolicy(_Base):
             self.mode_t += CTRL_DT
             which = "sitstand" if self.recovery == "sitstand" else "stand"
             t = self._run(obs, np.zeros(13, np.float32), which)   # flag 0 = stand
-            if self.mode_t > 2.0 and view.upright["P_"] > 0.9:
+            if (self.mode_t > 2.0 and view.upright["P_"] > 0.75) or self.mode_t > 6.0:
                 self.mode = "play"
+                self.nav.target = None
             return t
         cell = view.duck_cell["P_"]
-        if self.nav.target is None or self.nav.arrived(pos):
+        self.target_t += CTRL_DT
+        if self.nav.target is None or self.nav.arrived(pos) or self.target_t > self.REPLAN_S:
             nxt = self.strategy.choose(view, cell, view.maze.neighbors(cell, ghost=False))
             self.strategy_calls += 1
             self.nav.set_target(nxt)
+            self.target_t = 0.0
         cmd, which = self._twist_cmd(self.nav.twist(pos, yaw))
         return self._run(obs, cmd, which)
 
@@ -156,11 +172,15 @@ class GhostPolicy(_Base):
         self.label = f"ghost{index}[{personality.label}]"
         self.nav = None
 
+    REPLAN_S = 6.0
+
     def reset(self, seed):
         self.p.reset(seed + self.k)
         self.nav = Navigator(None, SPEED["ghost"])
         self.calls = 0
         self.last = np.zeros(14, np.float32)
+        self.last_mode = "chase"
+        self.target_t = 0.0
 
     def act(self, obs):
         self.calls += 1
@@ -171,11 +191,14 @@ class GhostPolicy(_Base):
         cell = view.duck_cell[self.prefix]
         self.nav.speed = (SPEED["eaten"] if mode in ("eaten", "home") else
                           SPEED["frightened"] if mode == "frightened" else SPEED["ghost"])
-        if self.nav.target is None or self.nav.arrived(pos):
+        self.target_t += CTRL_DT
+        if self.nav.target is None or self.nav.arrived(pos) or mode != self.last_mode or self.target_t > self.REPLAN_S:
             if mode in ("eaten", "home"):
-                nxt = view.maze.bfs_next(cell, view.ghost_home[self.prefix], ghost=True)
+                nxt = view.maze.bfs_next(cell, view.ghost_home[self.prefix], ghost=True, blocked=(view.duck_cell["P_"],))
             else:
                 nxt = self.p.choose(view, self.prefix, cell, mode)
             self.nav.set_target(nxt)
+            self.last_mode = mode
+            self.target_t = 0.0
         cmd, which = self._twist_cmd(self.nav.twist(pos, yaw))
         return self._run(obs, cmd, which)
