@@ -1,0 +1,8 @@
+mujoco==3.10.0
+onnxruntime==1.24.4
+numpy==2.4.1
+imageio==2.37.2
+imageio-ffmpeg==0.6.0
+Pillow==12.2.0
+pytest==8.4.1
+better-actuator-models @ git+https://github.com/Rhoban/bam.git@62bd8ce12154340be97e06f7f41a0ca8f116d967
