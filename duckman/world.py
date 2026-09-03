@@ -99,10 +99,26 @@ class Sim:
         self.ducks = {p: Duck(self.model, self.data, self.bam, p) for p in self.info["ducks"]}
         self._tok = {n: mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, n)
                      for n in self.info["coins"] + self.info["pellets"]}
+        self._collision_groups()
+        self.touched = {n: False for n in self._tok}
         self.t = 0.0
         mujoco.mj_forward(self.model, self.data)
         self._tok0 = {n: self.data.xpos[b][:2].copy() for n, b in self._tok.items()}
         self.reset(seed)
+
+    def _collision_groups(self):
+        """Arcade semantics via MuJoCo collision bitmasks: tokens live in group 2, the Duck-Man's collision
+        geoms in groups 1+2, ghosts stay in group 1, floor/walls in 1+2. Ghosts therefore pass through
+        tokens and only the Duck-Man can knock them; all duck-duck and duck-floor contacts are unchanged."""
+        m = self.model
+        for g in range(m.ngeom):
+            body = m.body(m.geom_bodyid[g]).name
+            if body.startswith("P_") and m.geom_contype[g] == 1 and m.geom_conaffinity[g] == 1:
+                m.geom_contype[g], m.geom_conaffinity[g] = 3, 3
+            elif body in self._tok:
+                m.geom_contype[g], m.geom_conaffinity[g] = 2, 2
+            elif body == "world" and m.geom_contype[g] == 1 and m.geom_conaffinity[g] == 1:
+                m.geom_contype[g], m.geom_conaffinity[g] = 3, 3
 
     def reset(self, seed=None):
         assert seed is None or seed == self.seed, "layout is baked at build time; make a new Sim for another seed"
@@ -114,6 +130,7 @@ class Sim:
             self.bam.last_ts = 0.0
         if hasattr(self.bam, "_prev_motor_torque"):
             self.bam._prev_motor_torque = np.zeros_like(self.bam._prev_motor_torque)
+        self.touched = {n: False for n in self._tok}
         self.t = 0.0
         mujoco.mj_forward(self.model, self.data)
 
@@ -122,6 +139,11 @@ class Sim:
             self.bam.update()
             mujoco.mj_step(self.model, self.data)
         self.t += CTRL_DT
+        for x, y in self._pairs():
+            if x.startswith("P_") and y in self.touched:
+                self.touched[y] = True
+            elif y.startswith("P_") and x in self.touched:
+                self.touched[x] = True
 
     def body_pos(self, name):
         return self.data.xpos[mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, name)].copy()
@@ -130,7 +152,9 @@ class Sim:
         return bool(self.data.xmat[self._tok[name]][8] > 0.7)
 
     def token_collected(self, name, displace=0.06):
-        """A token counts once physical contact has toppled it or knocked it >= `displace` m from its spawn."""
+        """A token counts once the Duck-Man has touched it AND it is toppled or >= `displace` m from its spawn."""
+        if not self.touched[name]:
+            return False
         b = self._tok[name]
         return (self.data.xmat[b][8] <= 0.7) or (np.linalg.norm(self.data.xpos[b][:2] - self._tok0[name]) >= displace)
 
