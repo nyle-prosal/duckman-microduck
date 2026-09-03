@@ -44,11 +44,9 @@ class Duck:
         return math.atan2(2 * (w * z + x * y), 1 - 2 * (y * y + z * z))
 
     def proj_grav(self):
-        q = self.quat().astype(np.float32)
-        w, xyz = q[0], q[1:4]
-        v = np.array([0, 0, -1], np.float32)
-        t = np.cross(xyz, v) * 2
-        return v - w * t + np.cross(xyz, t)
+        # world gravity direction (0,0,-1) expressed in the trunk frame: -(third row of R(q))
+        w, x, y, z = self.d.xquat[self.trunk]
+        return np.array([-2 * (x * z - w * y), -2 * (y * z + w * x), -(1 - 2 * (x * x + y * y))], np.float32)
 
     def upright(self):
         return float(-self.proj_grav()[2])

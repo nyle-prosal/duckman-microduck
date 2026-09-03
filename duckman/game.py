@@ -88,13 +88,13 @@ class Game:
         ev = []
         self._tagged = False
         for n, alive in self.coins.items():
-            if alive and self.sim.token_collected(n):
+            if alive and self.sim.touched[n] and self.sim.token_collected(n):
                 self.coins[n] = False
                 self.score += SCORE["coin"]
                 self.counts["coins"] += 1
                 self._event("coin", ev, cell=self._cellname(n))
         for n, alive in self.pellets.items():
-            if alive and self.sim.token_collected(n):
+            if alive and self.sim.touched[n] and self.sim.token_collected(n):
                 self.pellets[n] = False
                 self.score += SCORE["pellet"]
                 self.counts["pellets"] += 1

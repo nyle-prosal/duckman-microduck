@@ -100,6 +100,21 @@ class Sim:
         self._tok = {n: mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, n)
                      for n in self.info["coins"] + self.info["pellets"]}
         self._collision_groups()
+        self._owner = np.full(self.model.ngeom, -1, dtype=np.int64)
+        self._code = {}
+        for i, p in enumerate(self.info["ducks"]):
+            self._code[p] = i
+        for i, n in enumerate(self._tok):
+            self._code[n] = 100 + i
+        for g in range(self.model.ngeom):
+            b = self.model.body(self.model.geom_bodyid[g]).name
+            for p, c in self._code.items():
+                if b == p or (p.endswith("_") and b.startswith(p)):
+                    self._owner[g] = c
+                    break
+        self._tok_ids = np.array(list(self._tok.values()))
+        self._tok_names = list(self._tok)
+        self._con = set()
         self.touched = {n: False for n in self._tok}
         self.t = 0.0
         mujoco.mj_forward(self.model, self.data)
@@ -139,11 +154,16 @@ class Sim:
             self.bam.update()
             mujoco.mj_step(self.model, self.data)
         self.t += CTRL_DT
-        for x, y in self._pairs():
-            if x.startswith("P_") and y in self.touched:
-                self.touched[y] = True
-            elif y.startswith("P_") and x in self.touched:
-                self.touched[x] = True
+        n = self.data.ncon
+        if n:
+            a = self._owner[self.data.contact.geom1[:n]]
+            b = self._owner[self.data.contact.geom2[:n]]
+            self._con = set(zip(a.tolist(), b.tolist())) | set(zip(b.tolist(), a.tolist()))
+            for (x, y) in self._con:
+                if x == 0 and y >= 100:
+                    self.touched[self._tok_names[y - 100]] = True
+        else:
+            self._con = set()
 
     def body_pos(self, name):
         return self.data.xpos[mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, name)].copy()
@@ -165,10 +185,10 @@ class Sim:
             yield m.body(m.geom_bodyid[c.geom1]).name, m.body(m.geom_bodyid[c.geom2]).name
 
     def contact(self, a, b):
-        return any((x.startswith(a) and y.startswith(b)) or (x.startswith(b) and y.startswith(a)) for x, y in self._pairs())
+        return (self._code[a], self._code[b]) in self._con
 
     def contact_token(self, prefix, token):
-        return any((x == token and y.startswith(prefix)) or (y == token and x.startswith(prefix)) for x, y in self._pairs())
+        return (self._code[prefix], self._code[token]) in self._con
 
     def root_positions(self):
         out = {p: d.pos() for p, d in self.ducks.items()}

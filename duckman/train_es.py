@@ -66,7 +66,7 @@ def train(run_name, generations, pop=64, sigma=0.1, lr=0.02, seeds_per_gen=4, wo
                 t0 = time.time()
                 eps = rng.standard_normal((half, theta.size)).astype(np.float32)
                 eps = np.concatenate([eps, -eps])
-                seeds = [int(s) for s in rng.integers(0, 10_000, seeds_per_gen)]
+                seeds = [int(s) for s in rng.integers(1000, 10_000, seeds_per_gen)]   # seeds 0-999 are held out for evaluation
                 jobs = [(theta + sigma * eps[i], s, max_t) for i in range(pop) for s in seeds] + [(theta, s, max_t) for s in seeds]
                 res = pool.map(rollout, jobs, chunksize=1)
                 cand = res[:pop * seeds_per_gen]
