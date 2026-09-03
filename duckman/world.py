@@ -100,6 +100,8 @@ class Sim:
         self._tok = {n: mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, n)
                      for n in self.info["coins"] + self.info["pellets"]}
         self.t = 0.0
+        mujoco.mj_forward(self.model, self.data)
+        self._tok0 = {n: self.data.xpos[b][:2].copy() for n, b in self._tok.items()}
         self.reset(seed)
 
     def reset(self, seed=None):
@@ -126,6 +128,11 @@ class Sim:
 
     def token_upright(self, name):
         return bool(self.data.xmat[self._tok[name]][8] > 0.7)
+
+    def token_collected(self, name, displace=0.06):
+        """A token counts once physical contact has toppled it or knocked it >= `displace` m from its spawn."""
+        b = self._tok[name]
+        return (self.data.xmat[b][8] <= 0.7) or (np.linalg.norm(self.data.xpos[b][:2] - self._tok0[name]) >= displace)
 
     def _pairs(self):
         m, d = self.model, self.data

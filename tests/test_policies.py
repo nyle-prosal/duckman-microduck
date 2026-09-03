@@ -26,3 +26,15 @@ def test_neutral_collects_nothing_in_20s():
     g.reset()
     r = g.run(max_t=20.0)
     assert r["coins"] == 0 and r["score"] == 0
+
+
+def test_planner_scores_and_ghosts_move():
+    from duckman.ghosts import default_ghosts
+    from duckman.planner import PlannerStrategy
+    g = Game(Maze(), 0, DuckManPolicy(PlannerStrategy()), default_ghosts())
+    g.reset()
+    r = g.run(max_t=60.0)
+    assert r["coins"] >= 3, r
+    moved = [np.linalg.norm(g.sim.ducks[p].pos()[:2] - np.array(g.sim.info["starts"][p][0])) for p in ["G0_", "G1_", "G2_", "G3_"]]
+    assert max(moved) > 0.3, moved
+    assert not any(g.sim.ducks[p].fallen() for p in g.sim.ducks), "a duck fell"

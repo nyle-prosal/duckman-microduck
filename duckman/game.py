@@ -28,6 +28,7 @@ class GameView:
 class Game:
     IMMUNE_S = 1.5
     HOME_WAIT_S = 2.0
+    RESET_CAP_S = 20.0   # ghosts walk home after a tag; play resumes after this long regardless
 
     def __init__(self, maze, seed, pac_policy, ghost_policies, log_positions=False):
         self.maze, self.seed = maze, seed
@@ -49,6 +50,7 @@ class Game:
         self.ghost_home = {f"G{k}_": self.maze.ghost_starts[k] for k in range(4)}
         self.events, self.positions_log = [], []
         self.done, self.end_reason, self._tagged = False, None, False
+        self.down_t = 0.0
         self.counts = dict(coins=0, pellets=0, ghosts=0, lives_lost=0)
         self.view = self._view([])
         return self.view
@@ -86,13 +88,13 @@ class Game:
         ev = []
         self._tagged = False
         for n, alive in self.coins.items():
-            if alive and not self.sim.token_upright(n):
+            if alive and self.sim.token_collected(n):
                 self.coins[n] = False
                 self.score += SCORE["coin"]
                 self.counts["coins"] += 1
                 self._event("coin", ev, cell=self._cellname(n))
         for n, alive in self.pellets.items():
-            if alive and not self.sim.token_upright(n):
+            if alive and self.sim.token_collected(n):
                 self.pellets[n] = False
                 self.score += SCORE["pellet"]
                 self.counts["pellets"] += 1
@@ -122,6 +124,7 @@ class Game:
                     self.counts["lives_lost"] += 1
                     self._tagged = True
                     self.phase = "down"
+                    self.down_t = 0.0
                     self._event("tag", ev, ghost=g, lives=self.lives)
                     for h in self.ghost_mode:
                         self.ghost_mode[h] = "home"
@@ -133,9 +136,11 @@ class Game:
             self.home_t[g] = self.home_t[g] + CTRL_DT if (m in ("eaten", "home") and at_home) else 0.0
             if m == "eaten" and self.home_t[g] >= self.HOME_WAIT_S:
                 self.ghost_mode[g] = "chase"
-        if self.phase == "down" and all(self.ghost_mode[g] == "home" and self.home_t[g] >= self.HOME_WAIT_S
-                                        for g in self.ghost_mode):
-            self.phase = "reset_done"
+        if self.phase == "down":
+            self.down_t += CTRL_DT
+            if all(self.ghost_mode[g] == "home" and self.home_t[g] >= self.HOME_WAIT_S for g in self.ghost_mode) \
+                    or self.down_t >= self.RESET_CAP_S:
+                self.phase = "reset_done"
         if self.phase == "reset_done" and self.policies["P_"].ready():
             self.phase = "play"
             self.immune = self.IMMUNE_S

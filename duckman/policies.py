@@ -110,7 +110,7 @@ class DuckManPolicy(_Base):
                 cmd = np.zeros(13, np.float32)
                 cmd[0] = 1.0                      # posture flag: 1 = sit
                 t = self._run(obs, cmd, "sitstand")
-                if view.phase == "reset_done" or self.mode_t > 12.0:
+                if view.phase == "reset_done" or self.mode_t > 30.0:
                     self.mode, self.mode_t = "recover", 0.0
                 return t
             # standup recovery: hold current joints for 0.8 s (the duck drops under the shove),
