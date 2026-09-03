@@ -1,0 +1,13 @@
+# clones and downloads kept out of the entry repo
+microduck_rl/
+microduck/
+examples/
+spikes/out/
+policies/*.onnx
+*.mp4
+__pycache__/
+.venv/
+*.pyc
+logs/
+runs/
+.DS_Store
