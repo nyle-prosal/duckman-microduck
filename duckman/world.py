@@ -7,7 +7,14 @@ from .bam_loader import compile_with_bam
 from .duck import Duck, quat_yaw
 from .maze import Maze
 
-SHELLS = ["top_head_shell_material", "bottom_head_shell_material", "left_shell_material", "right_shell_material"]
+# materials that carry the team colour ("jersey"): head and body shells, thighs, shins, hips, feet
+SHELLS = ["top_head_shell_material", "bottom_head_shell_material", "left_shell_material", "right_shell_material",
+          "upper_leg_left_material", "upper_leg_right_material", "leg_material", "hip_l_material",
+          "foot_left_material", "foot_right_material"]
+FRIGHTENED = (0.25, 0.35, 1.0, 1.0)      # arcade blue
+FRIGHTENED_FLASH = (0.95, 0.95, 1.0, 1.0)
+EATEN = (0.75, 0.75, 0.8, 0.45)          # translucent "eyes going home"
+POWER_FLASH = (1.0, 1.0, 1.0, 1.0)
 
 
 def _base_spec():
@@ -118,6 +125,10 @@ class Sim:
         self._hidden = set()
         self._rgba0 = self.model.geom_rgba.copy()
         self._ct0, self._ca0 = self.model.geom_contype.copy(), self.model.geom_conaffinity.copy()
+        self.team_mats = {p: [mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_MATERIAL, p + n) for n in SHELLS]
+                          for p in self.info["ducks"]}
+        self._mat_rgba0 = self.model.mat_rgba.copy()
+        self._team_color = {}
         self.touched = {n: False for n in self._tok}
         self.t = 0.0
         mujoco.mj_forward(self.model, self.data)
@@ -155,6 +166,9 @@ class Sim:
             self.model.geom_contype[:] = self._ct0
             self.model.geom_conaffinity[:] = self._ca0
             self._hidden = set()
+        if getattr(self, "_mat_rgba0", None) is not None:
+            self.model.mat_rgba[:] = self._mat_rgba0
+            self._team_color = {}
         for p, d in self.ducks.items():
             d.set_pose(*self.info["starts"][p])
         for b in self.bams.values():
@@ -186,6 +200,16 @@ class Sim:
 
     def body_pos(self, name):
         return self.data.xpos[mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, name)].copy()
+
+    def set_team_color(self, prefix, rgba):
+        """Render-only: recolour a duck's jersey materials (None restores the team colour)."""
+        key = tuple(rgba) if rgba is not None else None
+        if self._team_color.get(prefix, "unset") == key:
+            return
+        self._team_color[prefix] = key
+        for mid in self.team_mats[prefix]:
+            if mid >= 0:
+                self.model.mat_rgba[mid] = self._mat_rgba0[mid] if rgba is None else rgba
 
     def hide_token(self, name):
         """A collected token vanishes like an arcade dot: invisible and inert to the ducks (it still rests on the

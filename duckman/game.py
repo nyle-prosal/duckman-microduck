@@ -89,6 +89,21 @@ class Game:
         ev.append(name)
         self.events.append((round(self.sim.t, 2), name, data))
 
+    def _update_jerseys(self):
+        """Arcade colour cues, render-only: frightened ghosts turn blue and flash white in the last 2.5 s of
+        power, eaten ghosts go translucent while walking home, the Duck-Man flashes while powered."""
+        from .world import FRIGHTENED, FRIGHTENED_FLASH, EATEN, POWER_FLASH
+        flash = self.power_left > 0 and self.power_left < 2.5 and int(self.sim.t * 6) % 2 == 0
+        for g, mode in self.ghost_mode.items():
+            if mode == "frightened":
+                self.sim.set_team_color(g, FRIGHTENED_FLASH if flash else FRIGHTENED)
+            elif mode in ("eaten",):
+                self.sim.set_team_color(g, EATEN)
+            else:
+                self.sim.set_team_color(g, None)
+        pflash = self.power_left > 0 and int(self.sim.t * 4) % 2 == 0
+        self.sim.set_team_color("P_", POWER_FLASH if pflash else None)
+
     def _end(self, reason, ev):
         self.done = True
         self.end_reason = reason
@@ -187,6 +202,7 @@ class Game:
             self._end("cleared", ev)
         if not self.done and self.sim.t >= CLOCK_S - 1e-9:
             self._end("timeout", ev)
+        self._update_jerseys()
         for p, d in self.sim.ducks.items():
             fallen = d.fallen()
             if fallen and not self._down[p]:
