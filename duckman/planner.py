@@ -27,6 +27,8 @@ class PlannerStrategy:
             return None
         best, bestd = None, None
         for t in targets:
+            if t == cell:
+                continue          # a token still standing in this cell gets knocked on the way out
             d = m.dist(cell, t, False)
             if d is None:
                 continue

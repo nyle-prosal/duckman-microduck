@@ -40,6 +40,9 @@ class Maze:
         hs = sorted(self.house)
         self.ghost_starts = [self.door, hs[0], hs[1], hs[2]]
         self.ghost_corners = [(self.cols - 1, 0), (0, 0), (self.cols - 1, self.rows - 1), (0, self.rows - 1)]
+        # scatter posts: the ring around the ghost house, so scattering ghosts patrol the middle
+        # instead of running through the Duck-Man's start row
+        self.scatter_posts = [(5, 2), (1, 2), (5, 4), (1, 4)]
         self._bfs_cache = {}
 
     def xy(self, cell):

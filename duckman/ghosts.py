@@ -27,7 +27,10 @@ class _G:
     def choose(self, view, prefix, cell, mode):
         if mode == "frightened":
             return _away(view, cell, view.duck_cell["P_"])
-        t = _nearest_walkable(view, self.target(view, prefix, cell))
+        if getattr(view, "scatter", False):
+            t = view.maze.scatter_posts[int(prefix[1])]
+        else:
+            t = _nearest_walkable(view, self.target(view, prefix, cell))
         if t == cell:
             opts = view.maze.neighbors(cell, ghost=True)
             return tuple(int(x) for x in self.rng.choice(opts)) if opts else None

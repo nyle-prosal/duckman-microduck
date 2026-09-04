@@ -23,6 +23,7 @@ class GameView:
     ghost_home: dict      # prefix -> cell
     events_this_step: list
     tagged: bool
+    scatter: bool = False   # arcade scatter phase: ghosts head for their corners instead of hunting
 
 
 class Game:
@@ -31,6 +32,8 @@ class Game:
     RESET_CAP_S = 20.0   # ghosts walk home after a tag; play resumes after this long regardless
     RESET_MIN_S = 3.0    # ...or once every ghost has backed off RESET_CLEAR cells (after this minimum)
     RESET_CLEAR = 3
+    # arcade-style wave timer (seconds of play time): scatter 7, chase 20, scatter 7, chase 20, scatter 5, then chase
+    WAVES = [("scatter", 7.0), ("chase", 20.0), ("scatter", 7.0), ("chase", 20.0), ("scatter", 5.0), ("chase", 1e9)]
 
     def __init__(self, maze, seed, pac_policy, ghost_policies, log_positions=False):
         self.maze, self.seed = maze, seed
@@ -54,6 +57,7 @@ class Game:
         self.done, self.end_reason, self._tagged = False, None, False
         self.down_t = 0.0
         self.p_fall_t = 0.0
+        self.play_t = 0.0
         self.counts = dict(coins=0, pellets=0, ghosts=0, lives_lost=0, falls=0)
         self._down = {p: False for p in self.policies}
         self.view = self._view([])
@@ -64,6 +68,14 @@ class Game:
         a, b = n.split("_")[1:]
         return (int(a), int(b))
 
+    def scatter(self):
+        t = self.play_t
+        for name, dur in self.WAVES:
+            if t < dur:
+                return name == "scatter"
+            t -= dur
+        return False
+
     def _view(self, events):
         d = self.sim.ducks
         return GameView(self.maze, self.sim.t, CLOCK_S - self.sim.t, self.lives, self.score, self.power_left, self.phase,
@@ -71,7 +83,7 @@ class Game:
                         {p: self.maze.cell(*x.pos()[:2]) for p, x in d.items()}, {p: x.upright() for p, x in d.items()},
                         {self._cellname(n): v for n, v in self.coins.items()},
                         {self._cellname(n): v for n, v in self.pellets.items()},
-                        dict(self.ghost_mode), dict(self.ghost_home), events, self._tagged)
+                        dict(self.ghost_mode), dict(self.ghost_home), events, self._tagged, self.scatter())
 
     def _event(self, name, ev, **data):
         ev.append(name)
@@ -91,6 +103,8 @@ class Game:
         self.sim.step_physics()
         ev = []
         self._tagged = False
+        if self.phase == "play" and self.power_left == 0:
+            self.play_t += CTRL_DT
         for n, alive in self.coins.items():
             if alive and self.sim.touched[n] and self.sim.token_collected(n):
                 self.coins[n] = False

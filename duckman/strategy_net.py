@@ -32,12 +32,12 @@ def features(view, cell):
     yaw = view.duck_yaw["P_"]
     head = [np.cos(yaw), np.sin(yaw)]
     misc = [view.power_left / 10.0, view.lives / 3.0, view.clock_left / 240.0,
-            sum(view.coins_alive.values()) / max(1, len(view.coins_alive))]
+            sum(view.coins_alive.values()) / max(1, len(view.coins_alive)), 1.0 if getattr(view, "scatter", False) else 0.0]
     return np.concatenate([walls, coins, np.array(gh, np.float32), np.array(pv, np.float32),
                            np.array(head, np.float32), np.array(misc, np.float32)]).astype(np.float32)
 
 
-N_FEATURES = 2 * (2 * R + 1) ** 2 + 16 + 3 + 2 + 4
+N_FEATURES = 2 * (2 * R + 1) ** 2 + 16 + 3 + 2 + 5
 
 
 class MLP:

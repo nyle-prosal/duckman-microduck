@@ -48,6 +48,9 @@ def fitness(res):
     return res["score"] - 100.0 * res["lives_lost"]
 
 
+SEED_POOL = [1000, 1001, 1002, 1003, 1004, 1005]   # training layouts; evaluation uses seeds 0-999
+
+
 def train(run_name, generations, pop=64, sigma=0.1, lr=0.02, seeds_per_gen=4, workers=10, max_t=CLOCK_S,
           root=ROOT / "runs", resume=None, master_seed=0):
     out = Path(root) / run_name
@@ -74,7 +77,7 @@ def train(run_name, generations, pop=64, sigma=0.1, lr=0.02, seeds_per_gen=4, wo
                 t0 = time.time()
                 eps = rng.standard_normal((half, theta.size)).astype(np.float32)
                 eps = np.concatenate([eps, -eps])
-                seeds = [int(s) for s in rng.integers(1000, 10_000, seeds_per_gen)]   # seeds 0-999 are held out for evaluation
+                seeds = [int(s) for s in rng.choice(SEED_POOL, size=min(seeds_per_gen, len(SEED_POOL)), replace=False)]
                 jobs = [(theta + sigma * eps[i], s, max_t) for i in range(pop) for s in seeds] + [(theta, s, max_t) for s in seeds]
                 res = pool.map(rollout, jobs, chunksize=1)
                 cand = res[:pop * seeds_per_gen]

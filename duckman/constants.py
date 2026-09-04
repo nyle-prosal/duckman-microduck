@@ -30,6 +30,6 @@ COIN_R, COIN_H, COIN_MASS = 0.035, 0.03, 0.004
 PELLET_R, PELLET_H, PELLET_MASS = 0.05, 0.05, 0.008
 CLOCK_S, LIVES, POWER_S = 240.0, 3, 10.0
 SCORE = dict(coin=10, pellet=50, ghost=200, clear=500)
-SPEED = dict(pacman=0.40, ghost=0.30, frightened=0.30, eaten=0.35)
+SPEED = dict(pacman=0.40, ghost=0.25, frightened=0.25, eaten=0.32)
 COLORS = {"P_": (1.0, 0.85, 0.1, 1), "G0_": (0.95, 0.15, 0.1, 1), "G1_": (1.0, 0.55, 0.8, 1),
           "G2_": (0.2, 0.9, 0.95, 1), "G3_": (1.0, 0.6, 0.15, 1)}

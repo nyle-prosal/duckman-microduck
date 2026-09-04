@@ -10,7 +10,7 @@ from .constants import CTRL_DT
 
 
 class Navigator:
-    ARRIVE = 0.08
+    ARRIVE = 0.06
     FACE_TOL = 0.35
     KP = 2.5
     KICK_S = 0.4
