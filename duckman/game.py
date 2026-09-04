@@ -112,7 +112,7 @@ class Game:
                     if m == "frightened":
                         self.ghost_mode[g] = "chase"
         self.immune = max(0.0, self.immune - CTRL_DT)
-        if self.phase == "play" and self.sim.ducks["P_"].fallen():
+        if self.phase == "play" and self.sim.ducks["P_"].fallen() and self.policies["P_"].recovery == "sitstand":
             self.p_fall_t += CTRL_DT
             if self.p_fall_t > 3.0 and not self.done:
                 self.lives = 0
@@ -151,7 +151,7 @@ class Game:
                     or self.down_t >= self.RESET_CAP_S:
                 self.phase = "reset_done"
         if self.phase == "reset_done" and self.policies["P_"].ready():
-            if self.sim.ducks["P_"].fallen():
+            if self.sim.ducks["P_"].fallen() and self.policies["P_"].recovery == "sitstand":
                 self.lives = 0
                 self._end("fell_unrecoverable", ev)
             else:

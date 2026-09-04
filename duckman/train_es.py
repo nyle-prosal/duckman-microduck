@@ -5,8 +5,13 @@ python -m duckman.train_es --run run1 --generations 300 [--pop 64 --workers 10 -
 """
 import argparse
 import csv
+import os
 import time
 from multiprocessing import Pool
+
+# one physics/inference thread per worker process; the pool provides the parallelism
+for _v in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "VECLIB_MAXIMUM_THREADS", "NUMEXPR_NUM_THREADS"):
+    os.environ.setdefault(_v, "1")
 from pathlib import Path
 import numpy as np
 from .constants import CLOCK_S, ROOT

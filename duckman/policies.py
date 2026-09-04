@@ -77,12 +77,12 @@ class DuckManPolicy(_Base):
     def __init__(self, strategy, recovery="sitstand"):
         super().__init__()
         self.strategy, self.recovery = strategy, recovery
-        if recovery == "sitstand":
-            self.gaits["sitstand"] = Gait(POLICY_DIR / "alpha_sitstand.onnx")
-        elif recovery == "standup":
+        self.gaits["sitstand"] = Gait(POLICY_DIR / "alpha_sitstand.onnx")
+        if recovery == "standup":
             self.gaits["standup"] = Gait(POLICY_DIR / "standup.onnx")
-        else:
+        elif recovery != "sitstand":
             raise ValueError(recovery)
+        self.up_t = 0.0
         self.label = f"Duck-Man[{strategy.label}]"
         self.nav = None
         self.mode, self.mode_t = "play", 0.0
@@ -107,6 +107,10 @@ class DuckManPolicy(_Base):
         if view.tagged and self.mode == "play":
             self.mode, self.mode_t = ("stunned" if self.recovery == "sitstand" else "down"), 0.0
             self.nav.target = None
+        if self.recovery == "standup" and self.mode == "play" and view.upright["P_"] < 0.5:
+            # knocked over during play (no tag): get up with the stand-up policy; ghosts keep chasing
+            self.mode, self.mode_t = "recover", 0.0
+            self.nav.target = None
         if self.mode == "stunned":
             # tagged: hold a balanced stand while the ghosts turn away (a sitting duck is easy to topple),
             # then sit down for the rest of the reset.
@@ -126,19 +130,29 @@ class DuckManPolicy(_Base):
                 if view.phase == "reset_done" or self.mode_t > 30.0:
                     self.mode, self.mode_t = "recover", 0.0
                 return t
-            # standup recovery: hold current joints for 0.8 s (the duck drops under the shove),
-            # then the stand-up policy takes over until upright.
-            if self.mode_t < 0.8:
-                self.last = np.zeros(14, np.float32)
-                return DEFAULT_POSE + obs["proprio"][6:20]
-            t = self._run(obs, np.zeros(13, np.float32), "standup")
-            if (view.phase == "reset_done" and view.upright["P_"] > 0.9 and self.mode_t > 3.0) or self.mode_t > 15.0:
+            # stand-up recovery: the tagged duck drops into the sit posture ("knocked down"); if the shove
+            # actually toppled it, the stand-up policy takes over right away (it is trained from
+            # face-down / face-up / sitting starts). Play resumes only after the ghosts are home.
+            if view.upright["P_"] > 0.5:
+                cmd = np.zeros(13, np.float32)
+                cmd[0] = 1.0
+                t = self._run(obs, cmd, "sitstand")
+            else:
+                t = self._run(obs, np.zeros(13, np.float32), "standup")
+            if view.phase == "reset_done" or self.mode_t > 30.0:
                 self.mode, self.mode_t = "recover", 0.0
             return t
         if self.mode == "recover":
             self.mode_t += CTRL_DT
-            which = "sitstand" if self.recovery == "sitstand" else "stand"
-            t = self._run(obs, np.zeros(13, np.float32), which)   # flag 0 = stand
+            if self.recovery == "standup":
+                t = self._run(obs, np.zeros(13, np.float32), "standup")
+                self.up_t = self.up_t + CTRL_DT if view.upright["P_"] > 0.9 else 0.0
+                if self.up_t >= 1.0 or self.mode_t > 10.0:
+                    self.mode = "play"
+                    self.nav.target = None
+                    self.up_t = 0.0
+                return t
+            t = self._run(obs, np.zeros(13, np.float32), "sitstand")   # flag 0 = stand
             if (self.mode_t > 2.0 and view.upright["P_"] > 0.75) or self.mode_t > 6.0:
                 self.mode = "play"
                 self.nav.target = None
