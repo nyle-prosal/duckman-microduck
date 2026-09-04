@@ -86,10 +86,18 @@ def train(run_name, generations, pop=64, sigma=0.1, lr=0.02, seeds_per_gen=4, wo
                 base = res[pop * seeds_per_gen:]          # the unperturbed policy on the WHOLE pool
                 theta_fit = float(np.mean([fitness(r) for r in base]))
                 theta_score = float(np.mean([r["score"] for r in base]))
-                if theta_fit > best_fit:
-                    best_fit, best_theta, stale = theta_fit, theta.copy(), 0
-                    np.savez(out / "best.npz", flat=theta, n_in=N_FEATURES, fit=theta_fit, gen=gen)
-                else:
+                # (1+lambda)-style elitism: re-score the top individual on the whole pool and adopt it if it wins
+                top = int(per.argmax())
+                top_theta = (theta + sigma * eps[top]).astype(np.float32)
+                top_res = pool.map(rollout, [(top_theta, s, max_t) for s in SEED_POOL], chunksize=1)
+                top_fit = float(np.mean([fitness(r) for r in top_res]))
+                improved = False
+                for cand_fit, cand_theta, tag in ((theta_fit, theta, "theta"), (top_fit, top_theta, "top individual")):
+                    if cand_fit > best_fit:
+                        best_fit, best_theta, stale, improved = cand_fit, cand_theta.copy(), 0, True
+                        np.savez(out / "best.npz", flat=cand_theta, n_in=N_FEATURES, fit=cand_fit, gen=gen)
+                        print(f"gen {gen}: new best from {tag}: pool fitness {cand_fit:.1f}", flush=True)
+                if not improved:
                     stale += 1
                 ranks = per.argsort().argsort().astype(np.float32)
                 util = ranks / (pop - 1) - 0.5
@@ -109,7 +117,7 @@ def train(run_name, generations, pop=64, sigma=0.1, lr=0.02, seeds_per_gen=4, wo
                             round(time.time() - t0, 1)])
                 f.flush()
                 np.savez(out / f"gen_{gen:04d}.npz", flat=theta, n_in=N_FEATURES)
-                print(f"gen {gen}: fit mean {per.mean():.1f} max {per.max():.1f} | theta fit {theta_fit:.1f} score {theta_score:.1f}"
+                print(f"gen {gen}: fit mean {per.mean():.1f} max {per.max():.1f} (top on pool {top_fit:.1f}) | theta fit {theta_fit:.1f} score {theta_score:.1f} | best {best_fit:.1f}"
                       f" | pop score {sc.mean():.1f} coins {co.mean():.1f} lives {ll.mean():.2f} ({time.time() - t0:.0f}s)", flush=True)
     return {"generations": generations, "theta": theta, "out": str(out)}
 
