@@ -61,6 +61,7 @@ def train(run_name, generations, pop=64, sigma=0.1, lr=0.02, seeds_per_gen=4, wo
     if not (out / "gen_0000.npz").exists():
         np.savez(out / "gen_0000.npz", flat=theta, n_in=N_FEATURES)
     m, v = np.zeros_like(theta), np.zeros_like(theta)
+    best_fit, best_theta, stale = -np.inf, theta.copy(), 0
     half = pop // 2
     start_gen = 1
     if (out / "curve.csv").exists():
@@ -78,19 +79,29 @@ def train(run_name, generations, pop=64, sigma=0.1, lr=0.02, seeds_per_gen=4, wo
                 eps = rng.standard_normal((half, theta.size)).astype(np.float32)
                 eps = np.concatenate([eps, -eps])
                 seeds = [int(s) for s in rng.choice(SEED_POOL, size=min(seeds_per_gen, len(SEED_POOL)), replace=False)]
-                jobs = [(theta + sigma * eps[i], s, max_t) for i in range(pop) for s in seeds] + [(theta, s, max_t) for s in seeds]
+                jobs = [(theta + sigma * eps[i], s, max_t) for i in range(pop) for s in seeds] + [(theta, s, max_t) for s in SEED_POOL]
                 res = pool.map(rollout, jobs, chunksize=1)
                 cand = res[:pop * seeds_per_gen]
                 per = np.array([fitness(r) for r in cand]).reshape(pop, seeds_per_gen).mean(1)
-                base = res[pop * seeds_per_gen:]
+                base = res[pop * seeds_per_gen:]          # the unperturbed policy on the WHOLE pool
                 theta_fit = float(np.mean([fitness(r) for r in base]))
                 theta_score = float(np.mean([r["score"] for r in base]))
+                if theta_fit > best_fit:
+                    best_fit, best_theta, stale = theta_fit, theta.copy(), 0
+                    np.savez(out / "best.npz", flat=theta, n_in=N_FEATURES, fit=theta_fit, gen=gen)
+                else:
+                    stale += 1
                 ranks = per.argsort().argsort().astype(np.float32)
                 util = ranks / (pop - 1) - 0.5
                 grad = (eps * util[:, None]).sum(0) / (pop * sigma)
                 m = 0.9 * m + 0.1 * grad
                 v = 0.999 * v + 0.001 * grad ** 2
                 theta = (theta + lr * m / (np.sqrt(v) + 1e-8)).astype(np.float32)
+                if stale >= 3:                      # elitism: go back to the best known policy and explore from there
+                    theta, stale = best_theta.copy(), 0
+                    m[:] = 0
+                    v[:] = 0
+                    print(f"gen {gen}: reverted to best (fit {best_fit:.1f})", flush=True)
                 sc = np.array([r["score"] for r in cand])
                 co = np.array([r["coins"] for r in cand])
                 ll = np.array([r["lives_lost"] for r in cand])
@@ -98,7 +109,6 @@ def train(run_name, generations, pop=64, sigma=0.1, lr=0.02, seeds_per_gen=4, wo
                             round(time.time() - t0, 1)])
                 f.flush()
                 np.savez(out / f"gen_{gen:04d}.npz", flat=theta, n_in=N_FEATURES)
-                np.savez(out / "best.npz", flat=theta, n_in=N_FEATURES)
                 print(f"gen {gen}: fit mean {per.mean():.1f} max {per.max():.1f} | theta fit {theta_fit:.1f} score {theta_score:.1f}"
                       f" | pop score {sc.mean():.1f} coins {co.mean():.1f} lives {ll.mean():.2f} ({time.time() - t0:.0f}s)", flush=True)
     return {"generations": generations, "theta": theta, "out": str(out)}
