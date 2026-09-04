@@ -148,9 +148,14 @@ class DuckManPolicy(_Base):
         if self.mode == "recover":
             self.mode_t += CTRL_DT
             if self.recovery == "standup":
-                t = self._run(obs, np.zeros(13, np.float32), "standup")
+                # seated or merely leaning: the published sit-and-stand policy rises reliably;
+                # actually on the ground: the stand-up policy
+                if view.upright["P_"] > 0.5:
+                    t = self._run(obs, np.zeros(13, np.float32), "sitstand")     # flag 0 = stand
+                else:
+                    t = self._run(obs, np.zeros(13, np.float32), "standup")
                 self.up_t = self.up_t + CTRL_DT if view.upright["P_"] > 0.9 else 0.0
-                if self.up_t >= 1.0 or self.mode_t > 10.0:
+                if (self.up_t >= 1.0 and self.mode_t > 2.0) or self.mode_t > 12.0:
                     self.mode = "play"
                     self.nav.target = None
                     self.up_t = 0.0
