@@ -10,7 +10,7 @@ def test_all_corridor_reachable():
 def test_tokens_on_corridor_and_unique():
     m = Maze()
     t = m.coins + m.pellets
-    assert set(t) <= m.corridor and len(set(t)) == len(t) and len(m.pellets) == 2
+    assert set(t) <= m.corridor and len(set(t)) == len(t) and len(m.pellets) == 4
     assert m.pac_start not in t and m.door not in t
 
 

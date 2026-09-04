@@ -31,7 +31,7 @@ def features(view, cell):
         pv = [0.0, 0.0, 0.0]
     yaw = view.duck_yaw["P_"]
     head = [np.cos(yaw), np.sin(yaw)]
-    misc = [view.power_left / 10.0, view.lives / 3.0, view.clock_left / 240.0,
+    misc = [view.power_left / 12.0, view.lives / 3.0, view.clock_left / 240.0,
             sum(view.coins_alive.values()) / max(1, len(view.coins_alive)), 1.0 if getattr(view, "scatter", False) else 0.0]
     return np.concatenate([walls, coins, np.array(gh, np.float32), np.array(pv, np.float32),
                            np.array(head, np.float32), np.array(misc, np.float32)]).astype(np.float32)

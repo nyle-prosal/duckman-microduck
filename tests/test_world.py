@@ -6,7 +6,7 @@ from duckman.world import Sim
 def test_world_builds_five_ducks_and_tokens():
     s = Sim(Maze(), seed=0)
     assert set(s.ducks) == {"P_", "G0_", "G1_", "G2_", "G3_"}
-    assert len(s.info["coins"]) == len(s.maze.coins) and len(s.info["pellets"]) == 2
+    assert len(s.info["coins"]) == len(s.maze.coins) and len(s.info["pellets"]) == 4
     assert all(s.token_upright(n) for n in s.info["coins"])
 
 

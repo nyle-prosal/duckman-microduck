@@ -27,7 +27,7 @@ class GameView:
 
 
 class Game:
-    IMMUNE_S = 1.5
+    IMMUNE_S = 3.0
     HOME_WAIT_S = 2.0
     RESET_CAP_S = 20.0   # ghosts walk home after a tag; play resumes after this long regardless
     RESET_MIN_S = 3.0    # ...or once every ghost has backed off RESET_CLEAR cells (after this minimum)
