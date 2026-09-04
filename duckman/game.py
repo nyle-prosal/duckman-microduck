@@ -29,6 +29,8 @@ class Game:
     IMMUNE_S = 1.5
     HOME_WAIT_S = 2.0
     RESET_CAP_S = 20.0   # ghosts walk home after a tag; play resumes after this long regardless
+    RESET_MIN_S = 3.0    # ...or once every ghost has backed off RESET_CLEAR cells (after this minimum)
+    RESET_CLEAR = 3
 
     def __init__(self, maze, seed, pac_policy, ghost_policies, log_positions=False):
         self.maze, self.seed = maze, seed
@@ -147,8 +149,12 @@ class Game:
                 self.ghost_mode[g] = "chase"
         if self.phase == "down":
             self.down_t += CTRL_DT
+            pc = self.maze.cell(*self.sim.ducks["P_"].pos()[:2])
+            backed_off = all(abs(self.maze.cell(*self.sim.ducks[g].pos()[:2])[0] - pc[0])
+                             + abs(self.maze.cell(*self.sim.ducks[g].pos()[:2])[1] - pc[1]) >= self.RESET_CLEAR
+                             for g in self.ghost_mode)
             if all(self.ghost_mode[g] == "home" and self.home_t[g] >= self.HOME_WAIT_S for g in self.ghost_mode) \
-                    or self.down_t >= self.RESET_CAP_S:
+                    or (backed_off and self.down_t >= self.RESET_MIN_S) or self.down_t >= self.RESET_CAP_S:
                 self.phase = "reset_done"
         if self.phase == "reset_done" and self.policies["P_"].ready():
             if self.sim.ducks["P_"].fallen() and self.policies["P_"].recovery == "sitstand":
