@@ -7,7 +7,7 @@ import hashlib
 import json
 import time
 from pathlib import Path
-from .constants import CLOCK_S
+from .constants import CLOCK_S, POLICY_DIR
 from .maze import Maze
 from .game import Game
 from .policies import DuckManPolicy, NeutralStrategy
@@ -26,9 +26,18 @@ def make_policy(name, checkpoint=None, recovery="sitstand"):
     raise ValueError(name)
 
 
-def run_eval(policy, seed, checkpoint=None, max_t=CLOCK_S, video=None, log_positions=False, recovery="sitstand",
+def resolve_recovery(recovery):
+    """'auto' -> stand-up policy if assets/policies/standup.onnx exists, else sit-and-stand."""
+    if recovery == "auto":
+        return "standup" if (POLICY_DIR / "standup.onnx").exists() else "sitstand"
+    return recovery
+
+
+def run_eval(policy, seed, checkpoint=None, max_t=CLOCK_S, video=None, log_positions=False, recovery="auto",
              speed=1, label=None):
-    g = Game(Maze(), seed, make_policy(policy, checkpoint, recovery), default_ghosts(), log_positions=log_positions)
+    recovery = resolve_recovery(recovery)
+    ghosts = default_ghosts("standup" if recovery == "standup" else "none")
+    g = Game(Maze(), seed, make_policy(policy, checkpoint, recovery), ghosts, log_positions=log_positions)
     g.reset()
     rec = None
     if video:
@@ -59,7 +68,7 @@ def main():
     ap.add_argument("--speed", type=int, default=1, help="video speed-up factor (labelled on screen)")
     ap.add_argument("--label")
     ap.add_argument("--max-t", type=float, default=CLOCK_S)
-    ap.add_argument("--recovery", default="sitstand")
+    ap.add_argument("--recovery", default="auto", help="auto|standup|sitstand")
     a = ap.parse_args()
     r = run_eval(a.policy, a.seed, a.checkpoint, a.max_t, a.video, recovery=a.recovery, speed=a.speed, label=a.label)
     print(json.dumps({k: v for k, v in r.items() if k != "events"}, indent=1, default=str))

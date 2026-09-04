@@ -99,6 +99,11 @@ class DuckManPolicy(_Base):
     def ready(self):
         return self.mode == "play"
 
+    @staticmethod
+    def _ghosts_clear(view, cells=2):
+        pc = view.duck_cell["P_"]
+        return all(abs(view.duck_cell[g][0] - pc[0]) + abs(view.duck_cell[g][1] - pc[1]) >= cells for g in view.ghost_mode)
+
     def act(self, obs):
         self.calls += 1
         view = obs["view"]
@@ -116,9 +121,7 @@ class DuckManPolicy(_Base):
             # then sit down for the rest of the reset.
             self.mode_t += CTRL_DT
             t = self._run(obs, np.zeros(13, np.float32), "stand")
-            pc = view.duck_cell["P_"]
-            clear = all(abs(view.duck_cell[g][0] - pc[0]) + abs(view.duck_cell[g][1] - pc[1]) >= 2 for g in view.ghost_mode)
-            if clear or self.mode_t > 8.0 or view.phase == "reset_done":
+            if self._ghosts_clear(view) or self.mode_t > 8.0 or view.phase == "reset_done":
                 self.mode, self.mode_t = "down", 0.0
             return t
         if self.mode == "down":
@@ -127,7 +130,7 @@ class DuckManPolicy(_Base):
                 cmd = np.zeros(13, np.float32)
                 cmd[0] = 1.0                      # posture flag: 1 = sit
                 t = self._run(obs, cmd, "sitstand")
-                if view.phase == "reset_done" or self.mode_t > 30.0:
+                if (view.phase == "reset_done" and self._ghosts_clear(view)) or self.mode_t > 40.0:
                     self.mode, self.mode_t = "recover", 0.0
                 return t
             # stand-up recovery: the tagged duck drops into the sit posture ("knocked down"); if the shove
@@ -139,7 +142,7 @@ class DuckManPolicy(_Base):
                 t = self._run(obs, cmd, "sitstand")
             else:
                 t = self._run(obs, np.zeros(13, np.float32), "standup")
-            if view.phase == "reset_done" or self.mode_t > 30.0:
+            if (view.phase == "reset_done" and self._ghosts_clear(view)) or self.mode_t > 40.0:
                 self.mode, self.mode_t = "recover", 0.0
             return t
         if self.mode == "recover":
@@ -203,6 +206,18 @@ class GhostPolicy(_Base):
         pos, yaw = view.duck_pos[self.prefix], view.duck_yaw[self.prefix]
         mode = view.ghost_mode[self.prefix]
         cell = view.duck_cell[self.prefix]
+        if self.recovery == "standup":
+            up = view.upright[self.prefix]
+            if not self.getting_up and up < 0.5:
+                self.getting_up, self.up_t = True, 0.0
+                self.nav.target = None
+            if self.getting_up:
+                obs["proprio"][34:48] = self.last
+                t = self._run(obs, np.zeros(13, np.float32), "standup")
+                self.up_t = self.up_t + CTRL_DT if up > 0.9 else 0.0
+                if self.up_t >= 1.0:
+                    self.getting_up = False
+                return t
         self.nav.speed = (SPEED["eaten"] if mode in ("eaten", "home") else
                           SPEED["frightened"] if mode == "frightened" else SPEED["ghost"])
         self.target_t += CTRL_DT

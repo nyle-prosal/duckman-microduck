@@ -65,6 +65,7 @@ class Clyde(_G):
         return p if far else view.maze.ghost_corners[3]
 
 
-def default_ghosts():
+def default_ghosts(recovery="none"):
     from .policies import GhostPolicy
-    return [GhostPolicy(0, Blinky()), GhostPolicy(1, Pinky()), GhostPolicy(2, Inky()), GhostPolicy(3, Clyde())]
+    return [GhostPolicy(0, Blinky(), recovery), GhostPolicy(1, Pinky(), recovery),
+            GhostPolicy(2, Inky(), recovery), GhostPolicy(3, Clyde(), recovery)]

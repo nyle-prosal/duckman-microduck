@@ -28,7 +28,10 @@ def _game(seed):
     if seed not in _GAMES:
         if len(_GAMES) >= 6:
             _GAMES.clear()
-        _GAMES[seed] = Game(Maze(), seed, DuckManPolicy(NetStrategy(MLP(N_FEATURES))), default_ghosts())
+        from .eval import resolve_recovery
+        rec = resolve_recovery("auto")
+        _GAMES[seed] = Game(Maze(), seed, DuckManPolicy(NetStrategy(MLP(N_FEATURES)), rec),
+                            default_ghosts("standup" if rec == "standup" else "none"))
     return _GAMES[seed]
 
 
