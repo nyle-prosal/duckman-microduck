@@ -182,14 +182,19 @@ class StaticGhost:
 
 
 class GhostPolicy(_Base):
-    def __init__(self, index, personality):
+    REPLAN_S = 6.0
+
+    def __init__(self, index, personality, recovery="none"):
         super().__init__()
         self.k, self.p = index, personality
         self.prefix = f"G{index}_"
         self.label = f"ghost{index}[{personality.label}]"
         self.nav = None
-
-    REPLAN_S = 6.0
+        self.recovery = recovery
+        if recovery == "standup":
+            self.gaits["standup"] = Gait(POLICY_DIR / "standup.onnx")
+        self.up_t = 0.0
+        self.getting_up = False
 
     def reset(self, seed):
         self.p.reset(seed + self.k)
