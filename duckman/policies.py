@@ -154,7 +154,9 @@ class DuckManPolicy(_Base):
                     t = self._run(obs, np.zeros(13, np.float32), "sitstand")     # flag 0 = stand
                 else:
                     t = self._run(obs, np.zeros(13, np.float32), "standup")
-                self.up_t = self.up_t + CTRL_DT if view.upright["P_"] > 0.9 else 0.0
+                # the stand-up policy parks at standing height with a forward lean (~0.8 upright);
+                # the walking/standing gait straightens it once play resumes
+                self.up_t = self.up_t + CTRL_DT if view.upright["P_"] > 0.75 else 0.0
                 if (self.up_t >= 1.0 and self.mode_t > 2.0) or self.mode_t > 12.0:
                     self.mode = "play"
                     self.nav.target = None
@@ -200,6 +202,10 @@ class GhostPolicy(_Base):
             self.gaits["standup"] = Gait(POLICY_DIR / "standup.onnx")
         self.up_t = 0.0
         self.getting_up = False
+        self.gu_t = 0.0
+
+    def mode_t_up(self):
+        return self.gu_t
 
     def reset(self, seed):
         self.p.reset(seed + self.k)
@@ -219,13 +225,14 @@ class GhostPolicy(_Base):
         if self.recovery == "standup":
             up = view.upright[self.prefix]
             if not self.getting_up and up < 0.5:
-                self.getting_up, self.up_t = True, 0.0
+                self.getting_up, self.up_t, self.gu_t = True, 0.0, 0.0
                 self.nav.target = None
             if self.getting_up:
+                self.gu_t += CTRL_DT
                 obs["proprio"][34:48] = self.last
                 t = self._run(obs, np.zeros(13, np.float32), "standup")
-                self.up_t = self.up_t + CTRL_DT if up > 0.9 else 0.0
-                if self.up_t >= 1.0:
+                self.up_t = self.up_t + CTRL_DT if up > 0.75 else 0.0
+                if self.up_t >= 1.0 or self.mode_t_up() > 15.0:
                     self.getting_up = False
                 return t
         self.nav.speed = (SPEED["eaten"] if mode in ("eaten", "home") else
