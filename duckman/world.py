@@ -115,6 +115,9 @@ class Sim:
         self._tok_ids = np.array(list(self._tok.values()))
         self._tok_names = list(self._tok)
         self._con = set()
+        self._hidden = set()
+        self._rgba0 = self.model.geom_rgba.copy()
+        self._ct0, self._ca0 = self.model.geom_contype.copy(), self.model.geom_conaffinity.copy()
         self.touched = {n: False for n in self._tok}
         self.t = 0.0
         mujoco.mj_forward(self.model, self.data)
@@ -128,7 +131,8 @@ class Sim:
           tokens                    contype 2 / conaffinity 2   -> only the Duck-Man (and floor/walls) touch them
           ghosts                    contype 8 / conaffinity 1   -> collide with Duck-Man, floor, walls; pass through
                                                                    other ghosts and tokens, as in the arcade
-          floor and walls           contype 3 / conaffinity 3
+          floor and walls           contype 19 / conaffinity 19 (bits 1+2+16)
+          collected tokens          contype 16 / conaffinity 16 -> rest on the floor, invisible, touch nothing else
         Physics inside each duck (joints, actuators, self-collision geoms) is untouched."""
         m = self.model
         for g in range(m.ngeom):
@@ -141,11 +145,16 @@ class Sim:
             elif body in self._tok:
                 m.geom_contype[g], m.geom_conaffinity[g] = 2, 2
             elif body == "world" and plain:
-                m.geom_contype[g], m.geom_conaffinity[g] = 3, 3
+                m.geom_contype[g], m.geom_conaffinity[g] = 19, 19
 
     def reset(self, seed=None):
         assert seed is None or seed == self.seed, "layout is baked at build time; make a new Sim for another seed"
         mujoco.mj_resetData(self.model, self.data)
+        if getattr(self, "_hidden", None):
+            self.model.geom_rgba[:] = self._rgba0
+            self.model.geom_contype[:] = self._ct0
+            self.model.geom_conaffinity[:] = self._ca0
+            self._hidden = set()
         for p, d in self.ducks.items():
             d.set_pose(*self.info["starts"][p])
         for b in self.bams.values():
@@ -177,6 +186,17 @@ class Sim:
 
     def body_pos(self, name):
         return self.data.xpos[mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, name)].copy()
+
+    def hide_token(self, name):
+        """A collected token vanishes like an arcade dot: invisible and inert to the ducks (it still rests on the
+        floor, so nothing is teleported or removed mid-episode)."""
+        m = self.model
+        b = self._tok[name]
+        for g in range(m.ngeom):
+            if m.geom_bodyid[g] == b:
+                m.geom_rgba[g][3] = 0.0
+                m.geom_contype[g], m.geom_conaffinity[g] = 16, 16
+        self._hidden.add(name)
 
     def token_upright(self, name):
         return bool(self.data.xmat[self._tok[name]][8] > 0.7)
