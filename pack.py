@@ -18,6 +18,8 @@ def files():
         elif p.is_dir():
             for f in sorted(p.rglob("*")):
                 rel = f.relative_to(ROOT).parts
+                if rel[0] == "results" and f.suffix not in (".json", ".md"):
+                    continue                     # measurements only; preview frames and videos stay out
                 if f.is_file() and rel[0] not in EXCLUDE_DIRS and "__pycache__" not in rel and f.suffix not in EXCLUDE_SUFFIX:
                     yield f
 
