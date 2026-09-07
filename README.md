@@ -121,6 +121,11 @@ hashed with its upstream URL in `assets/PROVENANCE.json`.
 Held-out seeds 0-19, full 240 s rounds, identical ghosts and maze per seed.
 <!-- ladder:end -->
 
+Imitation alone gets the network to 300; evolution adds the ghost-hunting and another 130–150 points.
+Generation 5 and generation 20 are within noise of each other on these seeds (std ≈ 115 at n = 20). We
+ship generation 20 because it was selected as the elite **on the training pool only**; picking a
+checkpoint by its held-out score would make the held-out numbers meaningless, so we did not.
+
 ### Robustness across Pollen's battery-voltage range
 
 <!-- robustness:start -->
