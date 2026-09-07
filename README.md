@@ -77,6 +77,11 @@ network at all (default pose held by the actuator model).
 Paired per-seed difference (learned - planner): mean +45 points, 95% bootstrap CI [+12, +79]; learned wins 29/60 seeds (0 ties), two-sided sign test p = 0.90. The mean difference is statistically significant (bootstrap CI excludes 0); the win rate is not significant (sign test): the learned policy wins fewer rounds than it loses, but wins by more.
 <!-- bench:end -->
 
+A third scripted baseline, the 20-line greedy strategy shipped as `examples_api/my_strategy.py`
+(nearest coin, pellet when threatened), scores **387 ± 124** on the same 60 seeds
+(`results/extra_GreedyCoinStrategy.json`): more coins than either, no ghost hunting. The learned
+strategy stays ahead of both scripted baselines; the gap to the planner is the one we test statistically.
+
 Seed 0 is the causality seed; seed 2 is the round shown in full in the video (both held out, both
 produced by `./run.sh`):
 

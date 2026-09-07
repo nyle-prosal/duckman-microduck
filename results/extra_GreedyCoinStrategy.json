@@ -1,0 +1,482 @@
+[
+ {
+  "seed": 0,
+  "score": 470,
+  "coins": 27,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 1,
+  "score": 190,
+  "coins": 14,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 2,
+  "score": 250,
+  "coins": 15,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 3,
+  "score": 370,
+  "coins": 22,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "seed": 4,
+  "score": 250,
+  "coins": 15,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 5,
+  "score": 360,
+  "coins": 21,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 6,
+  "score": 460,
+  "coins": 26,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "seed": 7,
+  "score": 70,
+  "coins": 7,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 8,
+  "score": 60,
+  "coins": 6,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 9,
+  "score": 260,
+  "coins": 16,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 10,
+  "score": 460,
+  "coins": 26,
+  "ghosts": 0,
+  "lives_lost": 1,
+  "end": "timeout"
+ },
+ {
+  "seed": 11,
+  "score": 510,
+  "coins": 31,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "seed": 12,
+  "score": 370,
+  "coins": 22,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 13,
+  "score": 370,
+  "coins": 22,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 14,
+  "score": 450,
+  "coins": 25,
+  "ghosts": 0,
+  "lives_lost": 1,
+  "end": "timeout"
+ },
+ {
+  "seed": 15,
+  "score": 460,
+  "coins": 26,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 16,
+  "score": 420,
+  "coins": 22,
+  "ghosts": 0,
+  "lives_lost": 1,
+  "end": "timeout"
+ },
+ {
+  "seed": 17,
+  "score": 480,
+  "coins": 28,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "seed": 18,
+  "score": 450,
+  "coins": 25,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 19,
+  "score": 480,
+  "coins": 28,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 20,
+  "score": 390,
+  "coins": 19,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 21,
+  "score": 430,
+  "coins": 23,
+  "ghosts": 0,
+  "lives_lost": 1,
+  "end": "timeout"
+ },
+ {
+  "seed": 22,
+  "score": 450,
+  "coins": 25,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 23,
+  "score": 340,
+  "coins": 19,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 24,
+  "score": 190,
+  "coins": 14,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 25,
+  "score": 480,
+  "coins": 28,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "seed": 26,
+  "score": 150,
+  "coins": 10,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 27,
+  "score": 350,
+  "coins": 20,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 28,
+  "score": 410,
+  "coins": 21,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "seed": 29,
+  "score": 400,
+  "coins": 25,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 30,
+  "score": 470,
+  "coins": 27,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 31,
+  "score": 260,
+  "coins": 16,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 32,
+  "score": 270,
+  "coins": 17,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 33,
+  "score": 450,
+  "coins": 25,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 34,
+  "score": 440,
+  "coins": 24,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 35,
+  "score": 430,
+  "coins": 23,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 36,
+  "score": 490,
+  "coins": 29,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 37,
+  "score": 440,
+  "coins": 24,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 38,
+  "score": 370,
+  "coins": 22,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 39,
+  "score": 350,
+  "coins": 20,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 40,
+  "score": 490,
+  "coins": 29,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 41,
+  "score": 400,
+  "coins": 25,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 42,
+  "score": 470,
+  "coins": 27,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "seed": 43,
+  "score": 470,
+  "coins": 27,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 44,
+  "score": 370,
+  "coins": 22,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 45,
+  "score": 470,
+  "coins": 27,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "seed": 46,
+  "score": 360,
+  "coins": 21,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "seed": 47,
+  "score": 650,
+  "coins": 25,
+  "ghosts": 1,
+  "lives_lost": 1,
+  "end": "timeout"
+ },
+ {
+  "seed": 48,
+  "score": 230,
+  "coins": 18,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 49,
+  "score": 500,
+  "coins": 30,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "seed": 50,
+  "score": 200,
+  "coins": 15,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 51,
+  "score": 370,
+  "coins": 22,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "seed": 52,
+  "score": 810,
+  "coins": 21,
+  "ghosts": 2,
+  "lives_lost": 1,
+  "end": "timeout"
+ },
+ {
+  "seed": 53,
+  "score": 350,
+  "coins": 20,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 54,
+  "score": 400,
+  "coins": 25,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 55,
+  "score": 470,
+  "coins": 27,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 56,
+  "score": 300,
+  "coins": 20,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 57,
+  "score": 470,
+  "coins": 27,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "seed": 58,
+  "score": 350,
+  "coins": 20,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "seed": 59,
+  "score": 360,
+  "coins": 21,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ }
+]

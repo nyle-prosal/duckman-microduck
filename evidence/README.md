@@ -10,6 +10,7 @@
 | No rollout code writes simulator state (qpos/qvel/ctrl/xfrc/mocap) | `pytest tests/test_no_sim_writes.py` | `tests/test_no_sim_writes.py` |
 | No teleport of any duck or token between control steps; deterministic replays | `pytest tests/test_game.py` | `tests/test_game.py` |
 | Strategy learning curve (generations 1–26, unperturbed-policy fitness and population score) | `duckman/train_es.py` | `checkpoints/curve.csv` |
+| Third scripted baseline: the plug-in example strategy on the same 60 seeds | `python -m duckman.bench_extra examples_api.my_strategy:GreedyCoinStrategy --seeds 60` | `results/extra_GreedyCoinStrategy.json` |
 | Generation ladder on 20 held-out seeds (random init → imitation → ES gen 5 → ES gen 20) | `python -m duckman.ladder --seeds 20` | `results/ladder.json`, `results/ladder.md`, `checkpoints/ladder/*.npz` |
 | Battery-voltage robustness (6.5 / 7.4 / 8.2 V, learned vs planner, 10 seeds per cell) | `python -m duckman.robustness --seeds 10` | `results/robustness.json`, `results/robustness.md` |
 | Behaviour analysis (pellet timing, ghost catches per power window, tags) and cell-occupancy heat maps | `python -m duckman.analyze --seeds 10` | `results/analysis.json`, `results/analysis.md`, `training/strategy/heatmap.png` |
