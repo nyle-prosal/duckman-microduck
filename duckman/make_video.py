@@ -42,6 +42,7 @@ def label_frames(path, label):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--clips", nargs="+", required=True, help="path:label")
+    ap.add_argument("--cold-open", help="path:label shown BEFORE the title card")
     ap.add_argument("--results", nargs="*", default=[])
     ap.add_argument("--curve")
     ap.add_argument("--images", nargs="*", default=[], help="extra full-frame PNGs shown 4 s each after the curve")
@@ -49,13 +50,17 @@ def main():
     a = ap.parse_args()
     w = imageio.get_writer(a.out, fps=FPS, codec="libx264", quality=6, pixelformat="yuv420p", macro_block_size=1)
     white, gold, grey = (240, 240, 240), (255, 215, 80), (170, 170, 185)
+    if a.cold_open:
+        path, label = a.cold_open.split(":", 1)
+        for fr in label_frames(path, label):
+            w.append_data(fr)
     for fr in card([("DUCK-MAN", 72, gold), ("Maze tag for Microduck", 40, white),
                     ("Five real Microducks in MuJoCo. Every duck walks with Pollen Robotics' learned gait", 26, grey),
                     ("through the BAM actuator model. Coins count only when the Duck-Man knocks them over.", 26, grey),
                     ("Two policies trained for this entry: a stand-up policy (PPO, Pollen's stack, one GPU) and the", 26, grey),
                     ("Duck-Man's strategy network (imitation of our scripted planner, then evolution strategies", 26, grey),
                     ("inside this simulation on a laptop CPU). Ghosts and cell navigation are scripted.", 26, grey),
-                    ("Simulation only. No hardware claims.", 26, grey)], 4.0):
+                    ("Simulation only. No hardware claims.", 26, grey)], 3.0):
         w.append_data(fr)
     for spec in a.clips:
         path, label = spec.split(":", 1)

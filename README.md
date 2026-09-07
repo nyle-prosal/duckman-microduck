@@ -2,6 +2,8 @@
 
 Entry for the HIM Arena **Microduck · Best Sports Sim** challenge (`microduck-sports-sim-2026`).
 
+![Duck-Man: five Microducks, one maze, power mode on](docs/hero.png)
+
 Five real Microducks play maze tag in MuJoCo. One Duck-Man collects coins by physically knocking
 them over, four ghosts chase it, and a power pellet reverses the chase for twelve seconds. Every duck
 walks with Pollen Robotics' published learned gait through the BAM actuator model. Two policies were
@@ -171,7 +173,8 @@ cheeky, result — and it is exactly the kind of exploit an objective score invi
 ## Reproduce
 
 ```bash
-./run.sh                    # venv, pinned deps, tests, evaluations, result.mp4   (CPU only, ~10 min)
+./run.sh                    # venv, pinned deps, tests, evaluations, result.mp4   (CPU only, ~20 min)
+./run.sh quick              # ~4 min: tests + the seed-0 causality pair, no video
 ./run.sh train --run r --generations 300 --pop 48 --seeds 3 --workers 10 --sigma 0.03 --lr 0.005 \
     --resume checkpoints/strategy_final.npz            # optional: continue evolving the strategy
 python -m duckman.imitate --rounds 40                  # optional: rebuild the behaviour-cloning init
@@ -187,11 +190,11 @@ then `uv run scripts/export.py Mjlab-StandUp-Flat-MicroDuck --checkpoint-file <m
 
 ## Video
 
-`result.mp4` = title card → 30 s of held-out seed 2 in **real time, unedited** → generation-0 clip
-(untrained strategy network, 2× speed, labelled) → neutral-baseline clip (gait running, strategy never
-moves, real time) → the full seed-2 round (2× speed, labelled) → stand-up policy demo (spawned face-down,
+`result.mp4` (3 min 41 s) = cold open: the seed-2 power window and ghost catch (2×) → title card → 20 s
+of seed 2 in **real time, unedited** → generation-0 clip (untrained network, 2×) → neutral-baseline clip
+around its first tag (real time) → the full seed-2 round (2×) → stand-up policy demo (spawned face-down,
 trained policy only, labelled as a demo, not a scored round) → strategy training curves → stand-up training
-curve → end card with the numbers from `results/*.json`.
+curve → end card with the numbers from `results/*.json`. `SUBMISSION.md` has a timestamped viewing guide.
 The side panel, ticker, legend and chase-cam inset are drawn by the renderer from game state; the
 physics view is the evaluation itself. Seed 2 was chosen after the
 20-seed benchmark as the round where the learned policy's ghost-hunting shows best; the benchmark
