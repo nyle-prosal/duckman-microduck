@@ -178,6 +178,36 @@ class DuckManPolicy(_Base):
         return self._run(obs, cmd, which)
 
 
+class FrozenDuckMan:
+    """Hardest baseline: no network at all. act() returns the default standing pose every step, so the
+    duck is held by the actuator model alone. Separates 'the maze does the work' from 'the gait does the work'."""
+    label = "Duck-Man[frozen: default pose, no network]"
+    recovery = "none"
+
+    def __init__(self):
+        self.calls = 0
+        self.last = np.zeros(14, np.float32)
+        self.strategy_calls = 0
+        self.mode = "play"
+        self.active = "none"
+
+    def reset(self, seed):
+        self.calls = 0
+
+    def ready(self):
+        return True
+
+    def gait_calls(self):
+        return {"none": 0}
+
+    def action_bounds(self):
+        return {"min": [0.0] * 14, "max": [0.0] * 14}
+
+    def act(self, obs):
+        self.calls += 1
+        return DEFAULT_POSE.copy()
+
+
 class StaticGhost:
     label = "static"
 

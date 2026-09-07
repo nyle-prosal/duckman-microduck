@@ -5,4 +5,4 @@ imageio==2.37.2
 imageio-ffmpeg==0.6.0
 Pillow==12.2.0
 pytest==8.4.1
-better-actuator-models @ git+https://github.com/Rhoban/bam.git@62bd8ce12154340be97e06f7f41a0ca8f116d967
+./vendor/better_actuator_models-1.0.1-py3-none-any.whl   # Rhoban/bam @ 62bd8ce (branch mjlab_frictionloss); wheel vendored so ./run.sh needs no git or network beyond PyPI

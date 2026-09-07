@@ -14,7 +14,8 @@ mkdir -p results
 CK=checkpoints/strategy_final.npz
 .venv/bin/python -m duckman.eval --policy learned --seed 0 --checkpoint "$CK" --out results/learned_seed0.json
 .venv/bin/python -m duckman.eval --policy planner --seed 0 --out results/planner_seed0.json
-.venv/bin/python -m duckman.eval --policy neutral --seed 0 --out results/neutral_seed0.json --max-t 60
+.venv/bin/python -m duckman.eval --policy neutral --seed 0 --out results/neutral_seed0.json
+.venv/bin/python -m duckman.eval --policy frozen --seed 0 --out results/frozen_seed0.json
 # showcase round for the video: held-out seed 2 (learned and planner both evaluated, unedited)
 .venv/bin/python -m duckman.eval --policy learned --seed 2 --checkpoint "$CK" --out results/learned_seed2.json \
     --video results/final_seed2.mp4 --speed 2 --label "Final trained strategy, seed 2"
@@ -23,6 +24,6 @@ CK=checkpoints/strategy_final.npz
     --out results/gen0_seed0.json --video results/gen0_seed0.mp4 --speed 2 --max-t 60 --label "Generation 0 (untrained), seed 0"
 .venv/bin/python -m duckman.make_video \
     --clips "results/gen0_seed0.mp4:Generation 0 - untrained" "results/final_seed2.mp4:Final policy - full round, seed 2" \
-    --results results/learned_seed2.json results/planner_seed2.json results/learned_seed0.json results/planner_seed0.json results/neutral_seed0.json \
+    --results results/learned_seed2.json results/planner_seed2.json results/learned_seed0.json results/planner_seed0.json results/neutral_seed0.json results/frozen_seed0.json \
     --curve checkpoints/curve.csv --images training/standup/mean_reward.png --out result.mp4
 echo "done: result.mp4 + results/*.json"

@@ -44,7 +44,9 @@ other contact is ordinary physics.
 ## Results
 
 Held-out seeds 0–19 (training used layouts 1000–1005 only). Same seed = same maze jitter, spawn
-noise and ghost RNG for every policy.
+noise and ghost RNG for every policy, every policy gets the full 240 s clock. Two disabled baselines:
+**neutral** keeps Pollen's balance network running but never chooses a cell, **frozen** has no
+network at all (default pose held by the actuator model).
 
 <!-- bench:start -->
 | Policy | Seeds | Mean score | Std | Mean coins | Ghosts caught | Lives lost | Rounds to the clock | Falls |
@@ -71,10 +73,17 @@ produced by `./run.sh`):
 <!-- results:end -->
 
 **Causality test** (`tests/test_eval_causality.py`, run by `./run.sh`): the trained strategy must
-score ≥ 200 with ≥ 12 coins on seed 0; the neutral Duck-Man (strategy always "stay") collects 0
-coins; every policy's call count equals the number of control steps; gait actions are finite and
-bounded. The learned Duck-Man's edge over the planner is real but modest (+48 points, 10/20 seeds);
-what it learned that the planner never does is to hunt ghosts during power windows.
+score ≥ 200 with ≥ 12 coins on seed 0; the neutral and frozen Duck-Men collect 0 coins over the full
+240 s; every policy's call count equals the number of control steps; gait actions are finite and
+bounded. **Mechanical trust check** (`tests/test_no_sim_writes.py`): an AST walk over every function
+in `duckman/` fails if anything outside the two reset paths assigns to `qpos`, `qvel`, `ctrl`,
+`xfrc_applied`, `qfrc_applied` or mocap fields, or calls `mj_resetData`. **The learned Duck-Man's
+edge over the planner is modest and, at 20 seeds, not statistically significant** (see the paired
+statistics under the table). What it learned that the planner never does is to hunt ghosts during
+power windows; on seed 0 the planner happens to win. We report both rather than pick the seed.
+
+Every number above maps to a file in `evidence/README.md`; every shipped asset and checkpoint is
+hashed with its upstream URL in `assets/PROVENANCE.json`.
 
 ## Reproduce
 
@@ -87,16 +96,19 @@ python -m duckman.bench --seeds 20                     # optional: the 20-seed t
 python -m duckman.eval --policy learned --seed 7 --checkpoint checkpoints/strategy_final.npz --video x.mp4
 ```
 
-Python ≥ 3.12. Evaluation is deterministic on CPU for a given seed. Retraining the stand-up policy
+Python ≥ 3.12; `./run.sh` needs PyPI only (the BAM actuator library is vendored as a wheel in
+`vendor/`, built from Rhoban/bam @ 62bd8ce). Evaluation is deterministic on CPU for a given seed. Retraining the stand-up policy
 needs a CUDA GPU and Pollen's `microduck_rl` at commit 29e887e:
 `uv run train Mjlab-StandUp-Flat-MicroDuck --env.scene.num-envs 4096 --agent.max_iterations 7000 --agent.logger tensorboard`
 then `uv run scripts/export.py Mjlab-StandUp-Flat-MicroDuck --checkpoint-file <model_7000.pt>`.
 
 ## Video
 
-`result.mp4` = title card → generation-0 clip (untrained strategy network, 2× speed, labelled) →
-final trained round on held-out seed 2 (2× speed, labelled) → strategy learning curve → stand-up
-training curve → end card with the numbers from `results/*.json`. Seed 2 was chosen after the
+`result.mp4` = title card → 30 s of held-out seed 2 in **real time, unedited** → generation-0 clip
+(untrained strategy network, 2× speed, labelled) → the full seed-2 round (2× speed, labelled) →
+strategy learning curve → stand-up training curve → end card with the numbers from `results/*.json`.
+The side panel, ticker, legend and chase-cam inset are drawn by the renderer from game state; the
+physics view is the evaluation itself. Seed 2 was chosen after the
 20-seed benchmark as the round where the learned policy's ghost-hunting shows best; the benchmark
 table above reports every seed, wins and losses alike. Clips are unedited renders of the evaluation runs; only the playback speed is
 changed, and it is burned into the frame.

@@ -10,7 +10,7 @@ from pathlib import Path
 from .constants import CLOCK_S, POLICY_DIR
 from .maze import Maze
 from .game import Game
-from .policies import DuckManPolicy, NeutralStrategy
+from .policies import DuckManPolicy, NeutralStrategy, FrozenDuckMan
 from .ghosts import default_ghosts
 from .planner import PlannerStrategy
 from .strategy_net import NetStrategy
@@ -23,6 +23,8 @@ def make_policy(name, checkpoint=None, recovery="sitstand"):
         return DuckManPolicy(PlannerStrategy(), recovery)
     if name == "neutral":
         return DuckManPolicy(NeutralStrategy(), recovery)
+    if name == "frozen":
+        return FrozenDuckMan()
     raise ValueError(name)
 
 
