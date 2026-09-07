@@ -85,7 +85,7 @@ produced by `./run.sh`):
 | 2 | Duck-Man[scripted planner] | **430** | 23 | 4 | 0 | 1 | timeout | 240.0 s | 0 |
 | 0 | Duck-Man[trained strategy network (ES)] | **390** | 19 | 4 | 0 | 3 | game_over | 203.14 s | 2 |
 | 0 | Duck-Man[scripted planner] | **640** | 24 | 4 | 1 | 1 | timeout | 240.0 s | 2 |
-| 0 | Duck-Man[neutral (always stay)] | **0** | 0 | 0 | 0 | 0 | stopped at 60 s (evaluation window) | 60.0 s | 0 |
+| 0 | Duck-Man[neutral (always stay)] | **0** | 0 | 0 | 0 | 3 | game_over | 203.84 s | 3 |
 | 0 | Duck-Man[frozen: default pose, no network] | **0** | 0 | 0 | 0 | 0 | fell_unrecoverable | 10.66 s | 1 |
 | 0 | Duck-Man[strategy network, generation 0 (untrained)] | **180** | 8 | 2 | 0 | 0 | stopped at 60 s (evaluation window) | 60.0 s | 0 |
 <!-- results:end -->
