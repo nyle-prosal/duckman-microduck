@@ -20,7 +20,7 @@ laptop CPU). Simulation only; no hardware claims.
   task (7,000 PPO iterations, one GPU) and the Duck-Man strategy network (behaviour cloning, then evolution
   strategies inside this simulation on a laptop). Curves, checkpoints and failures are all in the package.
 - **Evidence a judge can run:** `./run.sh` reproduces tests, four baselines and the video on CPU in ~15 min;
-  20 and 60 held-out seeds with paired statistics; a mechanical test that no rollout code writes simulator
+  60 held-out seeds with paired statistics; a mechanical test that no rollout code writes simulator
   state; per-file provenance hashes.
 - **Honest caveats:** the learned strategy's edge over our scripted planner is modest; the stand-up policy
   cannot recover from face-up; the gait is slow, so the full round is shown at 2× (labelled) after a
@@ -59,7 +59,7 @@ other contact is ordinary physics.
 
 ## Results
 
-Held-out seeds 0–19 (training used layouts 1000–1005 only). Same seed = same maze jitter, spawn
+Held-out seeds 0–59 (training used layouts 1000–1005 only). Same seed = same maze jitter, spawn
 noise and ghost RNG for every policy, every policy gets the full 240 s clock. Two disabled baselines:
 **neutral** keeps Pollen's balance network running but never chooses a cell, **frozen** has no
 network at all (default pose held by the actuator model).
@@ -67,11 +67,12 @@ network at all (default pose held by the actuator model).
 <!-- bench:start -->
 | Policy | Seeds | Mean score | Std | Mean coins | Ghosts caught | Lives lost | Rounds to the clock | Falls |
 |---|---|---|---|---|---|---|---|---|
-| learned | 20 | **426** | 114 | 19.1 | 0.25 | 2.75 | 5/20 | 17 |
-| planner | 20 | **378** | 115 | 19.0 | 0.10 | 2.10 | 13/20 | 31 |
-| neutral | 20 | **0** | 0 | 0.0 | 0.00 | 0.15 | 0/20 | 0 |
+| learned | 60 | **406** | 90 | 19.0 | 0.17 | 2.67 | 20/60 | 52 |
+| planner | 60 | **360** | 98 | 18.9 | 0.03 | 2.15 | 39/60 | 55 |
+| neutral | 60 | **0** | 0 | 0.0 | 0.00 | 2.88 | 5/60 | 54 |
+| frozen | 60 | **0** | 0 | 0.0 | 0.00 | 0.00 | 0/60 | 60 |
 
-Learned beats planner on 10/20 seeds (same seed = same maze layout, spawn jitter and ghost RNG).
+Paired per-seed difference (learned - planner): mean +45 points, 95% bootstrap CI [+12, +79]; learned wins 29/60 seeds (0 ties), two-sided sign test p = 0.90. The mean difference is statistically significant (bootstrap CI excludes 0); the win rate is not significant (sign test): the learned policy wins fewer rounds than it loses, but wins by more.
 <!-- bench:end -->
 
 Seed 0 is the causality seed; seed 2 is the round shown in full in the video (both held out, both
@@ -93,10 +94,14 @@ score ≥ 200 with ≥ 12 coins on seed 0; the neutral and frozen Duck-Men colle
 240 s; every policy's call count equals the number of control steps; gait actions are finite and
 bounded. **Mechanical trust check** (`tests/test_no_sim_writes.py`): an AST walk over every function
 in `duckman/` fails if anything outside the two reset paths assigns to `qpos`, `qvel`, `ctrl`,
-`xfrc_applied`, `qfrc_applied` or mocap fields, or calls `mj_resetData`. **The learned Duck-Man's
-edge over the planner is modest and, at 20 seeds, not statistically significant** (see the paired
-statistics under the table). What it learned that the planner never does is to hunt ghosts during
-power windows; on seed 0 the planner happens to win. We report both rather than pick the seed.
+`xfrc_applied`, `qfrc_applied` or mocap fields, or calls `mj_resetData`. **Read the paired statistics honestly:** over 60 held-out seeds the learned strategy scores +45
+points more on average than our scripted planner and the bootstrap interval excludes zero, but it wins
+only 29 of 60 rounds. It loses small and wins big: what it learned that the planner never does is to hunt
+ghosts during power windows (+200 each), at the cost of spending its lives faster. On seed 0 the planner
+happens to win; we report every seed rather than pick one. The two disabled baselines tell the other
+half of the story: the neutral duck, balance network running, is caught 2.9 times per round and scores 0;
+the frozen duck, no network at all, falls over in every round — Pollen's gait does the balancing, the
+strategy layer does the playing.
 
 Every number above maps to a file in `evidence/README.md`; every shipped asset and checkpoint is
 hashed with its upstream URL in `assets/PROVENANCE.json`.

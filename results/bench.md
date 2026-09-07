@@ -1,8 +1,8 @@
 | Policy | Seeds | Mean score | Std | Mean coins | Ghosts caught | Lives lost | Rounds to the clock | Falls |
 |---|---|---|---|---|---|---|---|---|
-| learned | 20 | **426** | 114 | 19.1 | 0.25 | 2.75 | 5/20 | 17 |
-| planner | 20 | **378** | 115 | 19.0 | 0.10 | 2.10 | 13/20 | 31 |
-| neutral | 20 | **0** | 0 | 0.0 | 0.00 | 2.90 | 1/20 | 16 |
-| frozen | 20 | **0** | 0 | 0.0 | 0.00 | 0.00 | 0/20 | 20 |
+| learned | 60 | **406** | 90 | 19.0 | 0.17 | 2.67 | 20/60 | 52 |
+| planner | 60 | **360** | 98 | 18.9 | 0.03 | 2.15 | 39/60 | 55 |
+| neutral | 60 | **0** | 0 | 0.0 | 0.00 | 2.88 | 5/60 | 54 |
+| frozen | 60 | **0** | 0 | 0.0 | 0.00 | 0.00 | 0/60 | 60 |
 
-Paired per-seed difference (learned - planner): mean +48 points, 95% bootstrap CI [-14, +115]; learned wins 10/20 seeds (0 ties), two-sided sign test p = 1.00. At n = 20 the margin is not statistically significant.
+Paired per-seed difference (learned - planner): mean +45 points, 95% bootstrap CI [+12, +79]; learned wins 29/60 seeds (0 ties), two-sided sign test p = 0.90. The mean difference is statistically significant (bootstrap CI excludes 0); the win rate is not significant (sign test): the learned policy wins fewer rounds than it loses, but wins by more.

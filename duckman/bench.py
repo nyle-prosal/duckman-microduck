@@ -50,7 +50,8 @@ def main():
     p_sign = min(1.0, 2 * sum(comb(n_eff, i) for i in range(k + 1)) / 2 ** n_eff) if n_eff else 1.0
     lines.append(f"\nPaired per-seed difference (learned - planner): mean {diff.mean():+.0f} points, 95% bootstrap CI "
                  f"[{lo:+.0f}, {hi:+.0f}]; learned wins {wins}/{a.seeds} seeds ({ties} ties), two-sided sign test p = {p_sign:.2f}. "
-                 f"At n = {a.seeds} the margin is {'not ' if lo <= 0 <= hi else ''}statistically significant.")
+                 f"The mean difference is {'' if not (lo <= 0 <= hi) else 'not '}statistically significant (bootstrap CI {'excludes' if not (lo <= 0 <= hi) else 'includes'} 0); "
+                 f"the win rate is {'not ' if p_sign > 0.05 else ''}significant (sign test).")
     table = "\n".join(lines)
     Path(a.out).with_suffix(".md").write_text(table + "\n")
     print(table)
