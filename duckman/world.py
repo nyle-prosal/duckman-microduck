@@ -99,10 +99,10 @@ def build_spec(maze: Maze, seed: int):
 
 
 class Sim:
-    def __init__(self, maze: Maze, seed: int):
-        self.maze, self.seed = maze, seed
+    def __init__(self, maze: Maze, seed: int, vin=None):
+        self.maze, self.seed, self.vin = maze, seed, vin
         spec, self.info = build_spec(maze, seed)
-        self.model, self.data, self.bams = compile_with_bam(spec, {p: p for p in self.info["ducks"]})
+        self.model, self.data, self.bams = compile_with_bam(spec, {p: p for p in self.info["ducks"]}, vin=vin)
         self.ducks = {p: Duck(self.model, self.data, self.bams[p], p) for p in self.info["ducks"]}
         self._tok = {n: mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, n)
                      for n in self.info["coins"] + self.info["pellets"]}

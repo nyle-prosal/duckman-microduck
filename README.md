@@ -107,6 +107,49 @@ strategy layer does the playing.
 Every number above maps to a file in `evidence/README.md`; every shipped asset and checkpoint is
 hashed with its upstream URL in `assets/PROVENANCE.json`.
 
+
+### Robustness across Pollen's battery-voltage range
+
+<!-- robustness:start -->
+| Battery (BAM vin) | Learned mean score | Planner mean score | Learned lives lost | Planner lives lost | Falls (all ducks, learned / planner) |
+|---|---|---|---|---|---|
+| 6.5 V | **375** | 369 | 2.50 | 1.70 | 14 / 9 |
+| 7.4 V (nominal) | **415** | 383 | 2.60 | 1.90 | 8 / 19 |
+| 8.2 V | **410** | 337 | 2.80 | 2.50 | 19 / 20 |
+
+Seeds 0-9 per cell. 6.5-8.2 V is the per-env battery range Pollen randomises during gait training; every duck's actuators run at the given voltage.
+<!-- robustness:end -->
+
+The whole system — five gaits, the stand-up policy, the strategy — runs under the same BAM voltage model
+Pollen randomises during training. Across the full 6.5–8.2 V range the learned strategy stays ahead of the
+planner and no duck fails to stand; the gaits are more fall-prone at both extremes, exactly as the
+actuator model predicts.
+
+### What the strategy actually learned
+
+<!-- analysis:start -->
+| Behaviour (mean per round, 10 held-out seeds) | Learned | Planner |
+|---|---|---|
+| pellets collected | 3.60 | 3.40 |
+| time to first pellet (s) | 41 | 11 |
+| ghosts caught | 0.20 | 0.10 |
+| power windows with at least one catch | 0.20 | 0.10 |
+| tags suffered | 2.60 | 1.90 |
+| of which during own power window | 0.00 | 0.00 |
+| time to first tag (s) | 117 | 151 |
+| score | 415 | 383 |
+<!-- analysis:end -->
+
+![Where each Duck-Man spends its time](training/strategy/heatmap.png)
+
+The heat map is the honest picture: the learned Duck-Man **camps the bottom-right pellet corner** for
+about a third of each round, waits for ghosts to come to it, takes the pellet when they are close and
+then hunts them during the power window. It reaches its first pellet later than the planner (41 s vs
+11 s), catches twice as many ghosts, and pays for the ambush with more tags. The planner sweeps the maze
+methodically. Neither behaviour was scripted into the network; the camping strategy is what evolution
+found under a score that pays 200 for a ghost and 10 for a coin. We consider it a real, if slightly
+cheeky, result — and it is exactly the kind of exploit an objective score invites.
+
 ## Reproduce
 
 ```bash
@@ -145,7 +188,9 @@ changed, and it is burned into the frame.
   playback is used for watchability.
 - **Face-up recovery does not work.** The stand-up policy rises from sitting (5/5) and face-down
   (6/6) but not from its back (0/8 across roll angles) after 7,000 iterations. A Duck-Man knocked
-  onto its back stays down and loses its remaining lives to tags — a fair knockout, but a gap.
+  onto its back stays down and loses its remaining lives to tags — a fair knockout, but a gap. For
+  context: no published Microduck policy we could find (Pollen's set, 31 community repos, every other
+  entry) recovers from face-up either; ours is the only recovery skill in the field at all.
 - The learned strategy is aggressive: it usually spends all three lives by ~160 s hunting ghosts.
   Under the scoring rules that is the higher-scoring choice; it does make rounds shorter.
 - Training seeds are six maze layouts; generalisation to held-out seeds is shown above, but the maze

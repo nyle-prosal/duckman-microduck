@@ -1,0 +1,602 @@
+[
+ {
+  "policy": "learned",
+  "seed": 0,
+  "vin": 6.5,
+  "score": 580,
+  "coins": 18,
+  "lives_lost": 3,
+  "falls": 0,
+  "end": "game_over"
+ },
+ {
+  "policy": "learned",
+  "seed": 1,
+  "vin": 6.5,
+  "score": 350,
+  "coins": 20,
+  "lives_lost": 3,
+  "falls": 0,
+  "end": "game_over"
+ },
+ {
+  "policy": "learned",
+  "seed": 2,
+  "vin": 6.5,
+  "score": 330,
+  "coins": 18,
+  "lives_lost": 2,
+  "falls": 1,
+  "end": "timeout"
+ },
+ {
+  "policy": "learned",
+  "seed": 3,
+  "vin": 6.5,
+  "score": 390,
+  "coins": 19,
+  "lives_lost": 3,
+  "falls": 1,
+  "end": "game_over"
+ },
+ {
+  "policy": "learned",
+  "seed": 4,
+  "vin": 6.5,
+  "score": 330,
+  "coins": 18,
+  "lives_lost": 2,
+  "falls": 1,
+  "end": "timeout"
+ },
+ {
+  "policy": "learned",
+  "seed": 5,
+  "vin": 6.5,
+  "score": 580,
+  "coins": 18,
+  "lives_lost": 2,
+  "falls": 0,
+  "end": "timeout"
+ },
+ {
+  "policy": "learned",
+  "seed": 6,
+  "vin": 6.5,
+  "score": 390,
+  "coins": 19,
+  "lives_lost": 2,
+  "falls": 2,
+  "end": "timeout"
+ },
+ {
+  "policy": "learned",
+  "seed": 7,
+  "vin": 6.5,
+  "score": 80,
+  "coins": 3,
+  "lives_lost": 3,
+  "falls": 7,
+  "end": "game_over"
+ },
+ {
+  "policy": "learned",
+  "seed": 8,
+  "vin": 6.5,
+  "score": 380,
+  "coins": 18,
+  "lives_lost": 2,
+  "falls": 1,
+  "end": "timeout"
+ },
+ {
+  "policy": "learned",
+  "seed": 9,
+  "vin": 6.5,
+  "score": 340,
+  "coins": 19,
+  "lives_lost": 3,
+  "falls": 1,
+  "end": "game_over"
+ },
+ {
+  "policy": "planner",
+  "seed": 0,
+  "vin": 6.5,
+  "score": 380,
+  "coins": 18,
+  "lives_lost": 3,
+  "falls": 1,
+  "end": "game_over"
+ },
+ {
+  "policy": "planner",
+  "seed": 1,
+  "vin": 6.5,
+  "score": 420,
+  "coins": 22,
+  "lives_lost": 1,
+  "falls": 1,
+  "end": "timeout"
+ },
+ {
+  "policy": "planner",
+  "seed": 2,
+  "vin": 6.5,
+  "score": 210,
+  "coins": 11,
+  "lives_lost": 3,
+  "falls": 2,
+  "end": "game_over"
+ },
+ {
+  "policy": "planner",
+  "seed": 3,
+  "vin": 6.5,
+  "score": 220,
+  "coins": 12,
+  "lives_lost": 3,
+  "falls": 1,
+  "end": "game_over"
+ },
+ {
+  "policy": "planner",
+  "seed": 4,
+  "vin": 6.5,
+  "score": 410,
+  "coins": 21,
+  "lives_lost": 2,
+  "falls": 0,
+  "end": "timeout"
+ },
+ {
+  "policy": "planner",
+  "seed": 5,
+  "vin": 6.5,
+  "score": 420,
+  "coins": 22,
+  "lives_lost": 1,
+  "falls": 0,
+  "end": "timeout"
+ },
+ {
+  "policy": "planner",
+  "seed": 6,
+  "vin": 6.5,
+  "score": 430,
+  "coins": 23,
+  "lives_lost": 1,
+  "falls": 2,
+  "end": "timeout"
+ },
+ {
+  "policy": "planner",
+  "seed": 7,
+  "vin": 6.5,
+  "score": 320,
+  "coins": 17,
+  "lives_lost": 2,
+  "falls": 2,
+  "end": "timeout"
+ },
+ {
+  "policy": "planner",
+  "seed": 8,
+  "vin": 6.5,
+  "score": 460,
+  "coins": 26,
+  "lives_lost": 0,
+  "falls": 0,
+  "end": "timeout"
+ },
+ {
+  "policy": "planner",
+  "seed": 9,
+  "vin": 6.5,
+  "score": 420,
+  "coins": 22,
+  "lives_lost": 1,
+  "falls": 0,
+  "end": "timeout"
+ },
+ {
+  "policy": "learned",
+  "seed": 0,
+  "vin": 7.4,
+  "score": 390,
+  "coins": 19,
+  "lives_lost": 3,
+  "falls": 2,
+  "end": "game_over"
+ },
+ {
+  "policy": "learned",
+  "seed": 1,
+  "vin": 7.4,
+  "score": 340,
+  "coins": 19,
+  "lives_lost": 3,
+  "falls": 2,
+  "end": "game_over"
+ },
+ {
+  "policy": "learned",
+  "seed": 2,
+  "vin": 7.4,
+  "score": 780,
+  "coins": 18,
+  "lives_lost": 2,
+  "falls": 1,
+  "end": "timeout"
+ },
+ {
+  "policy": "learned",
+  "seed": 3,
+  "vin": 7.4,
+  "score": 420,
+  "coins": 22,
+  "lives_lost": 3,
+  "falls": 0,
+  "end": "game_over"
+ },
+ {
+  "policy": "learned",
+  "seed": 4,
+  "vin": 7.4,
+  "score": 390,
+  "coins": 19,
+  "lives_lost": 3,
+  "falls": 0,
+  "end": "game_over"
+ },
+ {
+  "policy": "learned",
+  "seed": 5,
+  "vin": 7.4,
+  "score": 330,
+  "coins": 18,
+  "lives_lost": 3,
+  "falls": 0,
+  "end": "game_over"
+ },
+ {
+  "policy": "learned",
+  "seed": 6,
+  "vin": 7.4,
+  "score": 370,
+  "coins": 22,
+  "lives_lost": 2,
+  "falls": 0,
+  "end": "timeout"
+ },
+ {
+  "policy": "learned",
+  "seed": 7,
+  "vin": 7.4,
+  "score": 380,
+  "coins": 18,
+  "lives_lost": 2,
+  "falls": 3,
+  "end": "timeout"
+ },
+ {
+  "policy": "learned",
+  "seed": 8,
+  "vin": 7.4,
+  "score": 420,
+  "coins": 22,
+  "lives_lost": 2,
+  "falls": 0,
+  "end": "timeout"
+ },
+ {
+  "policy": "learned",
+  "seed": 9,
+  "vin": 7.4,
+  "score": 330,
+  "coins": 18,
+  "lives_lost": 3,
+  "falls": 0,
+  "end": "game_over"
+ },
+ {
+  "policy": "planner",
+  "seed": 0,
+  "vin": 7.4,
+  "score": 640,
+  "coins": 24,
+  "lives_lost": 1,
+  "falls": 2,
+  "end": "timeout"
+ },
+ {
+  "policy": "planner",
+  "seed": 1,
+  "vin": 7.4,
+  "score": 430,
+  "coins": 23,
+  "lives_lost": 1,
+  "falls": 0,
+  "end": "timeout"
+ },
+ {
+  "policy": "planner",
+  "seed": 2,
+  "vin": 7.4,
+  "score": 430,
+  "coins": 23,
+  "lives_lost": 1,
+  "falls": 0,
+  "end": "timeout"
+ },
+ {
+  "policy": "planner",
+  "seed": 3,
+  "vin": 7.4,
+  "score": 210,
+  "coins": 11,
+  "lives_lost": 3,
+  "falls": 7,
+  "end": "game_over"
+ },
+ {
+  "policy": "planner",
+  "seed": 4,
+  "vin": 7.4,
+  "score": 350,
+  "coins": 20,
+  "lives_lost": 2,
+  "falls": 1,
+  "end": "timeout"
+ },
+ {
+  "policy": "planner",
+  "seed": 5,
+  "vin": 7.4,
+  "score": 400,
+  "coins": 20,
+  "lives_lost": 3,
+  "falls": 5,
+  "end": "game_over"
+ },
+ {
+  "policy": "planner",
+  "seed": 6,
+  "vin": 7.4,
+  "score": 410,
+  "coins": 21,
+  "lives_lost": 2,
+  "falls": 1,
+  "end": "timeout"
+ },
+ {
+  "policy": "planner",
+  "seed": 7,
+  "vin": 7.4,
+  "score": 220,
+  "coins": 12,
+  "lives_lost": 3,
+  "falls": 0,
+  "end": "game_over"
+ },
+ {
+  "policy": "planner",
+  "seed": 8,
+  "vin": 7.4,
+  "score": 400,
+  "coins": 20,
+  "lives_lost": 2,
+  "falls": 1,
+  "end": "timeout"
+ },
+ {
+  "policy": "planner",
+  "seed": 9,
+  "vin": 7.4,
+  "score": 340,
+  "coins": 19,
+  "lives_lost": 1,
+  "falls": 2,
+  "end": "timeout"
+ },
+ {
+  "policy": "learned",
+  "seed": 0,
+  "vin": 8.2,
+  "score": 380,
+  "coins": 18,
+  "lives_lost": 3,
+  "falls": 2,
+  "end": "game_over"
+ },
+ {
+  "policy": "learned",
+  "seed": 1,
+  "vin": 8.2,
+  "score": 580,
+  "coins": 18,
+  "lives_lost": 3,
+  "falls": 4,
+  "end": "game_over"
+ },
+ {
+  "policy": "learned",
+  "seed": 2,
+  "vin": 8.2,
+  "score": 380,
+  "coins": 18,
+  "lives_lost": 2,
+  "falls": 2,
+  "end": "timeout"
+ },
+ {
+  "policy": "learned",
+  "seed": 3,
+  "vin": 8.2,
+  "score": 380,
+  "coins": 18,
+  "lives_lost": 3,
+  "falls": 3,
+  "end": "game_over"
+ },
+ {
+  "policy": "learned",
+  "seed": 4,
+  "vin": 8.2,
+  "score": 380,
+  "coins": 18,
+  "lives_lost": 3,
+  "falls": 3,
+  "end": "game_over"
+ },
+ {
+  "policy": "learned",
+  "seed": 5,
+  "vin": 8.2,
+  "score": 580,
+  "coins": 18,
+  "lives_lost": 2,
+  "falls": 2,
+  "end": "timeout"
+ },
+ {
+  "policy": "learned",
+  "seed": 6,
+  "vin": 8.2,
+  "score": 330,
+  "coins": 18,
+  "lives_lost": 3,
+  "falls": 0,
+  "end": "game_over"
+ },
+ {
+  "policy": "learned",
+  "seed": 7,
+  "vin": 8.2,
+  "score": 330,
+  "coins": 18,
+  "lives_lost": 3,
+  "falls": 3,
+  "end": "game_over"
+ },
+ {
+  "policy": "learned",
+  "seed": 8,
+  "vin": 8.2,
+  "score": 380,
+  "coins": 18,
+  "lives_lost": 3,
+  "falls": 0,
+  "end": "game_over"
+ },
+ {
+  "policy": "learned",
+  "seed": 9,
+  "vin": 8.2,
+  "score": 380,
+  "coins": 18,
+  "lives_lost": 3,
+  "falls": 0,
+  "end": "game_over"
+ },
+ {
+  "policy": "planner",
+  "seed": 0,
+  "vin": 8.2,
+  "score": 410,
+  "coins": 21,
+  "lives_lost": 2,
+  "falls": 1,
+  "end": "timeout"
+ },
+ {
+  "policy": "planner",
+  "seed": 1,
+  "vin": 8.2,
+  "score": 220,
+  "coins": 12,
+  "lives_lost": 3,
+  "falls": 3,
+  "end": "game_over"
+ },
+ {
+  "policy": "planner",
+  "seed": 2,
+  "vin": 8.2,
+  "score": 220,
+  "coins": 12,
+  "lives_lost": 3,
+  "falls": 1,
+  "end": "game_over"
+ },
+ {
+  "policy": "planner",
+  "seed": 3,
+  "vin": 8.2,
+  "score": 380,
+  "coins": 18,
+  "lives_lost": 3,
+  "falls": 5,
+  "end": "game_over"
+ },
+ {
+  "policy": "planner",
+  "seed": 4,
+  "vin": 8.2,
+  "score": 440,
+  "coins": 24,
+  "lives_lost": 2,
+  "falls": 1,
+  "end": "timeout"
+ },
+ {
+  "policy": "planner",
+  "seed": 5,
+  "vin": 8.2,
+  "score": 420,
+  "coins": 22,
+  "lives_lost": 2,
+  "falls": 3,
+  "end": "timeout"
+ },
+ {
+  "policy": "planner",
+  "seed": 6,
+  "vin": 8.2,
+  "score": 220,
+  "coins": 12,
+  "lives_lost": 3,
+  "falls": 1,
+  "end": "game_over"
+ },
+ {
+  "policy": "planner",
+  "seed": 7,
+  "vin": 8.2,
+  "score": 410,
+  "coins": 21,
+  "lives_lost": 2,
+  "falls": 1,
+  "end": "timeout"
+ },
+ {
+  "policy": "planner",
+  "seed": 8,
+  "vin": 8.2,
+  "score": 430,
+  "coins": 23,
+  "lives_lost": 2,
+  "falls": 3,
+  "end": "timeout"
+ },
+ {
+  "policy": "planner",
+  "seed": 9,
+  "vin": 8.2,
+  "score": 220,
+  "coins": 12,
+  "lives_lost": 3,
+  "falls": 1,
+  "end": "game_over"
+ }
+]

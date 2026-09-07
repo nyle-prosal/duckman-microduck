@@ -10,21 +10,21 @@ import mujoco
 from .constants import BAM, PHYS_DT
 
 
-def load_bam_model():
+def load_bam_model(vin=None):
     from bam.model import load_model
     m = load_model(motor_name=BAM["motor_name"], model=BAM["model"])
     m.actuator.kp = BAM["kp_fw"]
-    m.actuator.vin = BAM["vin"]
+    m.actuator.vin = BAM["vin"] if vin is None else float(vin)
     m.actuator.max_current = BAM["max_current"]
     return m
 
 
-def compile_with_bam(spec: mujoco.MjSpec, groups=None):
+def compile_with_bam(spec: mujoco.MjSpec, groups=None, vin=None):
     """Compile the spec with BAM actuators. `groups` maps a name -> actuator-name prefix; one
     MujocoController is built per group so the load-dependent voltage sag is computed per robot
     (as in training, one robot per env). Returns (model, data, {group: controller})."""
     from bam.mujoco import MujocoController
-    bm = load_bam_model()
+    bm = load_bam_model(vin)
     kt, R = bm.kt.value, bm.R.value
     flim = bm.actuator.vin * kt / R
     names = []
@@ -53,6 +53,6 @@ def compile_with_bam(spec: mujoco.MjSpec, groups=None):
     ctrls = {}
     for gname, prefix in groups.items():
         sub = [n for n in names if n.startswith(prefix)]
-        ctrls[gname] = MujocoController(load_bam_model(), sub, model, data,
+        ctrls[gname] = MujocoController(load_bam_model(vin), sub, model, data,
                                         vin_drop_gain=BAM["vin_drop_gain"], vin_min=BAM["vin_min"])
     return model, data, ctrls

@@ -35,9 +35,9 @@ class Game:
     # arcade-style wave timer (seconds of play time): scatter 7, chase 20, scatter 7, chase 20, scatter 5, then chase
     WAVES = [("scatter", 7.0), ("chase", 20.0), ("scatter", 7.0), ("chase", 20.0), ("scatter", 5.0), ("chase", 1e9)]
 
-    def __init__(self, maze, seed, pac_policy, ghost_policies, log_positions=False):
+    def __init__(self, maze, seed, pac_policy, ghost_policies, log_positions=False, vin=None):
         self.maze, self.seed = maze, seed
-        self.sim = Sim(maze, seed)
+        self.sim = Sim(maze, seed, vin=vin)
         self.policies = {"P_": pac_policy, **{f"G{k}_": ghost_policies[k] for k in range(4)}}
         self.log_positions = log_positions
         self.view = None

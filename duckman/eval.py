@@ -36,10 +36,10 @@ def resolve_recovery(recovery):
 
 
 def run_eval(policy, seed, checkpoint=None, max_t=CLOCK_S, video=None, log_positions=False, recovery="auto",
-             speed=1, label=None):
+             speed=1, label=None, vin=None):
     recovery = resolve_recovery(recovery)
     ghosts = default_ghosts("standup" if recovery == "standup" else "none")
-    g = Game(Maze(), seed, make_policy(policy, checkpoint, recovery), ghosts, log_positions=log_positions)
+    g = Game(Maze(), seed, make_policy(policy, checkpoint, recovery), ghosts, log_positions=log_positions, vin=vin)
     g.reset()
     rec = None
     if video:
@@ -51,7 +51,7 @@ def run_eval(policy, seed, checkpoint=None, max_t=CLOCK_S, video=None, log_posit
         if rec:
             rec.maybe_capture()
     r = g.result()
-    r.update(policy=policy, wall_s=round(time.time() - t0, 1), recovery=recovery, checkpoint=checkpoint,
+    r.update(policy=policy, wall_s=round(time.time() - t0, 1), recovery=recovery, checkpoint=checkpoint, battery_vin=vin,
              checkpoint_sha256=hashlib.sha256(Path(checkpoint).read_bytes()).hexdigest() if checkpoint else None,
              max_t=max_t, control_dt=0.02)
     if rec:
