@@ -124,12 +124,21 @@ bonus per tag, evolved against the **frozen** learned Duck-Man on the training p
 (`duckman/train_ghosts.py`, curve in `training/strategy/ghosts_curve.csv`). Four generations were enough:
 
 <!-- league:start -->
-LEAGUE_TABLE
+| Duck-Man \ ghosts | scripted ghosts (arcade personalities) | learned ghosts (co-evolved vs the learned Duck-Man) |
+|---|---|---|
+| learned strategy (shipped) | **426** ± 114 (tags 2.75, catches 0.25) | **18** ± 4 (tags 3.00, catches 0.00) |
+| scripted planner | **378** ± 115 (tags 2.10, catches 0.10) | **379** ± 86 (tags 0.35, catches 0.00) |
+
+Mean Duck-Man score ± std over held-out seeds 0-19; tags = lives lost per round; catches = ghosts caught per round.
 <!-- league:end -->
 
-The learned ghosts found the learned Duck-Man's corner-camping habit and punish it. That is the point of
-the experiment and also its honest limit: it is one round of an arms race, run in the last hours before the
-deadline. The shipped Duck-Man, all headline numbers and the video use the scripted arcade ghosts; the
+Read the table as a textbook case of co-evolution after one round. The learned ghosts found the learned
+Duck-Man's corner-camping habit and annihilate it: 426 → 18, three tags every round, zero catches. But they
+**overfit to that one opponent**: the scripted planner, which sweeps the maze instead of camping, scores 379
+against them with only 0.35 tags per round — the learned ghosts are waiting in the wrong corner. So one
+round of learning produced ghosts that are lethal against the policy they trained against and harmless against
+a different one. That is the point of the experiment and also its honest limit: it is one round of an arms
+race, run in the last hours before the deadline. The shipped Duck-Man, all headline numbers and the video use the scripted arcade ghosts; the
 learned ghosts are an extra result (`checkpoints/ghosts_final.npz`, `python -m duckman.eval --ghosts learned`,
 `python -m duckman.league`). The obvious next step is to evolve the Duck-Man back against them.
 

@@ -5,7 +5,7 @@
   "seed": 0,
   "score": 390,
   "coins": 19,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -15,7 +15,7 @@
   "seed": 1,
   "score": 340,
   "coins": 19,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -25,7 +25,7 @@
   "seed": 2,
   "score": 780,
   "coins": 18,
-  "caught": "scripted",
+  "caught": 2,
   "lives_lost": 2,
   "end": "timeout"
  },
@@ -35,7 +35,7 @@
   "seed": 3,
   "score": 420,
   "coins": 22,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -45,7 +45,7 @@
   "seed": 4,
   "score": 390,
   "coins": 19,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -55,7 +55,7 @@
   "seed": 5,
   "score": 330,
   "coins": 18,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -65,7 +65,7 @@
   "seed": 6,
   "score": 370,
   "coins": 22,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 2,
   "end": "timeout"
  },
@@ -75,7 +75,7 @@
   "seed": 7,
   "score": 380,
   "coins": 18,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 2,
   "end": "timeout"
  },
@@ -85,7 +85,7 @@
   "seed": 8,
   "score": 420,
   "coins": 22,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 2,
   "end": "timeout"
  },
@@ -95,7 +95,7 @@
   "seed": 9,
   "score": 330,
   "coins": 18,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -105,7 +105,7 @@
   "seed": 10,
   "score": 590,
   "coins": 19,
-  "caught": "scripted",
+  "caught": 1,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -115,7 +115,7 @@
   "seed": 11,
   "score": 590,
   "coins": 19,
-  "caught": "scripted",
+  "caught": 1,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -125,7 +125,7 @@
   "seed": 12,
   "score": 380,
   "coins": 18,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -135,7 +135,7 @@
   "seed": 13,
   "score": 390,
   "coins": 19,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 2,
   "end": "timeout"
  },
@@ -145,7 +145,7 @@
   "seed": 14,
   "score": 390,
   "coins": 19,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -155,7 +155,7 @@
   "seed": 15,
   "score": 580,
   "coins": 18,
-  "caught": "scripted",
+  "caught": 1,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -165,7 +165,7 @@
   "seed": 16,
   "score": 390,
   "coins": 19,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -175,7 +175,7 @@
   "seed": 17,
   "score": 380,
   "coins": 18,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -185,7 +185,7 @@
   "seed": 18,
   "score": 340,
   "coins": 19,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -195,7 +195,7 @@
   "seed": 19,
   "score": 340,
   "coins": 19,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -205,7 +205,7 @@
   "seed": 0,
   "score": 20,
   "coins": 2,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -215,7 +215,7 @@
   "seed": 1,
   "score": 20,
   "coins": 2,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -225,7 +225,7 @@
   "seed": 2,
   "score": 20,
   "coins": 2,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -235,7 +235,7 @@
   "seed": 3,
   "score": 20,
   "coins": 2,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -245,7 +245,7 @@
   "seed": 4,
   "score": 10,
   "coins": 1,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -255,7 +255,7 @@
   "seed": 5,
   "score": 20,
   "coins": 2,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -265,7 +265,7 @@
   "seed": 6,
   "score": 20,
   "coins": 2,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -275,7 +275,7 @@
   "seed": 7,
   "score": 20,
   "coins": 2,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -285,7 +285,7 @@
   "seed": 8,
   "score": 10,
   "coins": 1,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -295,7 +295,7 @@
   "seed": 9,
   "score": 20,
   "coins": 2,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -305,7 +305,7 @@
   "seed": 10,
   "score": 20,
   "coins": 2,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -315,7 +315,7 @@
   "seed": 11,
   "score": 20,
   "coins": 2,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -325,7 +325,7 @@
   "seed": 12,
   "score": 20,
   "coins": 2,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -335,7 +335,7 @@
   "seed": 13,
   "score": 20,
   "coins": 2,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -345,7 +345,7 @@
   "seed": 14,
   "score": 20,
   "coins": 2,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -355,7 +355,7 @@
   "seed": 15,
   "score": 20,
   "coins": 2,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -365,7 +365,7 @@
   "seed": 16,
   "score": 20,
   "coins": 2,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -375,7 +375,7 @@
   "seed": 17,
   "score": 10,
   "coins": 1,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -385,7 +385,7 @@
   "seed": 18,
   "score": 20,
   "coins": 2,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -395,7 +395,7 @@
   "seed": 19,
   "score": 10,
   "coins": 1,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -405,7 +405,7 @@
   "seed": 0,
   "score": 640,
   "coins": 24,
-  "caught": "scripted",
+  "caught": 1,
   "lives_lost": 1,
   "end": "timeout"
  },
@@ -415,7 +415,7 @@
   "seed": 1,
   "score": 430,
   "coins": 23,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 1,
   "end": "timeout"
  },
@@ -425,7 +425,7 @@
   "seed": 2,
   "score": 430,
   "coins": 23,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 1,
   "end": "timeout"
  },
@@ -435,7 +435,7 @@
   "seed": 3,
   "score": 210,
   "coins": 11,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -445,7 +445,7 @@
   "seed": 4,
   "score": 350,
   "coins": 20,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 2,
   "end": "timeout"
  },
@@ -455,7 +455,7 @@
   "seed": 5,
   "score": 400,
   "coins": 20,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -465,7 +465,7 @@
   "seed": 6,
   "score": 410,
   "coins": 21,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 2,
   "end": "timeout"
  },
@@ -475,7 +475,7 @@
   "seed": 7,
   "score": 220,
   "coins": 12,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -485,7 +485,7 @@
   "seed": 8,
   "score": 400,
   "coins": 20,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 2,
   "end": "timeout"
  },
@@ -495,7 +495,7 @@
   "seed": 9,
   "score": 340,
   "coins": 19,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 1,
   "end": "timeout"
  },
@@ -505,7 +505,7 @@
   "seed": 10,
   "score": 210,
   "coins": 11,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -515,7 +515,7 @@
   "seed": 11,
   "score": 640,
   "coins": 24,
-  "caught": "scripted",
+  "caught": 1,
   "lives_lost": 1,
   "end": "timeout"
  },
@@ -525,7 +525,7 @@
   "seed": 12,
   "score": 410,
   "coins": 21,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 2,
   "end": "timeout"
  },
@@ -535,7 +535,7 @@
   "seed": 13,
   "score": 320,
   "coins": 17,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -545,7 +545,7 @@
   "seed": 14,
   "score": 400,
   "coins": 20,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 2,
   "end": "timeout"
  },
@@ -555,7 +555,7 @@
   "seed": 15,
   "score": 430,
   "coins": 23,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 2,
   "end": "timeout"
  },
@@ -565,7 +565,7 @@
   "seed": 16,
   "score": 210,
   "coins": 11,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 2,
   "end": "timeout"
  },
@@ -575,7 +575,7 @@
   "seed": 17,
   "score": 350,
   "coins": 20,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 2,
   "end": "timeout"
  },
@@ -585,7 +585,7 @@
   "seed": 18,
   "score": 400,
   "coins": 20,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -595,7 +595,7 @@
   "seed": 19,
   "score": 350,
   "coins": 20,
-  "caught": "scripted",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -605,7 +605,7 @@
   "seed": 0,
   "score": 350,
   "coins": 20,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 0,
   "end": "timeout"
  },
@@ -615,7 +615,7 @@
   "seed": 1,
   "score": 420,
   "coins": 22,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 0,
   "end": "timeout"
  },
@@ -625,7 +625,7 @@
   "seed": 2,
   "score": 430,
   "coins": 23,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 1,
   "end": "timeout"
  },
@@ -635,7 +635,7 @@
   "seed": 3,
   "score": 340,
   "coins": 19,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 0,
   "end": "timeout"
  },
@@ -645,7 +645,7 @@
   "seed": 4,
   "score": 80,
   "coins": 3,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 3,
   "end": "game_over"
  },
@@ -655,7 +655,7 @@
   "seed": 5,
   "score": 460,
   "coins": 26,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 0,
   "end": "timeout"
  },
@@ -665,7 +665,7 @@
   "seed": 6,
   "score": 340,
   "coins": 19,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 1,
   "end": "timeout"
  },
@@ -675,7 +675,7 @@
   "seed": 7,
   "score": 340,
   "coins": 19,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 0,
   "end": "timeout"
  },
@@ -685,7 +685,7 @@
   "seed": 8,
   "score": 420,
   "coins": 22,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 0,
   "end": "timeout"
  },
@@ -695,7 +695,7 @@
   "seed": 9,
   "score": 440,
   "coins": 24,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 0,
   "end": "timeout"
  },
@@ -705,7 +705,7 @@
   "seed": 10,
   "score": 340,
   "coins": 19,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 0,
   "end": "timeout"
  },
@@ -715,7 +715,7 @@
   "seed": 11,
   "score": 330,
   "coins": 18,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 0,
   "end": "timeout"
  },
@@ -725,7 +725,7 @@
   "seed": 12,
   "score": 460,
   "coins": 26,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 0,
   "end": "timeout"
  },
@@ -735,7 +735,7 @@
   "seed": 13,
   "score": 440,
   "coins": 24,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 0,
   "end": "timeout"
  },
@@ -745,7 +745,7 @@
   "seed": 14,
   "score": 370,
   "coins": 22,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 0,
   "end": "timeout"
  },
@@ -755,7 +755,7 @@
   "seed": 15,
   "score": 410,
   "coins": 21,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 2,
   "end": "timeout"
  },
@@ -765,7 +765,7 @@
   "seed": 16,
   "score": 340,
   "coins": 19,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 0,
   "end": "timeout"
  },
@@ -775,7 +775,7 @@
   "seed": 17,
   "score": 460,
   "coins": 26,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 0,
   "end": "timeout"
  },
@@ -785,7 +785,7 @@
   "seed": 18,
   "score": 480,
   "coins": 28,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 0,
   "end": "timeout"
  },
@@ -795,7 +795,7 @@
   "seed": 19,
   "score": 330,
   "coins": 18,
-  "caught": "learned",
+  "caught": 0,
   "lives_lost": 0,
   "end": "timeout"
  }
