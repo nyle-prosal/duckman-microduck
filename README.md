@@ -56,10 +56,18 @@ noise and ghost RNG for every policy.
 Learned beats planner on 10/20 seeds (same seed = same maze layout, spawn jitter and ghost RNG).
 <!-- bench:end -->
 
-Seed 0, the causality seed used by `./run.sh`:
+Seed 0 is the causality seed; seed 2 is the round shown in full in the video (both held out, both
+produced by `./run.sh`):
 
 <!-- results:start -->
-RESULTS_TABLE
+| Seed | Policy | Score | Coins | Pellets | Ghosts caught | Lives lost | End | Time | Falls |
+|---|---|---|---|---|---|---|---|---|---|
+| 2 | Duck-Man[trained strategy network (ES)] | **780** | 18 | 4 | 2 | 2 | timeout | 240.0 s | 1 |
+| 2 | Duck-Man[scripted planner] | **430** | 23 | 4 | 0 | 1 | timeout | 240.0 s | 0 |
+| 0 | Duck-Man[trained strategy network (ES)] | **390** | 19 | 4 | 0 | 3 | game_over | 203.14 s | 2 |
+| 0 | Duck-Man[scripted planner] | **640** | 24 | 4 | 1 | 1 | timeout | 240.0 s | 2 |
+| 0 | Duck-Man[neutral (always stay)] | **0** | 0 | 0 | 0 | 0 | stopped at 60 s (evaluation window) | 60.0 s | 0 |
+| 0 | Duck-Man[strategy network, generation 0 (untrained)] | **180** | 8 | 2 | 0 | 0 | stopped at 60 s (evaluation window) | 60.0 s | 0 |
 <!-- results:end -->
 
 **Causality test** (`tests/test_eval_causality.py`, run by `./run.sh`): the trained strategy must
@@ -87,8 +95,10 @@ then `uv run scripts/export.py Mjlab-StandUp-Flat-MicroDuck --checkpoint-file <m
 ## Video
 
 `result.mp4` = title card → generation-0 clip (untrained strategy network, 2× speed, labelled) →
-final trained round on seed 0 (2× speed, labelled) → learning curve → end card with the numbers
-from `results/*.json`. Clips are unedited renders of the evaluation runs; only the playback speed is
+final trained round on held-out seed 2 (2× speed, labelled) → strategy learning curve → stand-up
+training curve → end card with the numbers from `results/*.json`. Seed 2 was chosen after the
+20-seed benchmark as the round where the learned policy's ghost-hunting shows best; the benchmark
+table above reports every seed, wins and losses alike. Clips are unedited renders of the evaluation runs; only the playback speed is
 changed, and it is burned into the frame.
 
 ## Limitations

@@ -52,8 +52,9 @@ def main():
     for fr in card([("DUCK-MAN", 72, gold), ("Maze tag for Microduck", 40, white),
                     ("Five real Microducks in MuJoCo. Every duck walks with Pollen Robotics' learned gait", 26, grey),
                     ("through the BAM actuator model. Coins count only when the Duck-Man knocks them over.", 26, grey),
-                    ("The Duck-Man's strategy network was trained by evolution strategies", 26, grey),
-                    ("inside this simulation on a laptop CPU. Ghosts and navigation are scripted.", 26, grey),
+                    ("Two policies trained for this entry: a stand-up policy (PPO, Pollen's stack, one GPU) and the", 26, grey),
+                    ("Duck-Man's strategy network (imitation of our scripted planner, then evolution strategies", 26, grey),
+                    ("inside this simulation on a laptop CPU). Ghosts and cell navigation are scripted.", 26, grey),
                     ("Simulation only. No hardware claims.", 26, grey)], 4.0):
         w.append_data(fr)
     for spec in a.clips:
@@ -74,8 +75,12 @@ def main():
     lines = [("Measured results (same seed, same maze)", 40, gold)]
     for rp in a.results:
         r = json.load(open(rp))
-        lines.append((f"{r['labels']['P_']:<44s} score {r['score']:>5d}   coins {r['coins']:>2d}   lives lost {r['lives_lost']}"
-                      f"   end: {r['end']}   seed {r['seed']}", 24, white))
+        label = r['labels']['P_'].replace("Duck-Man[", "").rstrip("]")
+        if r.get("checkpoint") and "gen0" in str(r["checkpoint"]):
+            label = "strategy network, generation 0 (untrained)"
+        end = r['end'] or f"stopped at {r['t']:.0f} s"
+        lines.append((f"seed {r['seed']:>2d}   {label:<38s} score {r['score']:>5d}   coins {r['coins']:>2d}   ghosts {r['ghosts']}"
+                      f"   lives lost {r['lives_lost']}   {end}", 22, white))
     lines.append(("Every number above comes from results/*.json written by duckman/eval.py; ./run.sh reproduces them.", 22, grey))
     for fr in card(lines, 6.0):
         w.append_data(fr)

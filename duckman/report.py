@@ -4,16 +4,20 @@ import sys
 from pathlib import Path
 from .constants import ROOT
 
-HEADER = ("| Policy | Score | Coins | Pellets | Ghosts caught | Lives lost | End | Time | Falls |\n"
-          "|---|---|---|---|---|---|---|---|---|\n")
+HEADER = ("| Seed | Policy | Score | Coins | Pellets | Ghosts caught | Lives lost | End | Time | Falls |\n"
+          "|---|---|---|---|---|---|---|---|---|---|\n")
 
 
 def table(paths):
     rows = []
     for p in paths:
         r = json.load(open(p))
-        rows.append(f"| {r['labels']['P_']} | **{r['score']}** | {r['coins']} | {r['pellets']} | {r['ghosts']} | "
-                    f"{r['lives_lost']} | {r['end']} | {r['t']} s | {r.get('falls', 0)} |")
+        label = r['labels']['P_']
+        if r.get("checkpoint") and "gen0" in str(r["checkpoint"]):
+            label = "Duck-Man[strategy network, generation 0 (untrained)]"
+        end = r['end'] or f"stopped at {r['t']:.0f} s (evaluation window)"
+        rows.append(f"| {r['seed']} | {label} | **{r['score']}** | {r['coins']} | {r['pellets']} | {r['ghosts']} | "
+                    f"{r['lives_lost']} | {end} | {r['t']} s | {r.get('falls', 0)} |")
     return HEADER + "\n".join(rows) + "\n"
 
 

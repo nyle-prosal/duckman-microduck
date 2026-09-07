@@ -25,6 +25,6 @@ rounds). Face-up recovery did not emerge in either run; see the README limitatio
 curve steps down at iterations 3,000 and 4,000 because Pollen's curriculum lowers the standing
 reward weights there, not because the policy degrades.
 
-Full checkpoints (`model_*.pt`, ~26 MB each) and raw tensorboard event files are kept out of the
+Full checkpoints (`model_*.pt`, ~5 MB each) and raw tensorboard event files are kept out of the
 submission ZIP; they are available on request and were produced exactly by the command in the top-level
 README.
