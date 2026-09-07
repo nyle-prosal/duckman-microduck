@@ -1,0 +1,49 @@
+"""Held-out benchmark: learned vs planner vs neutral over N seeds. Writes results/bench.json and a markdown table.
+python -m duckman.bench --seeds 20 --workers 4 --checkpoint checkpoints/strategy_final.npz
+"""
+import argparse
+import json
+from multiprocessing import Pool
+from pathlib import Path
+import numpy as np
+from .constants import ROOT
+from .eval import run_eval
+
+
+def _one(args):
+    policy, seed, ck = args
+    r = run_eval(policy, seed, ck, max_t=240.0 if policy != "neutral" else 60.0)
+    return {k: r[k] for k in ("policy", "seed", "score", "coins", "pellets", "ghosts", "lives_lost", "falls", "end", "t")}
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--seeds", type=int, default=20)
+    ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--checkpoint", default=str(ROOT / "checkpoints/strategy_final.npz"))
+    ap.add_argument("--out", default=str(ROOT / "results/bench.json"))
+    a = ap.parse_args()
+    jobs = [(p, s, a.checkpoint if p == "learned" else None) for p in ("learned", "planner", "neutral") for s in range(a.seeds)]
+    with Pool(a.workers) as pool:
+        rows = pool.map(_one, jobs, chunksize=1)
+    Path(a.out).parent.mkdir(exist_ok=True)
+    json.dump(rows, open(a.out, "w"), indent=1)
+    lines = ["| Policy | Seeds | Mean score | Std | Mean coins | Ghosts caught | Lives lost | Rounds to the clock | Falls |",
+             "|---|---|---|---|---|---|---|---|---|"]
+    for p in ("learned", "planner", "neutral"):
+        rs = [r for r in rows if r["policy"] == p]
+        sc = np.array([r["score"] for r in rs])
+        lines.append(f"| {p} | {len(rs)} | **{sc.mean():.0f}** | {sc.std():.0f} | {np.mean([r['coins'] for r in rs]):.1f} | "
+                     f"{np.mean([r['ghosts'] for r in rs]):.2f} | {np.mean([r['lives_lost'] for r in rs]):.2f} | "
+                     f"{sum(r['end'] == 'timeout' for r in rs)}/{len(rs)} | {sum(r['falls'] for r in rs)} |")
+    learned = [r["score"] for r in rows if r["policy"] == "learned"]
+    planner = [r["score"] for r in rows if r["policy"] == "planner"]
+    wins = sum(l > p for l, p in zip(learned, planner))
+    lines.append(f"\nLearned beats planner on {wins}/{a.seeds} seeds (same seed = same maze layout, spawn jitter and ghost RNG).")
+    table = "\n".join(lines)
+    Path(a.out).with_suffix(".md").write_text(table + "\n")
+    print(table)
+
+
+if __name__ == "__main__":
+    main()

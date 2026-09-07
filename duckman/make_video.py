@@ -44,6 +44,7 @@ def main():
     ap.add_argument("--clips", nargs="+", required=True, help="path:label")
     ap.add_argument("--results", nargs="*", default=[])
     ap.add_argument("--curve")
+    ap.add_argument("--images", nargs="*", default=[], help="extra full-frame PNGs shown 4 s each after the curve")
     ap.add_argument("--out", default="result.mp4")
     a = ap.parse_args()
     w = imageio.get_writer(a.out, fps=FPS, codec="libx264", quality=6, pixelformat="yuv420p", macro_block_size=1)
@@ -65,6 +66,11 @@ def main():
         img = np.asarray(Image.open(png).convert("RGB").resize((W, H)))
         for _ in range(int(4 * FPS)):
             w.append_data(img)
+    for pth in a.images:
+        if os.path.exists(pth):
+            img = np.asarray(Image.open(pth).convert("RGB").resize((W, H)))
+            for _ in range(int(4 * FPS)):
+                w.append_data(img)
     lines = [("Measured results (same seed, same maze)", 40, gold)]
     for rp in a.results:
         r = json.load(open(rp))

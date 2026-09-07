@@ -17,18 +17,23 @@ def table(paths):
     return HEADER + "\n".join(rows) + "\n"
 
 
+def _fill(s, start, end, placeholder, body):
+    block = f"{start}\n{body.rstrip()}\n{end}"
+    if start in s and end in s:
+        return s[:s.index(start)] + block + s[s.index(end) + len(end):]
+    return s.replace(placeholder, block)
+
+
 def main():
-    t = table(sys.argv[1:])
     readme = ROOT / "README.md"
     s = readme.read_text()
-    start, end = "<!-- results:start -->", "<!-- results:end -->"
-    block = f"{start}\n{t}{end}"
-    if start in s:
-        s = s[:s.index(start)] + block + s[s.index(end) + len(end):]
-    else:
-        s = s.replace("RESULTS_TABLE", block)
+    if len(sys.argv) > 1:
+        s = _fill(s, "<!-- results:start -->", "<!-- results:end -->", "RESULTS_TABLE", table(sys.argv[1:]))
+    bench = ROOT / "results/bench.md"
+    if bench.exists():
+        s = _fill(s, "<!-- bench:start -->", "<!-- bench:end -->", "BENCH_TABLE", bench.read_text())
     readme.write_text(s)
-    print(t)
+    print("README updated")
 
 
 if __name__ == "__main__":

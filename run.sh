@@ -21,5 +21,5 @@ CK=checkpoints/strategy_final.npz
 .venv/bin/python -m duckman.make_video \
     --clips "results/gen0_seed0.mp4:Generation 0 - untrained" "results/final_seed0.mp4:Final policy - full round" \
     --results results/learned_seed0.json results/planner_seed0.json results/neutral_seed0.json \
-    --curve checkpoints/curve.csv --out result.mp4
+    --curve checkpoints/curve.csv --images training/standup/mean_reward.png --out result.mp4
 echo "done: result.mp4 + results/*.json"
