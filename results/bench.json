@@ -486,10 +486,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 0,
-  "falls": 0,
-  "end": null,
-  "t": 60.0
+  "lives_lost": 3,
+  "falls": 3,
+  "end": "game_over",
+  "t": 203.84
  },
  {
   "policy": "neutral",
@@ -498,10 +498,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 0,
+  "lives_lost": 3,
   "falls": 0,
-  "end": null,
-  "t": 60.0
+  "end": "game_over",
+  "t": 159.6
  },
  {
   "policy": "neutral",
@@ -510,10 +510,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 0,
+  "lives_lost": 3,
   "falls": 0,
-  "end": null,
-  "t": 60.0
+  "end": "game_over",
+  "t": 180.28
  },
  {
   "policy": "neutral",
@@ -522,10 +522,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 0,
-  "falls": 0,
-  "end": null,
-  "t": 60.0
+  "lives_lost": 3,
+  "falls": 1,
+  "end": "game_over",
+  "t": 192.3
  },
  {
   "policy": "neutral",
@@ -534,10 +534,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 0,
+  "lives_lost": 3,
   "falls": 0,
-  "end": null,
-  "t": 60.0
+  "end": "game_over",
+  "t": 156.96
  },
  {
   "policy": "neutral",
@@ -546,10 +546,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 1,
-  "falls": 0,
-  "end": null,
-  "t": 60.0
+  "lives_lost": 3,
+  "falls": 3,
+  "end": "game_over",
+  "t": 138.5
  },
  {
   "policy": "neutral",
@@ -558,10 +558,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 0,
+  "lives_lost": 3,
   "falls": 0,
-  "end": null,
-  "t": 60.0
+  "end": "game_over",
+  "t": 144.52
  },
  {
   "policy": "neutral",
@@ -570,10 +570,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 0,
-  "falls": 0,
-  "end": null,
-  "t": 60.0
+  "lives_lost": 3,
+  "falls": 1,
+  "end": "game_over",
+  "t": 219.56
  },
  {
   "policy": "neutral",
@@ -582,10 +582,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 0,
+  "lives_lost": 3,
   "falls": 0,
-  "end": null,
-  "t": 60.0
+  "end": "game_over",
+  "t": 159.48
  },
  {
   "policy": "neutral",
@@ -594,10 +594,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 1,
-  "falls": 0,
-  "end": null,
-  "t": 60.0
+  "lives_lost": 3,
+  "falls": 5,
+  "end": "game_over",
+  "t": 133.26
  },
  {
   "policy": "neutral",
@@ -606,10 +606,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 0,
+  "lives_lost": 3,
   "falls": 0,
-  "end": null,
-  "t": 60.0
+  "end": "game_over",
+  "t": 153.42
  },
  {
   "policy": "neutral",
@@ -618,10 +618,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 0,
+  "lives_lost": 3,
   "falls": 0,
-  "end": null,
-  "t": 60.0
+  "end": "game_over",
+  "t": 156.46
  },
  {
   "policy": "neutral",
@@ -630,10 +630,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 1,
-  "falls": 0,
-  "end": null,
-  "t": 60.0
+  "lives_lost": 3,
+  "falls": 2,
+  "end": "game_over",
+  "t": 214.14
  },
  {
   "policy": "neutral",
@@ -642,10 +642,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 0,
+  "lives_lost": 3,
   "falls": 0,
-  "end": null,
-  "t": 60.0
+  "end": "game_over",
+  "t": 174.8
  },
  {
   "policy": "neutral",
@@ -654,10 +654,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 0,
+  "lives_lost": 3,
   "falls": 0,
-  "end": null,
-  "t": 60.0
+  "end": "game_over",
+  "t": 176.08
  },
  {
   "policy": "neutral",
@@ -666,10 +666,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 0,
+  "lives_lost": 3,
   "falls": 0,
-  "end": null,
-  "t": 60.0
+  "end": "game_over",
+  "t": 168.2
  },
  {
   "policy": "neutral",
@@ -678,10 +678,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 0,
+  "lives_lost": 3,
   "falls": 0,
-  "end": null,
-  "t": 60.0
+  "end": "game_over",
+  "t": 154.38
  },
  {
   "policy": "neutral",
@@ -690,10 +690,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 0,
+  "lives_lost": 3,
   "falls": 0,
-  "end": null,
-  "t": 60.0
+  "end": "game_over",
+  "t": 152.68
  },
  {
   "policy": "neutral",
@@ -702,10 +702,10 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 0,
-  "falls": 0,
-  "end": null,
-  "t": 60.0
+  "lives_lost": 1,
+  "falls": 1,
+  "end": "timeout",
+  "t": 240.0
  },
  {
   "policy": "neutral",
@@ -714,9 +714,249 @@
   "coins": 0,
   "pellets": 0,
   "ghosts": 0,
-  "lives_lost": 0,
+  "lives_lost": 3,
   "falls": 0,
-  "end": null,
-  "t": 60.0
+  "end": "game_over",
+  "t": 200.92
+ },
+ {
+  "policy": "frozen",
+  "seed": 0,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 10.66
+ },
+ {
+  "policy": "frozen",
+  "seed": 1,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 8.76
+ },
+ {
+  "policy": "frozen",
+  "seed": 2,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 11.44
+ },
+ {
+  "policy": "frozen",
+  "seed": 3,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 8.4
+ },
+ {
+  "policy": "frozen",
+  "seed": 4,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 11.3
+ },
+ {
+  "policy": "frozen",
+  "seed": 5,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 10.62
+ },
+ {
+  "policy": "frozen",
+  "seed": 6,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 10.24
+ },
+ {
+  "policy": "frozen",
+  "seed": 7,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 8.5
+ },
+ {
+  "policy": "frozen",
+  "seed": 8,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 7.78
+ },
+ {
+  "policy": "frozen",
+  "seed": 9,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 8.82
+ },
+ {
+  "policy": "frozen",
+  "seed": 10,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 9.48
+ },
+ {
+  "policy": "frozen",
+  "seed": 11,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 8.3
+ },
+ {
+  "policy": "frozen",
+  "seed": 12,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 9.38
+ },
+ {
+  "policy": "frozen",
+  "seed": 13,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 11.84
+ },
+ {
+  "policy": "frozen",
+  "seed": 14,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 11.8
+ },
+ {
+  "policy": "frozen",
+  "seed": 15,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 9.26
+ },
+ {
+  "policy": "frozen",
+  "seed": 16,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 12.12
+ },
+ {
+  "policy": "frozen",
+  "seed": 17,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 9.3
+ },
+ {
+  "policy": "frozen",
+  "seed": 18,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 10.94
+ },
+ {
+  "policy": "frozen",
+  "seed": 19,
+  "score": 0,
+  "coins": 0,
+  "pellets": 0,
+  "ghosts": 0,
+  "lives_lost": 0,
+  "falls": 1,
+  "end": "fell_unrecoverable",
+  "t": 10.14
  }
 ]

@@ -517,7 +517,7 @@
   "G3_": "ghost3[Clyde (shy)]"
  },
  "policy": "learned",
- "wall_s": 365.1,
+ "wall_s": 628.4,
  "recovery": "standup",
  "checkpoint": "checkpoints/strategy_final.npz",
  "checkpoint_sha256": "74c76bd9d2da49a2298ec6be5a58c42de5d1ab7597aa5bf90ee7a8f1745fc248",

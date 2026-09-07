@@ -10,12 +10,28 @@ GPU) that lets a tagged or fallen duck get back up, and the **Duck-Man strategy 
 (behaviour cloning of our scripted planner, then evolution strategies inside this simulation on a
 laptop CPU). Simulation only; no hardware claims.
 
+## At a glance
+
+- **Five real Microducks** (Pollen's MJCF and meshes, unmodified) in one MuJoCo scene, every joint of every
+  duck driven by a learned network at 50 Hz — the only multi-duck entry under fully learned locomotion.
+- **The only entry using Pollen's BAM voltage-level actuator model** (XL330 M6), one controller per duck,
+  the same physics the gaits were trained against — not plain PD servos.
+- **Two policies trained here:** a stand-up policy on the actual Microduck through Pollen's own training
+  task (7,000 PPO iterations, one GPU) and the Duck-Man strategy network (behaviour cloning, then evolution
+  strategies inside this simulation on a laptop). Curves, checkpoints and failures are all in the package.
+- **Evidence a judge can run:** `./run.sh` reproduces tests, four baselines and the video on CPU in ~15 min;
+  20 and 60 held-out seeds with paired statistics; a mechanical test that no rollout code writes simulator
+  state; per-file provenance hashes.
+- **Honest caveats:** the learned strategy's edge over our scripted planner is modest; the stand-up policy
+  cannot recover from face-up; the gait is slow, so the full round is shown at 2× (labelled) after a
+  real-time segment.
+
 ## What is learned and what is scripted (please read)
 
 | Layer | Type | Who made it | Evidence |
 |---|---|---|---|
 | **Stand-up policy** (14 joint targets at 50 Hz, recovers from sitting and face-down) | **trained here** — PPO on `Mjlab-StandUp-Flat-MicroDuck` from Pollen's `microduck_rl`, 7,000 iterations × 4,096 envs on one 24 GB GPU (HIM Arena machine) | this entry | `assets/policies/standup.onnx` (exported with Pollen's exporter, normalizer baked in); training logs and checkpoints in the repository's `training/standup/` notes |
-| **Duck-Man strategy** (which cell to go to next) | **trained here** — initialised by behaviour cloning of our scripted planner (8,928 decisions), then evolution strategies with full MuJoCo rollouts, elitism on a 6-layout pool | this entry | `checkpoints/strategy_final.npz` (sha256 in `results/learned_seed0.json`), `checkpoints/curve.csv`, learning-curve frame in the video |
+| **Duck-Man strategy** (which cell to go to next) | **trained here** — initialised by behaviour cloning of our scripted planner (8,928 decisions), then evolution strategies with full MuJoCo rollouts, elitism on a 6-layout pool | this entry | `checkpoints/strategy_final.npz` (sha256 in `results/learned_seed0.json`), `checkpoints/curve.csv`, `training/strategy/` (all four runs, including the failed ones) |
 | Cell navigation (turn, kick-start, walk to a cell centre) | scripted controller | this entry | `duckman/navigator.py` |
 | Ghost behaviour (chase / ambush / mirror / shy, scatter waves, flee, go home) | scripted controller | this entry | `duckman/ghosts.py` |
 | Scripted planner baseline (BFS with ghost-danger cost) | scripted controller | this entry | `duckman/planner.py` |
@@ -105,8 +121,10 @@ then `uv run scripts/export.py Mjlab-StandUp-Flat-MicroDuck --checkpoint-file <m
 ## Video
 
 `result.mp4` = title card → 30 s of held-out seed 2 in **real time, unedited** → generation-0 clip
-(untrained strategy network, 2× speed, labelled) → the full seed-2 round (2× speed, labelled) →
-strategy learning curve → stand-up training curve → end card with the numbers from `results/*.json`.
+(untrained strategy network, 2× speed, labelled) → neutral-baseline clip (gait running, strategy never
+moves, real time) → the full seed-2 round (2× speed, labelled) → stand-up policy demo (spawned face-down,
+trained policy only, labelled as a demo, not a scored round) → strategy training curves → stand-up training
+curve → end card with the numbers from `results/*.json`.
 The side panel, ticker, legend and chase-cam inset are drawn by the renderer from game state; the
 physics view is the evaluation itself. Seed 2 was chosen after the
 20-seed benchmark as the round where the learned policy's ghost-hunting shows best; the benchmark
