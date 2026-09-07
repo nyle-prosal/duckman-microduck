@@ -1,6 +1,7 @@
 # Duck-Man — maze tag for Microduck
 
 Entry for the HIM Arena **Microduck · Best Sports Sim** challenge (`microduck-sports-sim-2026`).
+Public repository: https://github.com/nyle-prosal/duckman-microduck
 
 ![Duck-Man: five Microducks, one maze, power mode on](docs/hero.png)
 
@@ -115,6 +116,23 @@ Every number above maps to a file in `evidence/README.md`; every shipped asset a
 hashed with its upstream URL in `assets/PROVENANCE.json`.
 
 
+### Ghost League: the ghosts learn too (co-evolution, one round)
+
+We pointed the same evolution trainer at the ghosts: one network shared by all four, deciding the next
+cell while hunting (fleeing and walking home stay scripted), fitness = minus the Duck-Man's score plus a
+bonus per tag, evolved against the **frozen** learned Duck-Man on the training pool
+(`duckman/train_ghosts.py`, curve in `training/strategy/ghosts_curve.csv`). Four generations were enough:
+
+<!-- league:start -->
+LEAGUE_TABLE
+<!-- league:end -->
+
+The learned ghosts found the learned Duck-Man's corner-camping habit and punish it. That is the point of
+the experiment and also its honest limit: it is one round of an arms race, run in the last hours before the
+deadline. The shipped Duck-Man, all headline numbers and the video use the scripted arcade ghosts; the
+learned ghosts are an extra result (`checkpoints/ghosts_final.npz`, `python -m duckman.eval --ghosts learned`,
+`python -m duckman.league`). The obvious next step is to evolve the Duck-Man back against them.
+
 ### Did training actually help? The generation ladder on held-out seeds
 
 <!-- ladder:start -->
@@ -188,7 +206,11 @@ python -m duckman.eval --policy learned --seed 7 --checkpoint checkpoints/strate
 ```
 
 Python ≥ 3.12; `./run.sh` needs PyPI only (the BAM actuator library is vendored as a wheel in
-`vendor/`, built from Rhoban/bam @ 62bd8ce). Evaluation is deterministic on CPU for a given seed. Retraining the stand-up policy
+`vendor/`, built from Rhoban/bam @ 62bd8ce). Evaluation is deterministic on CPU for a given seed.
+**Headless Linux:** MuJoCo needs EGL or OSMesa for the offscreen video (`apt-get install -y libosmesa6`, software rendering, always works; or EGL with a GPU driver;
+`run.sh` picks whichever is present). Without either, every test and evaluation still runs and only the video
+steps are skipped with a warning. Verified on a HIM Arena CPU machine: 26 tests and all evaluations pass on
+Ubuntu; the video renders with OSMesa (verified), while EGL failed on that GPU-less VM. Retraining the stand-up policy
 needs a CUDA GPU and Pollen's `microduck_rl` at commit 29e887e:
 `uv run train Mjlab-StandUp-Flat-MicroDuck --env.scene.num-envs 4096 --agent.max_iterations 7000 --agent.logger tensorboard`
 then `uv run scripts/export.py Mjlab-StandUp-Flat-MicroDuck --checkpoint-file <model_7000.pt>`.

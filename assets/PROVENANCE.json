@@ -396,6 +396,15 @@
   "license": "Apache-2.0"
  },
  {
+  "path": "checkpoints/ghosts_final.npz",
+  "sha256": "109267d5486bfbb08259d151d6ec0b07c063e23f4db7bd43078a52e48f7570a4",
+  "bytes": 30462,
+  "upstream": "trained for this entry: duckman/imitate.py then duckman/train_es.py (run4, generation 20 elite)",
+  "revision": "this entry",
+  "obtained": "2026-09-04",
+  "license": "Apache-2.0"
+ },
+ {
   "path": "checkpoints/ladder/00_random_init.npz",
   "sha256": "382dd23510c6b194cc1ef89220e590d791f72df4dc88776c025d004ede67d18d",
   "bytes": 38162,

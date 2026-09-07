@@ -35,23 +35,36 @@ def resolve_recovery(recovery):
     return recovery
 
 
+def make_ghosts(kind, recovery):
+    rec = "standup" if recovery == "standup" else "none"
+    if kind == "learned":
+        from .ghost_net import learned_ghosts
+        return learned_ghosts(str(POLICY_DIR.parent.parent / "checkpoints/ghosts_final.npz"), rec)
+    return default_ghosts(rec)
+
+
 def run_eval(policy, seed, checkpoint=None, max_t=CLOCK_S, video=None, log_positions=False, recovery="auto",
-             speed=1, label=None, vin=None):
+             speed=1, label=None, vin=None, ghosts="scripted"):
     recovery = resolve_recovery(recovery)
-    ghosts = default_ghosts("standup" if recovery == "standup" else "none")
+    ghost_kind = ghosts
+    ghosts = make_ghosts(ghost_kind, recovery)
     g = Game(Maze(), seed, make_policy(policy, checkpoint, recovery), ghosts, log_positions=log_positions, vin=vin)
     g.reset()
     rec = None
     if video:
         from .render import Recorder
-        rec = Recorder(g, label or f"{policy}  seed {seed}", speed=speed)
+        try:
+            rec = Recorder(g, label or f"{policy}  seed {seed}", speed=speed)
+        except Exception as e:                     # headless machine without EGL/OSMesa: evaluate anyway, skip the video
+            print(f"[warn] video disabled: {type(e).__name__}: {str(e)[:120]} -- on headless Linux install libegl1 or libosmesa6", flush=True)
+            rec = None
     t0 = time.time()
     while not g.done and g.sim.t < max_t - 1e-9:
         g.step()
         if rec:
             rec.maybe_capture()
     r = g.result()
-    r.update(policy=policy, wall_s=round(time.time() - t0, 1), recovery=recovery, checkpoint=checkpoint, battery_vin=vin,
+    r.update(policy=policy, wall_s=round(time.time() - t0, 1), recovery=recovery, checkpoint=checkpoint, battery_vin=vin, ghost_kind=ghost_kind,
              checkpoint_sha256=hashlib.sha256(Path(checkpoint).read_bytes()).hexdigest() if checkpoint else None,
              max_t=max_t, control_dt=0.02)
     if rec:
@@ -71,8 +84,9 @@ def main():
     ap.add_argument("--label")
     ap.add_argument("--max-t", type=float, default=CLOCK_S)
     ap.add_argument("--recovery", default="auto", help="auto|standup|sitstand")
+    ap.add_argument("--ghosts", default="scripted", help="scripted|learned (learned needs checkpoints/ghosts_final.npz)")
     a = ap.parse_args()
-    r = run_eval(a.policy, a.seed, a.checkpoint, a.max_t, a.video, recovery=a.recovery, speed=a.speed, label=a.label)
+    r = run_eval(a.policy, a.seed, a.checkpoint, a.max_t, a.video, recovery=a.recovery, speed=a.speed, label=a.label, ghosts=a.ghosts)
     print(json.dumps({k: v for k, v in r.items() if k != "events"}, indent=1, default=str))
     if a.out:
         Path(a.out).parent.mkdir(parents=True, exist_ok=True)

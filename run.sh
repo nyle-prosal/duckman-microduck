@@ -8,6 +8,12 @@ PY=${PYTHON:-python3}
 if [ ! -x .venv/bin/python ]; then "$PY" -m venv .venv; fi
 .venv/bin/python -m pip install --quiet --disable-pip-version-check -r requirements.txt
 export PYTHONPATH="$PWD"
+# headless Linux: MuJoCo needs EGL or OSMesa for offscreen video (apt-get install -y libegl1 libosmesa6);
+# without either, the evaluations still run and the video steps are skipped with a warning.
+if [ "$(uname)" = "Linux" ] && [ -z "${DISPLAY:-}" ] && [ -z "${MUJOCO_GL:-}" ]; then
+  if ldconfig -p 2>/dev/null | grep -q libOSMesa; then export MUJOCO_GL=osmesa; elif ldconfig -p 2>/dev/null | grep -q libEGL; then export MUJOCO_GL=egl; fi
+fi
+video_step() { "$@" || echo "[warn] video step failed (headless GL?): $*"; }
 if [ "${1:-}" = "train" ]; then shift; exec .venv/bin/python -m duckman.train_es "$@"; fi
 if [ "${1:-}" = "quick" ]; then
   # ~4 min: tests + the causality pair on seed 0, no video
@@ -30,8 +36,8 @@ CK=checkpoints/strategy_final.npz
     --label "Real time, unedited, seed 2 (first 20 s)"
 .venv/bin/python -m duckman.eval --policy neutral --seed 0 --video results/neutral_full.mp4 --speed 1 --max-t 70 \
     --label "Neutral baseline: gait runs, strategy never moves - 0 coins"
-.venv/bin/python -m duckman.cut results/neutral_full.mp4 results/neutral_clip.mp4 --start 50 --end 70   # window around its first tag (61 s)
-.venv/bin/python -m duckman.demo_standup --out results/standup_demo.mp4
+.venv/bin/python -m duckman.cut results/neutral_full.mp4 results/neutral_clip.mp4 --start 50 --end 70 || true   # window around its first tag (61 s)
+video_step .venv/bin/python -m duckman.demo_standup --out results/standup_demo.mp4
 # showcase round for the video: held-out seed 2 (learned and planner both evaluated, unedited)
 .venv/bin/python -m duckman.eval --policy learned --seed 2 --checkpoint "$CK" --out results/learned_seed2.json \
     --video results/final_seed2.mp4 --speed 2 --label "Final trained strategy, seed 2"
@@ -39,8 +45,8 @@ CK=checkpoints/strategy_final.npz
 .venv/bin/python -m duckman.eval --policy learned --seed 0 --checkpoint checkpoints/strategy_gen0.npz \
     --out results/gen0_seed0.json --video results/gen0_seed0.mp4 --speed 2 --max-t 40 --label "Generation 0 (untrained), seed 0"
 # cold open: the first power window and ghost catch of the seed-2 round (video seconds 37-47 = sim 74-94 s)
-.venv/bin/python -m duckman.cut results/final_seed2.mp4 results/coldopen.mp4 --start 37 --end 47
-.venv/bin/python -m duckman.make_video \
+.venv/bin/python -m duckman.cut results/final_seed2.mp4 results/coldopen.mp4 --start 37 --end 47 || true
+video_step .venv/bin/python -m duckman.make_video \
     --cold-open "results/coldopen.mp4:Power window and ghost catch, seed 2 (2x)" \
     --clips "results/realtime_seed2.mp4:Real time, unedited" "results/gen0_seed0.mp4:Generation 0 - untrained" \
             "results/neutral_clip.mp4:Neutral baseline - never moves" "results/final_seed2.mp4:Final policy - full round, seed 2" \

@@ -32,7 +32,11 @@ def main():
     mujoco.mj_forward(sim.model, sim.data)
     for _ in range(50):
         sim.step_physics()
-    rec = Recorder(g, f"Stand-up demo: {a.pose.replace('_', '-')} spawn, trained policy", speed=1)
+    try:
+        rec = Recorder(g, f"Stand-up demo: {a.pose.replace('_', '-')} spawn, trained policy", speed=1)
+    except Exception as e:
+        print(f"[warn] video disabled: {type(e).__name__}: {str(e)[:120]}", flush=True)
+        return
     rec.cam.distance, rec.cam.elevation, rec.cam.azimuth = 1.1, -28, 135
     rec.cam.lookat[:] = [x, y, 0.06]
     rec.chase.distance = 0.6

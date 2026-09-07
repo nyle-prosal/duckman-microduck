@@ -1,0 +1,802 @@
+[
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 0,
+  "score": 390,
+  "coins": 19,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 1,
+  "score": 340,
+  "coins": 19,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 2,
+  "score": 780,
+  "coins": 18,
+  "caught": "scripted",
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 3,
+  "score": 420,
+  "coins": 22,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 4,
+  "score": 390,
+  "coins": 19,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 5,
+  "score": 330,
+  "coins": 18,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 6,
+  "score": 370,
+  "coins": 22,
+  "caught": "scripted",
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 7,
+  "score": 380,
+  "coins": 18,
+  "caught": "scripted",
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 8,
+  "score": 420,
+  "coins": 22,
+  "caught": "scripted",
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 9,
+  "score": 330,
+  "coins": 18,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 10,
+  "score": 590,
+  "coins": 19,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 11,
+  "score": 590,
+  "coins": 19,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 12,
+  "score": 380,
+  "coins": 18,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 13,
+  "score": 390,
+  "coins": 19,
+  "caught": "scripted",
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 14,
+  "score": 390,
+  "coins": 19,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 15,
+  "score": 580,
+  "coins": 18,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 16,
+  "score": 390,
+  "coins": 19,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 17,
+  "score": 380,
+  "coins": 18,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 18,
+  "score": 340,
+  "coins": 19,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "scripted",
+  "seed": 19,
+  "score": 340,
+  "coins": 19,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 0,
+  "score": 20,
+  "coins": 2,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 1,
+  "score": 20,
+  "coins": 2,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 2,
+  "score": 20,
+  "coins": 2,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 3,
+  "score": 20,
+  "coins": 2,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 4,
+  "score": 10,
+  "coins": 1,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 5,
+  "score": 20,
+  "coins": 2,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 6,
+  "score": 20,
+  "coins": 2,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 7,
+  "score": 20,
+  "coins": 2,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 8,
+  "score": 10,
+  "coins": 1,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 9,
+  "score": 20,
+  "coins": 2,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 10,
+  "score": 20,
+  "coins": 2,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 11,
+  "score": 20,
+  "coins": 2,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 12,
+  "score": 20,
+  "coins": 2,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 13,
+  "score": 20,
+  "coins": 2,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 14,
+  "score": 20,
+  "coins": 2,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 15,
+  "score": 20,
+  "coins": 2,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 16,
+  "score": 20,
+  "coins": 2,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 17,
+  "score": 10,
+  "coins": 1,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 18,
+  "score": 20,
+  "coins": 2,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "learned",
+  "ghosts": "learned",
+  "seed": 19,
+  "score": 10,
+  "coins": 1,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 0,
+  "score": 640,
+  "coins": 24,
+  "caught": "scripted",
+  "lives_lost": 1,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 1,
+  "score": 430,
+  "coins": 23,
+  "caught": "scripted",
+  "lives_lost": 1,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 2,
+  "score": 430,
+  "coins": 23,
+  "caught": "scripted",
+  "lives_lost": 1,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 3,
+  "score": 210,
+  "coins": 11,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 4,
+  "score": 350,
+  "coins": 20,
+  "caught": "scripted",
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 5,
+  "score": 400,
+  "coins": 20,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 6,
+  "score": 410,
+  "coins": 21,
+  "caught": "scripted",
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 7,
+  "score": 220,
+  "coins": 12,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 8,
+  "score": 400,
+  "coins": 20,
+  "caught": "scripted",
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 9,
+  "score": 340,
+  "coins": 19,
+  "caught": "scripted",
+  "lives_lost": 1,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 10,
+  "score": 210,
+  "coins": 11,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 11,
+  "score": 640,
+  "coins": 24,
+  "caught": "scripted",
+  "lives_lost": 1,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 12,
+  "score": 410,
+  "coins": 21,
+  "caught": "scripted",
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 13,
+  "score": 320,
+  "coins": 17,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 14,
+  "score": 400,
+  "coins": 20,
+  "caught": "scripted",
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 15,
+  "score": 430,
+  "coins": 23,
+  "caught": "scripted",
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 16,
+  "score": 210,
+  "coins": 11,
+  "caught": "scripted",
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 17,
+  "score": 350,
+  "coins": 20,
+  "caught": "scripted",
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 18,
+  "score": 400,
+  "coins": 20,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "scripted",
+  "seed": 19,
+  "score": 350,
+  "coins": 20,
+  "caught": "scripted",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 0,
+  "score": 350,
+  "coins": 20,
+  "caught": "learned",
+  "lives_lost": 0,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 1,
+  "score": 420,
+  "coins": 22,
+  "caught": "learned",
+  "lives_lost": 0,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 2,
+  "score": 430,
+  "coins": 23,
+  "caught": "learned",
+  "lives_lost": 1,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 3,
+  "score": 340,
+  "coins": 19,
+  "caught": "learned",
+  "lives_lost": 0,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 4,
+  "score": 80,
+  "coins": 3,
+  "caught": "learned",
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 5,
+  "score": 460,
+  "coins": 26,
+  "caught": "learned",
+  "lives_lost": 0,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 6,
+  "score": 340,
+  "coins": 19,
+  "caught": "learned",
+  "lives_lost": 1,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 7,
+  "score": 340,
+  "coins": 19,
+  "caught": "learned",
+  "lives_lost": 0,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 8,
+  "score": 420,
+  "coins": 22,
+  "caught": "learned",
+  "lives_lost": 0,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 9,
+  "score": 440,
+  "coins": 24,
+  "caught": "learned",
+  "lives_lost": 0,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 10,
+  "score": 340,
+  "coins": 19,
+  "caught": "learned",
+  "lives_lost": 0,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 11,
+  "score": 330,
+  "coins": 18,
+  "caught": "learned",
+  "lives_lost": 0,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 12,
+  "score": 460,
+  "coins": 26,
+  "caught": "learned",
+  "lives_lost": 0,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 13,
+  "score": 440,
+  "coins": 24,
+  "caught": "learned",
+  "lives_lost": 0,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 14,
+  "score": 370,
+  "coins": 22,
+  "caught": "learned",
+  "lives_lost": 0,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 15,
+  "score": 410,
+  "coins": 21,
+  "caught": "learned",
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 16,
+  "score": 340,
+  "coins": 19,
+  "caught": "learned",
+  "lives_lost": 0,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 17,
+  "score": 460,
+  "coins": 26,
+  "caught": "learned",
+  "lives_lost": 0,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 18,
+  "score": 480,
+  "coins": 28,
+  "caught": "learned",
+  "lives_lost": 0,
+  "end": "timeout"
+ },
+ {
+  "pac": "planner",
+  "ghosts": "learned",
+  "seed": 19,
+  "score": 330,
+  "coins": 18,
+  "caught": "learned",
+  "lives_lost": 0,
+  "end": "timeout"
+ }
+]

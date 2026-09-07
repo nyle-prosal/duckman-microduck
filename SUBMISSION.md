@@ -9,6 +9,7 @@
 | Run command | `./run.sh` (full, 20-30 min CPU) — `./run.sh quick` for a 4-minute check |
 | Caption | see below |
 | Status | ready (not work-in-progress) |
+| Public repository | https://github.com/nyle-prosal/duckman-microduck |
 
 **Caption**
 

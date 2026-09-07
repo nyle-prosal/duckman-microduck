@@ -14,6 +14,7 @@
 | Generation ladder on 20 held-out seeds (random init → imitation → ES gen 5 → ES gen 20) | `python -m duckman.ladder --seeds 20` | `results/ladder.json`, `results/ladder.md`, `checkpoints/ladder/*.npz` |
 | Battery-voltage robustness (6.5 / 7.4 / 8.2 V, learned vs planner, 10 seeds per cell) | `python -m duckman.robustness --seeds 10` | `results/robustness.json`, `results/robustness.md` |
 | Behaviour analysis (pellet timing, ghost catches per power window, tags) and cell-occupancy heat maps | `python -m duckman.analyze --seeds 10` | `results/analysis.json`, `results/analysis.md`, `training/strategy/heatmap.png` |
+| Ghost League (learned vs scripted ghosts × learned vs planner Duck-Man, 20 held-out seeds) | `python -m duckman.league --seeds 20` | `results/league.json`, `results/league.md`, `checkpoints/ghosts_final.npz`, `training/strategy/ghosts_curve.csv` |
 | Stand-up policy demo clip (spawned face-down, trained policy only; not a scored round) | `python -m duckman.demo_standup` | `results/standup_demo.mp4` (produced by `./run.sh`, not shipped) |
 | All four strategy training runs, including the failed ones | `duckman/train_es.py`, `duckman/imitate.py` | `training/strategy/*_curve.csv`, `training/strategy/curves.png`, `training/strategy/README.md` |
 | Stand-up policy training: 7,000 PPO iterations, mean reward per iteration, recovery table | Pollen's `uv run train Mjlab-StandUp-Flat-MicroDuck` on a HIM GPU machine; our recovery harness | `training/standup/mean_reward.csv`, `training/standup/mean_reward.png`, `training/standup/README.md` |
