@@ -10,7 +10,7 @@ import pathlib
 
 SRC = pathlib.Path(__file__).resolve().parent.parent / "duckman"
 FORBIDDEN_ATTRS = {"qpos", "qvel", "ctrl", "xfrc_applied", "qfrc_applied", "mocap_pos", "mocap_quat", "act", "qacc"}
-ALLOWED_FUNCS = {("duck.py", "set_pose"), ("world.py", "reset"), ("world.py", "set_ball")}
+ALLOWED_FUNCS = {("duck.py", "set_pose"), ("duck.py", "place"), ("world.py", "reset"), ("world.py", "set_ball")}
 
 
 def _writes(fn: ast.FunctionDef):
@@ -44,4 +44,4 @@ def test_rollout_code_never_writes_simulator_state():
 
 def test_allowed_writers_are_only_reset_paths():
     # sanity: the allowlist itself must be small and named
-    assert ALLOWED_FUNCS == {("duck.py", "set_pose"), ("world.py", "reset"), ("world.py", "set_ball")}
+    assert ALLOWED_FUNCS == {("duck.py", "set_pose"), ("duck.py", "place"), ("world.py", "reset"), ("world.py", "set_ball")}

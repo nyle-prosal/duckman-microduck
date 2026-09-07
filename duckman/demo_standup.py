@@ -28,8 +28,7 @@ def main():
     r2 = 2 ** -0.5
     q = {"face_down": [r2, 0, r2, 0], "face_up": [r2, 0, -r2, 0], "sit": [1, 0, 0, 0]}[a.pose]
     x, y = g.maze.xy(g.maze.pac_start)
-    p.d.qpos[p.rq:p.rq + 3] = [x, y, 0.07]
-    p.d.qpos[p.rq + 3:p.rq + 7] = q
+    p.place([x, y, 0.07], q)                      # reset path (allow-listed in tests/test_no_sim_writes.py)
     mujoco.mj_forward(sim.model, sim.data)
     for _ in range(50):
         sim.step_physics()

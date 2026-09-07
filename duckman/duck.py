@@ -33,6 +33,16 @@ class Duck:
         self.d.qvel[self.vadr] = 0
         self.bam.q_target[self.qt] = DEFAULT_POSE
 
+    def place(self, xyz, quat):
+        """Reset-path only: put the trunk at xyz with orientation quat (w,x,y,z), joints at the default pose,
+        zero velocity. Used to spawn demo poses (face-down etc.) before an episode starts."""
+        self.d.qpos[self.rq:self.rq + 3] = xyz
+        self.d.qpos[self.rq + 3:self.rq + 7] = quat
+        self.d.qpos[self.qadr] = DEFAULT_POSE
+        self.d.qvel[self.rv:self.rv + 6] = 0
+        self.d.qvel[self.vadr] = 0
+        self.bam.q_target[self.qt] = DEFAULT_POSE
+
     def pos(self):
         return self.d.xpos[self.trunk].copy()
 
