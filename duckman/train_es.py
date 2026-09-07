@@ -62,6 +62,8 @@ def train(run_name, generations, pop=64, sigma=0.1, lr=0.02, seeds_per_gen=4, wo
         np.savez(out / "gen_0000.npz", flat=theta, n_in=N_FEATURES)
     m, v = np.zeros_like(theta), np.zeros_like(theta)
     best_fit, best_theta, stale = -np.inf, theta.copy(), 0
+    if resume is not None and "fit" in np.load(resume):
+        best_fit = float(np.load(resume)["fit"])      # resuming from an elite: only a better policy may replace it
     half = pop // 2
     start_gen = 1
     if (out / "curve.csv").exists():
