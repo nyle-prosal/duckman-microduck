@@ -33,12 +33,16 @@ def main():
     mujoco.mj_forward(sim.model, sim.data)
     for _ in range(50):
         sim.step_physics()
-    rec = Recorder(g, f"Stand-up demo: spawned {a.pose.replace('_', '-')}; trained policy only", speed=1)
+    rec = Recorder(g, f"Stand-up demo: {a.pose.replace('_', '-')} spawn, trained policy", speed=1)
     rec.cam.distance, rec.cam.elevation, rec.cam.azimuth = 1.1, -28, 135
     rec.cam.lookat[:] = [x, y, 0.06]
     rec.chase.distance = 0.6
     last = np.zeros(14, np.float32)
     calls = 0
+    for _ in range(int(1.5 / 0.02)):          # show the starting pose for 1.5 s before the policy is switched on
+        sim.step_physics()
+        g.view = g._view([])
+        rec.maybe_capture()
     for k in range(int(a.seconds / 0.02)):
         cmd = np.zeros(13, np.float32)
         act = su.run(np.concatenate([p.proprio(last), cmd]))
