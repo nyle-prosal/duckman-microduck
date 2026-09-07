@@ -21,7 +21,7 @@ laptop CPU). Simulation only; no hardware claims.
 - **Two policies trained here:** a stand-up policy on the actual Microduck through Pollen's own training
   task (7,000 PPO iterations, one GPU) and the Duck-Man strategy network (behaviour cloning, then evolution
   strategies inside this simulation on a laptop). Curves, checkpoints and failures are all in the package.
-- **Evidence a judge can run:** `./run.sh` reproduces tests, four baselines and the video on CPU in ~15 min;
+- **Evidence a judge can run:** `./run.sh` reproduces tests, four baselines and the video on CPU in 20-30 min;
   60 held-out seeds with paired statistics; a mechanical test that no rollout code writes simulator
   state; per-file provenance hashes.
 - **Honest caveats:** the learned strategy's edge over our scripted planner is modest; the stand-up policy
@@ -178,7 +178,7 @@ cheeky, result — and it is exactly the kind of exploit an objective score invi
 ## Reproduce
 
 ```bash
-./run.sh                    # venv, pinned deps, tests, evaluations, result.mp4   (CPU only, ~20 min)
+./run.sh                    # venv, pinned deps, tests, evaluations, result.mp4   (CPU only, 20-30 min)
 ./run.sh quick              # ~4 min: tests + the seed-0 causality pair, no video
 ./run.sh train --run r --generations 300 --pop 48 --seeds 3 --workers 10 --sigma 0.03 --lr 0.005 \
     --resume checkpoints/strategy_final.npz            # optional: continue evolving the strategy

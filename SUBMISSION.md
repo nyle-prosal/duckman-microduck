@@ -6,7 +6,7 @@
 | Name | `Duck-Man — maze tag for Microduck` |
 | Kind | `both` (policy + simulator) |
 | Robot / simulator | `microduck` / `mujoco` |
-| Run command | `./run.sh` (full, ~20 min CPU) — `./run.sh quick` for a 4-minute check |
+| Run command | `./run.sh` (full, 20-30 min CPU) — `./run.sh quick` for a 4-minute check |
 | Caption | see below |
 | Status | ready (not work-in-progress) |
 
