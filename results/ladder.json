@@ -1,0 +1,722 @@
+[
+ {
+  "stage": "random init (generation 0)",
+  "seed": 0,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 1,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 2,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 3,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 4,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 5,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 6,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 7,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 8,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 9,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 10,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 11,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 12,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 13,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 14,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 15,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 16,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 17,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 18,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "random init (generation 0)",
+  "seed": 19,
+  "score": 180,
+  "coins": 8,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 0,
+  "score": 340,
+  "coins": 19,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 1,
+  "score": 380,
+  "coins": 18,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 2,
+  "score": 210,
+  "coins": 11,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 3,
+  "score": 330,
+  "coins": 18,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 4,
+  "score": 210,
+  "coins": 11,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 5,
+  "score": 340,
+  "coins": 19,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 6,
+  "score": 210,
+  "coins": 11,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 7,
+  "score": 210,
+  "coins": 11,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 8,
+  "score": 330,
+  "coins": 18,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 9,
+  "score": 320,
+  "coins": 17,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 10,
+  "score": 330,
+  "coins": 18,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 11,
+  "score": 340,
+  "coins": 19,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 12,
+  "score": 210,
+  "coins": 11,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 13,
+  "score": 340,
+  "coins": 19,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 14,
+  "score": 330,
+  "coins": 18,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 15,
+  "score": 210,
+  "coins": 11,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 16,
+  "score": 390,
+  "coins": 19,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 17,
+  "score": 440,
+  "coins": 24,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 18,
+  "score": 330,
+  "coins": 18,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "stage": "imitation of the planner only",
+  "seed": 19,
+  "score": 210,
+  "coins": 11,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 0,
+  "score": 610,
+  "coins": 21,
+  "ghosts": 1,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 1,
+  "score": 570,
+  "coins": 17,
+  "ghosts": 1,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 2,
+  "score": 300,
+  "coins": 15,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 3,
+  "score": 610,
+  "coins": 21,
+  "ghosts": 1,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 4,
+  "score": 520,
+  "coins": 17,
+  "ghosts": 1,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 5,
+  "score": 510,
+  "coins": 16,
+  "ghosts": 1,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 6,
+  "score": 530,
+  "coins": 18,
+  "ghosts": 1,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 7,
+  "score": 580,
+  "coins": 18,
+  "ghosts": 1,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 8,
+  "score": 300,
+  "coins": 15,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 9,
+  "score": 610,
+  "coins": 21,
+  "ghosts": 1,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 10,
+  "score": 300,
+  "coins": 15,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 11,
+  "score": 290,
+  "coins": 14,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 12,
+  "score": 500,
+  "coins": 15,
+  "ghosts": 1,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 13,
+  "score": 300,
+  "coins": 15,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 14,
+  "score": 520,
+  "coins": 17,
+  "ghosts": 1,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 15,
+  "score": 330,
+  "coins": 18,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 16,
+  "score": 520,
+  "coins": 17,
+  "ghosts": 1,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 17,
+  "score": 330,
+  "coins": 18,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 18,
+  "score": 380,
+  "coins": 18,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 5",
+  "seed": 19,
+  "score": 380,
+  "coins": 18,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 0,
+  "score": 390,
+  "coins": 19,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 1,
+  "score": 340,
+  "coins": 19,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 2,
+  "score": 780,
+  "coins": 18,
+  "ghosts": 2,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 3,
+  "score": 420,
+  "coins": 22,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 4,
+  "score": 390,
+  "coins": 19,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 5,
+  "score": 330,
+  "coins": 18,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 6,
+  "score": 370,
+  "coins": 22,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 7,
+  "score": 380,
+  "coins": 18,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 8,
+  "score": 420,
+  "coins": 22,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 9,
+  "score": 330,
+  "coins": 18,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 10,
+  "score": 590,
+  "coins": 19,
+  "ghosts": 1,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 11,
+  "score": 590,
+  "coins": 19,
+  "ghosts": 1,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 12,
+  "score": 380,
+  "coins": 18,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 13,
+  "score": 390,
+  "coins": 19,
+  "ghosts": 0,
+  "lives_lost": 2,
+  "end": "timeout"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 14,
+  "score": 390,
+  "coins": 19,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 15,
+  "score": 580,
+  "coins": 18,
+  "ghosts": 1,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 16,
+  "score": 390,
+  "coins": 19,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 17,
+  "score": 380,
+  "coins": 18,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 18,
+  "score": 340,
+  "coins": 19,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ },
+ {
+  "stage": "evolution, generation 20 (shipped)",
+  "seed": 19,
+  "score": 340,
+  "coins": 19,
+  "ghosts": 0,
+  "lives_lost": 3,
+  "end": "game_over"
+ }
+]
