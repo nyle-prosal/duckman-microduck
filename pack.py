@@ -4,7 +4,7 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-INCLUDE = ["duckman", "tests", "assets", "checkpoints", "training", "results", "evidence", "vendor", "docs/superpowers/specs", "docs/hero.png", "SUBMISSION.md", "run.sh",
+INCLUDE = ["duckman", "tests", "assets", "checkpoints", "training", "results", "evidence", "vendor", "examples_api", "docs/superpowers/specs", "docs/hero.png", "SUBMISSION.md", "run.sh",
            "requirements.txt", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.md", "pack.py"]
 EXCLUDE_DIRS = {"__pycache__", ".venv", "runs", ".git", "spikes", "examples", "microduck_rl", "microduck"}
 EXCLUDE_SUFFIX = {".mp4", ".pyc", ".log"}

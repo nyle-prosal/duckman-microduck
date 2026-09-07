@@ -188,6 +188,18 @@ needs a CUDA GPU and Pollen's `microduck_rl` at commit 29e887e:
 `uv run train Mjlab-StandUp-Flat-MicroDuck --env.scene.num-envs 4096 --agent.max_iterations 7000 --agent.logger tensorboard`
 then `uv run scripts/export.py Mjlab-StandUp-Flat-MicroDuck --checkpoint-file <model_7000.pt>`.
 
+## Play it, or plug in your own strategy
+
+```bash
+python -m duckman.play --seed 0            # drive the Duck-Man with WASD/arrows against the ghosts (MuJoCo viewer)
+python examples_api/my_strategy.py         # a 20-line strategy: greedy coins, pellet when threatened
+```
+
+A strategy is any object with `reset(seed)` and `choose(view, cell, options) -> next cell or None`. It
+never touches joints or physics; the scripted navigator and Pollen's learned gait turn its choice into
+motion, and the same causality tests apply to it. Score yours with `duckman.bench` and compare against the
+tables above. Neither of these is part of the scored evaluation.
+
 ## Video
 
 `result.mp4` (3 min 41 s) = cold open: the seed-2 power window and ghost catch (2×) → title card → 20 s
