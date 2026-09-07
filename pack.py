@@ -17,7 +17,8 @@ def files():
             yield p
         elif p.is_dir():
             for f in sorted(p.rglob("*")):
-                if f.is_file() and not (set(f.parts) & EXCLUDE_DIRS) and f.suffix not in EXCLUDE_SUFFIX:
+                rel = f.relative_to(ROOT).parts
+                if f.is_file() and rel[0] not in EXCLUDE_DIRS and "__pycache__" not in rel and f.suffix not in EXCLUDE_SUFFIX:
                     yield f
 
 
