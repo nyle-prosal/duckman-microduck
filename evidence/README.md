@@ -25,3 +25,9 @@ Rejected or superseded experiments are described in the README's Limitations and
 (face-up recovery 0/8 at iterations 4499 and 7000; evolution without elitism regressing within 8
 generations; sigma 0.1 destroying the cloned policy). Their raw logs live in the working repository under
 `runs/` and are excluded from the ZIP by the challenge's packaging rules.
+
+## Linux clean room (`linux/`)
+
+Run on a HIM Arena Ubuntu 24.04 CPU machine from the packaged submission: 26 tests passed, the seed-0
+evaluations above completed (learned 340, planner 220, neutral 0, frozen 0) and the 20 s real-time clip rendered
+with OSMesa. Scores differ from macOS because the physics diverges across platforms; determinism is per-platform.

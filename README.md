@@ -215,7 +215,9 @@ python -m duckman.eval --policy learned --seed 7 --checkpoint checkpoints/strate
 ```
 
 Python ≥ 3.12; `./run.sh` needs PyPI only (the BAM actuator library is vendored as a wheel in
-`vendor/`, built from Rhoban/bam @ 62bd8ce). Evaluation is deterministic on CPU for a given seed.
+`vendor/`, built from Rhoban/bam @ 62bd8ce). Evaluation is deterministic on CPU for a given seed **on one platform**; across platforms (macOS vs Ubuntu) the
+floating-point differences make the chaotic contact physics diverge, so scores differ while the causality pattern holds
+(Ubuntu 24.04, seed 0: learned 340 / 19 coins, planner 220, neutral 0, frozen 0; JSONs in `evidence/linux/`).
 **Headless Linux:** MuJoCo needs EGL or OSMesa for the offscreen video (`apt-get install -y libosmesa6`, software rendering, always works; or EGL with a GPU driver;
 `run.sh` picks whichever is present). Without either, every test and evaluation still runs and only the video
 steps are skipped with a warning. Verified on a HIM Arena CPU machine: 26 tests and all evaluations pass on
