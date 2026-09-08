@@ -1,7 +1,7 @@
 # clones and downloads kept out of the entry repo
-microduck_rl/
-microduck/
-examples/
+/microduck_rl/
+/microduck/
+/examples/
 spikes/out/
 policies/*.onnx
 *.mp4
