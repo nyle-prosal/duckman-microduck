@@ -47,7 +47,6 @@ class MLP:
         self.shapes = [(dims[i], dims[i + 1]) for i in range(len(dims) - 1)]
         self.W = [rng.standard_normal(s).astype(np.float32) * np.sqrt(2 / s[0]) for s in self.shapes]
         self.b = [np.zeros(s[1], np.float32) for s in self.shapes]
-        self.n_params = sum(a * b + b for a, b in self.shapes)
 
     def get_flat(self):
         return np.concatenate([w.ravel() for w in self.W] + list(self.b))

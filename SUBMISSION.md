@@ -28,7 +28,7 @@ him upload ./submission.zip --video ./result.mp4 --kind both --robot microduck -
   --caption "<caption above>" --run-command "./run.sh" --ready --yes --json
 ```
 
-## What to watch for in `result.mp4` (3 min 40 s)
+## What to watch for in `result.mp4` (3 min 41 s)
 
 | Time | Segment | Look for |
 |---|---|---|

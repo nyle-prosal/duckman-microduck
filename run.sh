@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Reproduces the Duck-Man entry on CPU: tests, evaluations (learned / planner / neutral), result.mp4.
-#   ./run.sh            full reproduction (~10 min on a laptop)
+# Reproduces the Duck-Man entry on CPU: tests, evaluations (learned / planner / neutral / frozen), result.mp4.
+#   ./run.sh            full reproduction (20-30 min on a laptop CPU)
 #   ./run.sh train ...  optional: launch evolution-strategies training (e.g. --run r2 --generations 300)
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -31,7 +31,7 @@ CK=checkpoints/strategy_final.npz
 .venv/bin/python -m duckman.eval --policy planner --seed 0 --out results/planner_seed0.json
 .venv/bin/python -m duckman.eval --policy neutral --seed 0 --out results/neutral_seed0.json
 .venv/bin/python -m duckman.eval --policy frozen --seed 0 --out results/frozen_seed0.json
-# clips for the video: 30 s of seed 2 in real time, the neutral baseline in real time, the stand-up policy demo
+# clips for the video: 20 s of seed 2 in real time, the neutral baseline in real time, the stand-up policy demo
 .venv/bin/python -m duckman.eval --policy learned --seed 2 --checkpoint "$CK" --video results/realtime_seed2.mp4 --speed 1 --max-t 20 \
     --label "Real time, unedited, seed 2 (first 20 s)"
 .venv/bin/python -m duckman.eval --policy neutral --seed 0 --video results/neutral_full.mp4 --speed 1 --max-t 70 \

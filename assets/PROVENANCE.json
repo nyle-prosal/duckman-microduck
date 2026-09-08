@@ -390,7 +390,7 @@
   "path": "checkpoints/curve.csv",
   "sha256": "ed922816b740ed68ecc2327be4989359640c03c67f7cc26b9ab775b196f096fc",
   "bytes": 3694,
-  "upstream": "trained for this entry: duckman/imitate.py then duckman/train_es.py (run4, generation 20 elite)",
+  "upstream": "per-generation log of duckman/train_es.py run 4",
   "revision": "this entry",
   "obtained": "2026-09-04",
   "license": "Apache-2.0"
@@ -399,52 +399,52 @@
   "path": "checkpoints/ghosts_final.npz",
   "sha256": "109267d5486bfbb08259d151d6ec0b07c063e23f4db7bd43078a52e48f7570a4",
   "bytes": 30462,
-  "upstream": "trained for this entry: duckman/imitate.py then duckman/train_es.py (run4, generation 20 elite)",
+  "upstream": "trained for this entry: duckman/train_ghosts.py, 4 generations against the frozen learned Duck-Man",
   "revision": "this entry",
-  "obtained": "2026-09-04",
+  "obtained": "2026-09-07",
   "license": "Apache-2.0"
  },
  {
   "path": "checkpoints/ladder/00_random_init.npz",
   "sha256": "382dd23510c6b194cc1ef89220e590d791f72df4dc88776c025d004ede67d18d",
   "bytes": 38162,
-  "upstream": "trained for this entry: duckman/imitate.py then duckman/train_es.py (run4, generation 20 elite)",
+  "upstream": "evidence checkpoints for duckman/ladder.py (random init, imitation only, ES generation 5, ES generation 20)",
   "revision": "this entry",
-  "obtained": "2026-09-04",
+  "obtained": "2026-09-07",
   "license": "Apache-2.0"
  },
  {
   "path": "checkpoints/ladder/01_imitation_only.npz",
   "sha256": "8a988b4d27bd748cd4662f6b58933002ddc4c46a44566c7c7df5c3cfd912585b",
   "bytes": 75814,
-  "upstream": "trained for this entry: duckman/imitate.py then duckman/train_es.py (run4, generation 20 elite)",
+  "upstream": "evidence checkpoints for duckman/ladder.py (random init, imitation only, ES generation 5, ES generation 20)",
   "revision": "this entry",
-  "obtained": "2026-09-04",
+  "obtained": "2026-09-07",
   "license": "Apache-2.0"
  },
  {
   "path": "checkpoints/ladder/02_es_gen05.npz",
   "sha256": "30fa7715f284f0ffd2efae83162eb356f7576480720a8d180a95cd3582e7dbcf",
   "bytes": 38162,
-  "upstream": "trained for this entry: duckman/imitate.py then duckman/train_es.py (run4, generation 20 elite)",
+  "upstream": "evidence checkpoints for duckman/ladder.py (random init, imitation only, ES generation 5, ES generation 20)",
   "revision": "this entry",
-  "obtained": "2026-09-04",
+  "obtained": "2026-09-07",
   "license": "Apache-2.0"
  },
  {
   "path": "checkpoints/ladder/03_es_gen20_final.npz",
   "sha256": "74c76bd9d2da49a2298ec6be5a58c42de5d1ab7597aa5bf90ee7a8f1745fc248",
   "bytes": 38654,
-  "upstream": "trained for this entry: duckman/imitate.py then duckman/train_es.py (run4, generation 20 elite)",
+  "upstream": "evidence checkpoints for duckman/ladder.py (random init, imitation only, ES generation 5, ES generation 20)",
   "revision": "this entry",
-  "obtained": "2026-09-04",
+  "obtained": "2026-09-07",
   "license": "Apache-2.0"
  },
  {
   "path": "checkpoints/strategy_final.npz",
   "sha256": "74c76bd9d2da49a2298ec6be5a58c42de5d1ab7597aa5bf90ee7a8f1745fc248",
   "bytes": 38654,
-  "upstream": "trained for this entry: duckman/imitate.py then duckman/train_es.py (run4, generation 20 elite)",
+  "upstream": "trained for this entry: duckman/imitate.py then duckman/train_es.py (run 4, generation 20 elite)",
   "revision": "this entry",
   "obtained": "2026-09-04",
   "license": "Apache-2.0"
@@ -453,7 +453,7 @@
   "path": "checkpoints/strategy_gen0.npz",
   "sha256": "382dd23510c6b194cc1ef89220e590d791f72df4dc88776c025d004ede67d18d",
   "bytes": 38162,
-  "upstream": "trained for this entry: duckman/imitate.py then duckman/train_es.py (run4, generation 20 elite)",
+  "upstream": "untrained network (generation 0), used for the ladder and the generation-0 clip",
   "revision": "this entry",
   "obtained": "2026-09-04",
   "license": "Apache-2.0"

@@ -1,13 +1,14 @@
 """Evaluate one Duck-Man policy on one seed and write the evidence JSON.
 
-python -m duckman.eval --policy learned|planner|neutral --seed 0 [--checkpoint x.npz] [--out r.json] [--video v.mp4]
+python -m duckman.eval --policy learned|planner|neutral|frozen --seed 0 [--checkpoint x.npz] [--out r.json] [--video v.mp4]
+    [--ghosts scripted|learned] [--recovery sitstand|standup] [--max-t S] [--speed N] [--label TEXT]
 """
 import argparse
 import hashlib
 import json
 import time
 from pathlib import Path
-from .constants import CLOCK_S, POLICY_DIR
+from .constants import CLOCK_S, POLICY_DIR, ROOT
 from .maze import Maze
 from .game import Game
 from .policies import DuckManPolicy, NeutralStrategy, FrozenDuckMan
@@ -39,7 +40,7 @@ def make_ghosts(kind, recovery):
     rec = "standup" if recovery == "standup" else "none"
     if kind == "learned":
         from .ghost_net import learned_ghosts
-        return learned_ghosts(str(POLICY_DIR.parent.parent / "checkpoints/ghosts_final.npz"), rec)
+        return learned_ghosts(str(ROOT / "checkpoints/ghosts_final.npz"), rec)
     return default_ghosts(rec)
 
 

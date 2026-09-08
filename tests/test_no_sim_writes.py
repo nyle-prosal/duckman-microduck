@@ -2,15 +2,15 @@
 
 Walks the AST of every function in duckman/ that runs during an episode and fails if any of them assigns
 into qpos, qvel, ctrl, xfrc_applied, qfrc_applied, mocap_pos/quat or calls mj_resetData. The only places
-allowed to touch state are the reset paths (Sim.reset, Duck.set_pose) and the BAM controller, which writes
-ctrl torques from the policy's joint targets. Adapted from an idea in another entrant's submission.
+allowed to touch state are the reset paths (Sim.reset, Duck.set_pose, Duck.place) and the BAM controller, which
+writes ctrl torques from the policy's joint targets.
 """
 import ast
 import pathlib
 
 SRC = pathlib.Path(__file__).resolve().parent.parent / "duckman"
 FORBIDDEN_ATTRS = {"qpos", "qvel", "ctrl", "xfrc_applied", "qfrc_applied", "mocap_pos", "mocap_quat", "act", "qacc"}
-ALLOWED_FUNCS = {("duck.py", "set_pose"), ("duck.py", "place"), ("world.py", "reset"), ("world.py", "set_ball")}
+ALLOWED_FUNCS = {("duck.py", "set_pose"), ("duck.py", "place"), ("world.py", "reset")}
 
 
 def _writes(fn: ast.FunctionDef):
@@ -43,5 +43,7 @@ def test_rollout_code_never_writes_simulator_state():
 
 
 def test_allowed_writers_are_only_reset_paths():
-    # sanity: the allowlist itself must be small and named
-    assert ALLOWED_FUNCS == {("duck.py", "set_pose"), ("duck.py", "place"), ("world.py", "reset"), ("world.py", "set_ball")}
+    # the allowlist must stay small, and every entry must be a real function in the named file
+    assert len(ALLOWED_FUNCS) == 3
+    for fname, fn in ALLOWED_FUNCS:
+        assert f"def {fn}(" in (SRC / fname).read_text(), f"{fname}::{fn} is allow-listed but does not exist"

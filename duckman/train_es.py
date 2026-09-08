@@ -18,7 +18,6 @@ from .constants import CLOCK_S, ROOT
 from .maze import Maze
 from .game import Game
 from .policies import DuckManPolicy
-from .ghosts import default_ghosts
 from .strategy_net import MLP, NetStrategy, N_FEATURES
 
 _GAMES = {}

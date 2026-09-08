@@ -20,7 +20,7 @@ laptop CPU). Simulation only; no hardware claims.
 - **The only entry using Pollen's BAM voltage-level actuator model** (XL330 M6), one controller per duck,
   the same physics the gaits were trained against, not plain PD servos.
 - **Two policies trained here:** a stand-up policy on the actual Microduck through Pollen's own training
-  task (7,000 PPO iterations, one GPU) and the Duck-Man strategy network (behaviour cloning, then evolution
+  task (a 7,000-iteration PPO run, one GPU; the shipped export is the 4,499 checkpoint) and the Duck-Man strategy network (behaviour cloning, then evolution
   strategies inside this simulation on a laptop). Curves, checkpoints and failures are all in the package.
 - **Evidence a judge can run:** `./run.sh` reproduces tests, four baselines and the video on CPU in 20-30 min;
   60 held-out seeds with paired statistics; a mechanical test that no rollout code writes simulator
@@ -33,7 +33,7 @@ laptop CPU). Simulation only; no hardware claims.
 
 | Layer | Type | Who made it | Evidence |
 |---|---|---|---|
-| **Stand-up policy** (14 joint targets at 50 Hz, recovers from sitting and face-down) | **trained here**: PPO on `Mjlab-StandUp-Flat-MicroDuck` from Pollen's `microduck_rl`, 7,000 iterations × 4,096 envs on one 24 GB GPU (HIM Arena machine) | this entry | `assets/policies/standup.onnx` (exported with Pollen's exporter, normalizer baked in); training logs and checkpoints in the repository's `training/standup/` notes |
+| **Stand-up policy** (14 joint targets at 50 Hz, recovers from sitting and face-down) | **trained here**: PPO on `Mjlab-StandUp-Flat-MicroDuck` from Pollen's `microduck_rl`, 4,096 envs on one 24 GB GPU, 7,000 iterations; the shipped export is the 4,499 checkpoint (7,000 measured the same) | this entry | `assets/policies/standup.onnx` (exported with Pollen's exporter, normalizer baked in); training logs and checkpoints in the repository's `training/standup/` notes |
 | **Duck-Man strategy** (which cell to go to next) | **trained here**: initialised by behaviour cloning of our scripted planner (8,928 decisions), then evolution strategies with full MuJoCo rollouts, elitism on a 6-layout pool | this entry | `checkpoints/strategy_final.npz` (sha256 in `results/learned_seed0.json`), `checkpoints/curve.csv`, `training/strategy/` (all four runs, including the failed ones) |
 | Cell navigation (turn, kick-start, walk to a cell centre) | scripted controller | this entry | `duckman/navigator.py` |
 | Ghost behaviour (chase / ambush / mirror / shy, scatter waves, flee, go home) | scripted controller | this entry | `duckman/ghosts.py` |
@@ -43,7 +43,8 @@ laptop CPU). Simulation only; no hardware claims.
 
 **Balance assistance: none.** No fixed base, no external stabilisation, no joint animation. All 70
 servos of all five ducks are driven only by the ONNX gait networks, every control step, and each
-policy object's `act()` is the only writer of joint targets (`duckman/policies.py`).
+policy object's `act()` is the only writer of joint targets (`duckman/policies.py`). The labelled stand-up demo
+(`duckman/demo_standup.py`) drives one duck's targets directly and is not a scored round.
 **Observation:** the strategy layer sees perfect game state (positions, coin states, ghost modes);
 every gait network sees proprioception only, exactly as on the robot.
 **Render-only cues:** collected tokens become invisible and inert (they still rest on the floor);
@@ -62,7 +63,7 @@ other contact is ordinary physics.
 
 ## Results
 
-Held-out seeds 0–59 (training used layouts 1000–1005 only). Same seed = same maze jitter, spawn
+Held-out seeds 0–59 (evolution used layouts 1000–1005, behaviour cloning seeds 2000–2039). Same seed = same maze jitter, spawn
 noise and ghost RNG for every policy, every policy gets the full 240 s clock. Two disabled baselines:
 **neutral** keeps Pollen's balance network running but never chooses a cell, **frozen** has no
 network at all (default pose held by the actuator model).
@@ -80,7 +81,7 @@ Paired per-seed difference (learned - planner): mean +45 points, 95% bootstrap C
 
 A third scripted baseline, the 20-line greedy strategy shipped as `examples_api/my_strategy.py`
 (nearest coin, pellet when threatened), scores **387 ± 124** on the same 60 seeds
-(`results/extra_GreedyCoinStrategy.json`): more coins than either, no ghost hunting. The learned
+(`results/extra_GreedyCoinStrategy.json`): more coins than either, almost no ghost hunting (3 catches in 60 rounds). The learned
 strategy stays ahead of both scripted baselines; the gap to the planner is the one we test statistically.
 
 Seed 0 is the causality seed; seed 2 is the round shown in full in the video (both held out, both
@@ -95,14 +96,14 @@ produced by `./run.sh`):
 | 0 | Duck-Man[scripted planner] | **640** | 24 | 4 | 1 | 1 | timeout | 240.0 s | 2 |
 | 0 | Duck-Man[neutral (always stay)] | **0** | 0 | 0 | 0 | 3 | game_over | 203.84 s | 3 |
 | 0 | Duck-Man[frozen: default pose, no network] | **0** | 0 | 0 | 0 | 0 | fell_unrecoverable | 10.66 s | 1 |
-| 0 | Duck-Man[strategy network, generation 0 (untrained)] | **180** | 8 | 2 | 0 | 0 | stopped at 60 s (evaluation window) | 60.0 s | 0 |
+| 0 | Duck-Man[strategy network, generation 0 (untrained)] | **180** | 8 | 2 | 0 | 0 | stopped at 40 s (evaluation window) | 40.0 s | 0 |
 <!-- results:end -->
 
 **Causality test** (`tests/test_eval_causality.py`, run by `./run.sh`): the trained strategy must
-score ≥ 200 with ≥ 12 coins on seed 0; the neutral and frozen Duck-Men collect 0 coins over the full
-240 s; every policy's call count equals the number of control steps; gait actions are finite and
+score ≥ 200 with ≥ 12 coins on seed 0; the neutral and frozen Duck-Men collect 0 coins in their whole
+round (the neutral duck loses its three lives at 204 s, the frozen one falls at 11 s); every policy's call count equals the number of control steps; gait actions are finite and
 bounded. **Mechanical trust check** (`tests/test_no_sim_writes.py`): an AST walk over every function
-in `duckman/` fails if anything outside the two reset paths assigns to `qpos`, `qvel`, `ctrl`,
+in `duckman/` fails if anything outside the allow-listed reset paths assigns to `qpos`, `qvel`, `ctrl`,
 `xfrc_applied`, `qfrc_applied` or mocap fields, or calls `mj_resetData`. **How to read the paired statistics:** over 60 held-out seeds the learned strategy scores +45
 points more on average than our scripted planner and the bootstrap interval excludes zero, but it wins
 only 29 of 60 rounds. It loses small and wins big: what it learned that the planner never does is to hunt
@@ -155,7 +156,7 @@ learned ghosts are an extra result (`checkpoints/ghosts_final.npz`, `python -m d
 Held-out seeds 0-19, full 240 s rounds, identical ghosts and maze per seed.
 <!-- ladder:end -->
 
-Imitation alone gets the network to 300; evolution adds the ghost-hunting and another 130–150 points.
+Imitation alone gets the network to 300; evolution adds the ghost-hunting and another 125–150 points.
 Generation 5 and generation 20 are within noise of each other on these seeds (std ≈ 115 at n = 20). We
 ship generation 20 because it was selected as the elite **on the training pool only**; picking a
 checkpoint by its held-out score would make the held-out numbers meaningless, so we did not.
@@ -210,7 +211,7 @@ cheeky, result, and exactly the kind of exploit an objective score invites.
 ./run.sh train --run r --generations 300 --pop 48 --seeds 3 --workers 10 --sigma 0.03 --lr 0.005 \
     --resume checkpoints/strategy_final.npz            # optional: continue evolving the strategy
 python -m duckman.imitate --rounds 40                  # optional: rebuild the behaviour-cloning init
-python -m duckman.bench --seeds 20                     # optional: the 20-seed table above
+python -m duckman.bench --seeds 60                     # optional: the 60-seed table above (hours on CPU)
 python -m duckman.eval --policy learned --seed 7 --checkpoint checkpoints/strategy_final.npz --video x.mp4
 ```
 
@@ -224,7 +225,7 @@ steps are skipped with a warning. Verified on a HIM Arena CPU machine: 26 tests 
 Ubuntu; the video renders with OSMesa (verified), while EGL failed on that GPU-less VM. Retraining the stand-up policy
 needs a CUDA GPU and Pollen's `microduck_rl` at commit 29e887e:
 `uv run train Mjlab-StandUp-Flat-MicroDuck --env.scene.num-envs 4096 --agent.max_iterations 7000 --agent.logger tensorboard`
-then `uv run scripts/export.py Mjlab-StandUp-Flat-MicroDuck --checkpoint-file <model_7000.pt>`.
+then `uv run scripts/export.py Mjlab-StandUp-Flat-MicroDuck --checkpoint-file <model_N.pt>` (the shipped file is the 4,499 checkpoint; 7,000 measured the same).
 
 ## Play it, or plug in your own strategy
 
@@ -247,7 +248,7 @@ trained policy only, labelled as a demo, not a scored round) → strategy traini
 curve → end card with the numbers from `results/*.json`. `SUBMISSION.md` has a timestamped viewing guide.
 The side panel, ticker, legend and chase-cam inset are drawn by the renderer from game state; the
 physics view is the evaluation itself. Seed 2 was chosen after the
-20-seed benchmark as the round where the learned policy's ghost-hunting shows best; the benchmark
+60-seed benchmark as the round where the learned policy's ghost-hunting shows best; the benchmark
 table above reports every seed, wins and losses alike. Clips are unedited renders of the evaluation runs; only the playback speed is
 changed, and it is burned into the frame.
 
@@ -257,14 +258,14 @@ changed, and it is burned into the frame.
 - The strategy layer uses perfect game state; a real robot would need perception.
 - Pollen's gait walks at ~0.15 m/s and cannot strafe, so the game is slow and turn-heavy; 2×
   playback is used for watchability.
-- **Face-up recovery does not work.** The stand-up policy rises from sitting (5/5) and face-down
+- **Face-up recovery does not work.** The stand-up policy rises from sitting (4/4) and face-down
   (6/6) but not from its back (0/8 across roll angles) after 7,000 iterations, nor after a further 1,100
   iterations with 60% face-up spawns (`training/standup/README.md`, negative result). A Duck-Man knocked
   onto its back stays down and loses its remaining lives to tags. That is a fair knockout, but a gap. For
   context: no published Microduck policy we could find (Pollen's set, 31 community repos, every other
   entry) recovers from face-up either; ours is the only recovery skill in the field at all.
-- The learned strategy is aggressive: it usually spends all three lives by ~160 s hunting ghosts.
-  Under the scoring rules that is the higher-scoring choice; it does make rounds shorter.
+- The learned strategy is aggressive: in 40 of 60 rounds it spends all three lives before the clock,
+  typically around 220 s, hunting ghosts. Under the scoring rules that is the higher-scoring choice; it does make rounds shorter.
 - Training seeds are six maze layouts; generalisation to held-out seeds is shown above, but the maze
   shape itself is fixed.
 
@@ -283,4 +284,4 @@ changed, and it is burned into the frame.
 ## Attribution
 
 See `THIRD_PARTY_NOTICES.md`. Microduck model and policies © Pollen Robotics (Apache-2.0 code and
-policies, CC BY-SA-NC 4.0 meshes). BAM by Rhoban. This entry's code is Apache-2.0.
+policies, CC BY-SA-NC 4.0 meshes). BAM by Rhoban. This entry's code is Apache-2.0, copyright 2026 Nyle Malik.

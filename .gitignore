@@ -11,3 +11,14 @@ __pycache__/
 logs/
 runs/
 .DS_Store
+/submission.zip
+/spikes/
+/policies/
+results/*.png
+*.curve.png
+.pytest_cache/
+.env*
+*.egg-info/
+.idea/
+.vscode/
+*.swp

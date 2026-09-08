@@ -5,7 +5,7 @@ mjlab 1.3.0 / MuJoCo Warp / rsl_rl PPO), unmodified task `Mjlab-StandUp-Flat-Mic
 
 | Item | Value |
 |---|---|
-| Hardware | 1× NVIDIA RTX 4090 (24 GB), HIM Arena SSH machine `gpu-l4-workspace`, 2026-09-04 |
+| Hardware | 1× NVIDIA RTX 4090 (24 GB), allocated by the HIM Arena `gpu-l4-workspace` profile, 2026-09-04 |
 | Environments | 4,096 parallel, 50 Hz control, BAM actuator model, Pollen's domain randomisation |
 | Iterations | 0 → 4,499 (2.0 h, 1.55 s/iteration), resumed 4,499 → 7,000 (1.1 h) |
 | Logger | tensorboard (`mean_reward.csv` here is the exported `Train/mean_reward` curve; `mean_reward.png` plots it) |

@@ -1,5 +1,5 @@
-"""Held-out benchmark: learned vs planner vs neutral over N seeds. Writes results/bench.json and a markdown table.
-python -m duckman.bench --seeds 20 --workers 4 --checkpoint checkpoints/strategy_final.npz
+"""Held-out benchmark: learned vs planner vs neutral vs frozen over N seeds. Writes results/bench.json and a markdown table.
+python -m duckman.bench --seeds 60 --workers 4 --checkpoint checkpoints/strategy_final.npz
 """
 import argparse
 import json

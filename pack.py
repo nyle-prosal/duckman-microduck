@@ -1,12 +1,11 @@
-"""Build submission.zip with source, small assets, pins, tests, README, licences and the inference checkpoint only."""
-import os
+"""Build submission.zip: source, tests, small assets, the checkpoints loaded by the documented commands, measurements
+(JSON/MD only), evidence, the vendored wheel, pins, README, licences. Videos, logs, caches and working files stay out."""
 import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 INCLUDE = ["duckman", "tests", "assets", "checkpoints", "training", "results", "evidence", "vendor", "examples_api", "docs/hero.png", "SUBMISSION.md", "run.sh",
            "requirements.txt", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.md", "pack.py"]
-EXCLUDE_DIRS = {"__pycache__", ".venv", "runs", ".git", "spikes", "examples", "microduck_rl", "microduck"}
 EXCLUDE_SUFFIX = {".mp4", ".pyc", ".log"}
 
 
@@ -20,7 +19,7 @@ def files():
                 rel = f.relative_to(ROOT).parts
                 if rel[0] == "results" and f.suffix not in (".json", ".md"):
                     continue                     # measurements only; preview frames and videos stay out
-                if f.is_file() and rel[0] not in EXCLUDE_DIRS and "__pycache__" not in rel and f.suffix not in EXCLUDE_SUFFIX:
+                if f.is_file() and "__pycache__" not in rel and f.suffix not in EXCLUDE_SUFFIX:
                     yield f
 
 

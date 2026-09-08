@@ -7,7 +7,6 @@ import sys
 import termios
 import time
 import tty
-import numpy as np
 import mujoco
 import mujoco.viewer
 from .constants import ROOT, CTRL_DT

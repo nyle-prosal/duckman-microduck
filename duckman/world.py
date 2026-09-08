@@ -2,7 +2,7 @@
 import numpy as np
 import mujoco
 from .constants import (ROBOT_XML, CELL, WALL_H, DUCK_Z, COIN_R, COIN_H, COIN_MASS, PELLET_R, PELLET_H,
-                        PELLET_MASS, COLORS, DECIMATION, CTRL_DT, DEFAULT_POSE)
+                        PELLET_MASS, COLORS, DECIMATION, CTRL_DT)
 from .bam_loader import compile_with_bam
 from .duck import Duck, quat_yaw
 from .maze import Maze
@@ -232,17 +232,8 @@ class Sim:
         b = self._tok[name]
         return (self.data.xmat[b][8] <= 0.7) or (np.linalg.norm(self.data.xpos[b][:2] - self._tok0[name]) >= displace)
 
-    def _pairs(self):
-        m, d = self.model, self.data
-        for i in range(d.ncon):
-            c = d.contact[i]
-            yield m.body(m.geom_bodyid[c.geom1]).name, m.body(m.geom_bodyid[c.geom2]).name
-
     def contact(self, a, b):
         return (self._code[a], self._code[b]) in self._con
-
-    def contact_token(self, prefix, token):
-        return (self._code[prefix], self._code[token]) in self._con
 
     def root_positions(self):
         out = {p: d.pos() for p, d in self.ducks.items()}

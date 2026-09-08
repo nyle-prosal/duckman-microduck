@@ -2,7 +2,6 @@
 import hashlib
 import json
 from datetime import date
-from pathlib import Path
 from .constants import ROOT
 
 UPSTREAM = {
@@ -11,7 +10,11 @@ UPSTREAM = {
     "assets/policies/alpha_": ("https://huggingface.co/pollen-robotics/microduck-policies/tree/main", "pollen-robotics/microduck-policies, 2026-09-02 revision", "2026-09-03", "Apache-2.0"),
     "assets/policies/standup.onnx": ("trained for this entry: Mjlab-StandUp-Flat-MicroDuck, microduck_rl @ 29e887e, HIM Arena RTX 4090, exported with scripts/export.py from model_4499.pt",
                                      "this entry", "2026-09-04", "Apache-2.0"),
-    "checkpoints/": ("trained for this entry: duckman/imitate.py then duckman/train_es.py (run4, generation 20 elite)", "this entry", "2026-09-04", "Apache-2.0"),
+    "checkpoints/ghosts_final.npz": ("trained for this entry: duckman/train_ghosts.py, 4 generations against the frozen learned Duck-Man", "this entry", "2026-09-07", "Apache-2.0"),
+    "checkpoints/ladder/": ("evidence checkpoints for duckman/ladder.py (random init, imitation only, ES generation 5, ES generation 20)", "this entry", "2026-09-07", "Apache-2.0"),
+    "checkpoints/strategy_gen0.npz": ("untrained network (generation 0), used for the ladder and the generation-0 clip", "this entry", "2026-09-04", "Apache-2.0"),
+    "checkpoints/curve.csv": ("per-generation log of duckman/train_es.py run 4", "this entry", "2026-09-04", "Apache-2.0"),
+    "checkpoints/": ("trained for this entry: duckman/imitate.py then duckman/train_es.py (run 4, generation 20 elite)", "this entry", "2026-09-04", "Apache-2.0"),
     "vendor/": ("https://github.com/Rhoban/bam/tree/62bd8ce12154340be97e06f7f41a0ca8f116d967", "Rhoban/bam @ 62bd8ce (branch mjlab_frictionloss), built with pip wheel", "2026-09-07", "MIT"),
 }
 

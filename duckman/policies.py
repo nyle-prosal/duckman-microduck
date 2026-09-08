@@ -259,7 +259,6 @@ class GhostPolicy(_Base):
                 self.nav.target = None
             if self.getting_up:
                 self.gu_t += CTRL_DT
-                obs["proprio"][34:48] = self.last
                 t = self._run(obs, np.zeros(13, np.float32), "standup")
                 self.up_t = self.up_t + CTRL_DT if up > 0.75 else 0.0
                 if self.up_t >= 1.0 or self.mode_t_up() > 15.0:

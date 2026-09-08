@@ -5,7 +5,7 @@ import json
 from multiprocessing import Pool
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
-from .constants import ROOT, CELL
+from .constants import ROOT
 from .maze import Maze
 from .game import Game
 from .eval import make_policy, resolve_recovery

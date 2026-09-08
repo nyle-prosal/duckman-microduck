@@ -3,7 +3,6 @@ python -m duckman.ladder --seeds 20 --workers 6"""
 import argparse
 import json
 from multiprocessing import Pool
-from pathlib import Path
 import numpy as np
 from .constants import ROOT
 from .eval import run_eval

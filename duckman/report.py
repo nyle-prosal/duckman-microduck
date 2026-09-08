@@ -1,7 +1,6 @@
 """Fill the README results table from results/*.json.  python -m duckman.report results/learned_seed0.json ..."""
 import json
 import sys
-from pathlib import Path
 from .constants import ROOT
 
 HEADER = ("| Seed | Policy | Score | Coins | Pellets | Ghosts caught | Lives lost | End | Time | Falls |\n"

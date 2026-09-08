@@ -2,7 +2,6 @@
 trained stand-up policy alone bring it back to its feet. python -m duckman.demo_standup --out results/standup_demo.mp4
 """
 import argparse
-import math
 import numpy as np
 import mujoco
 from .maze import Maze

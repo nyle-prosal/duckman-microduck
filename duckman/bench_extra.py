@@ -5,7 +5,6 @@ import importlib
 import json
 import sys
 from multiprocessing import Pool
-from pathlib import Path
 import numpy as np
 from .constants import ROOT
 from .maze import Maze
