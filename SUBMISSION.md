@@ -1,12 +1,12 @@
-# Submission sheet — Duck-Man
+# Submission sheet: Duck-Man
 
 | HIM Arena field | Value |
 |---|---|
 | Challenge | `microduck-sports-sim-2026` (Microduck · Best Sports Sim) |
-| Name | `Duck-Man — maze tag for Microduck` |
+| Name | `Duck-Man: maze tag for Microduck` |
 | Kind | `both` (policy + simulator) |
 | Robot / simulator | `microduck` / `mujoco` |
-| Run command | `./run.sh` (full, 20-30 min CPU) — `./run.sh quick` for a 4-minute check |
+| Run command | `./run.sh` (full, 20-30 min CPU); `./run.sh quick` runs a 4-minute check |
 | Caption | see below |
 | Status | ready (not work-in-progress) |
 | Public repository | https://github.com/nyle-prosal/duckman-microduck |
@@ -24,7 +24,7 @@
 
 ```
 him upload ./submission.zip --video ./result.mp4 --kind both --robot microduck --simulator mujoco \
-  --challenge microduck-sports-sim-2026 --name "Duck-Man — maze tag for Microduck" \
+  --challenge microduck-sports-sim-2026 --name "Duck-Man: maze tag for Microduck" \
   --caption "<caption above>" --run-command "./run.sh" --ready --yes --json
 ```
 
@@ -35,8 +35,8 @@ him upload ./submission.zip --video ./result.mp4 --kind both --robot microduck -
 | 0:00 | Cold open: seed 2, first power window (2×) | pellet → all four ghosts turn blue → the Duck-Man catches Pinky (+200) |
 | 0:10 | Title card | what is learned, what is scripted, simulation only |
 | 0:13 | Real time, unedited, seed 2 | five ducks under learned gaits, physics at 1× |
-| 0:33 | Generation 0 (untrained network), 2× | it collects a few coins and camps — the baseline for the learning curve |
-| 0:53 | Neutral baseline, real time | strategy never moves; the ghosts converge and tag it at 61 s — the causality control on camera |
+| 0:33 | Generation 0 (untrained network), 2× | it collects a few coins and camps; the baseline for the learning curve |
+| 0:53 | Neutral baseline, real time | strategy never moves; the ghosts converge and tag it at 61 s; the causality control on camera |
 | 1:13 | Final policy, full seed-2 round, 2× | side panel: score, lives, power bar, ticker, legend; 780 points, two ghosts caught, ends on the clock |
 | 3:13 | Stand-up policy demo | spawned face-down, the policy trained on the GPU stands it up; labelled as a demo, not a scored round |
 | 3:24 | Strategy learning curves, then the stand-up training curve | all four evolution runs, including the two that failed |

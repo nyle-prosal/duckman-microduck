@@ -1,4 +1,4 @@
-# Duck-Man — maze tag for Microduck
+# Duck-Man: maze tag for Microduck
 
 Entry for the HIM Arena **Microduck · Best Sports Sim** challenge (`microduck-sports-sim-2026`).
 Public repository: https://github.com/nyle-prosal/duckman-microduck
@@ -16,25 +16,25 @@ laptop CPU). Simulation only; no hardware claims.
 ## At a glance
 
 - **Five real Microducks** (Pollen's MJCF and meshes, unmodified) in one MuJoCo scene, every joint of every
-  duck driven by a learned network at 50 Hz — the only multi-duck entry under fully learned locomotion.
+  duck driven by a learned network at 50 Hz. It is the only multi-duck entry under fully learned locomotion.
 - **The only entry using Pollen's BAM voltage-level actuator model** (XL330 M6), one controller per duck,
-  the same physics the gaits were trained against — not plain PD servos.
+  the same physics the gaits were trained against, not plain PD servos.
 - **Two policies trained here:** a stand-up policy on the actual Microduck through Pollen's own training
   task (7,000 PPO iterations, one GPU) and the Duck-Man strategy network (behaviour cloning, then evolution
   strategies inside this simulation on a laptop). Curves, checkpoints and failures are all in the package.
 - **Evidence a judge can run:** `./run.sh` reproduces tests, four baselines and the video on CPU in 20-30 min;
   60 held-out seeds with paired statistics; a mechanical test that no rollout code writes simulator
   state; per-file provenance hashes.
-- **Honest caveats:** the learned strategy's edge over our scripted planner is modest; the stand-up policy
+- **Caveats:** the learned strategy's edge over our scripted planner is modest; the stand-up policy
   cannot recover from face-up; the gait is slow, so the full round is shown at 2× (labelled) after a
   real-time segment.
 
-## What is learned and what is scripted (please read)
+## What is learned and what is scripted
 
 | Layer | Type | Who made it | Evidence |
 |---|---|---|---|
-| **Stand-up policy** (14 joint targets at 50 Hz, recovers from sitting and face-down) | **trained here** — PPO on `Mjlab-StandUp-Flat-MicroDuck` from Pollen's `microduck_rl`, 7,000 iterations × 4,096 envs on one 24 GB GPU (HIM Arena machine) | this entry | `assets/policies/standup.onnx` (exported with Pollen's exporter, normalizer baked in); training logs and checkpoints in the repository's `training/standup/` notes |
-| **Duck-Man strategy** (which cell to go to next) | **trained here** — initialised by behaviour cloning of our scripted planner (8,928 decisions), then evolution strategies with full MuJoCo rollouts, elitism on a 6-layout pool | this entry | `checkpoints/strategy_final.npz` (sha256 in `results/learned_seed0.json`), `checkpoints/curve.csv`, `training/strategy/` (all four runs, including the failed ones) |
+| **Stand-up policy** (14 joint targets at 50 Hz, recovers from sitting and face-down) | **trained here**: PPO on `Mjlab-StandUp-Flat-MicroDuck` from Pollen's `microduck_rl`, 7,000 iterations × 4,096 envs on one 24 GB GPU (HIM Arena machine) | this entry | `assets/policies/standup.onnx` (exported with Pollen's exporter, normalizer baked in); training logs and checkpoints in the repository's `training/standup/` notes |
+| **Duck-Man strategy** (which cell to go to next) | **trained here**: initialised by behaviour cloning of our scripted planner (8,928 decisions), then evolution strategies with full MuJoCo rollouts, elitism on a 6-layout pool | this entry | `checkpoints/strategy_final.npz` (sha256 in `results/learned_seed0.json`), `checkpoints/curve.csv`, `training/strategy/` (all four runs, including the failed ones) |
 | Cell navigation (turn, kick-start, walk to a cell centre) | scripted controller | this entry | `duckman/navigator.py` |
 | Ghost behaviour (chase / ambush / mirror / shy, scatter waves, flee, go home) | scripted controller | this entry | `duckman/ghosts.py` |
 | Scripted planner baseline (BFS with ghost-danger cost) | scripted controller | this entry | `duckman/planner.py` |
@@ -103,13 +103,13 @@ score ≥ 200 with ≥ 12 coins on seed 0; the neutral and frozen Duck-Men colle
 240 s; every policy's call count equals the number of control steps; gait actions are finite and
 bounded. **Mechanical trust check** (`tests/test_no_sim_writes.py`): an AST walk over every function
 in `duckman/` fails if anything outside the two reset paths assigns to `qpos`, `qvel`, `ctrl`,
-`xfrc_applied`, `qfrc_applied` or mocap fields, or calls `mj_resetData`. **Read the paired statistics honestly:** over 60 held-out seeds the learned strategy scores +45
+`xfrc_applied`, `qfrc_applied` or mocap fields, or calls `mj_resetData`. **How to read the paired statistics:** over 60 held-out seeds the learned strategy scores +45
 points more on average than our scripted planner and the bootstrap interval excludes zero, but it wins
 only 29 of 60 rounds. It loses small and wins big: what it learned that the planner never does is to hunt
 ghosts during power windows (+200 each), at the cost of spending its lives faster. On seed 0 the planner
 happens to win; we report every seed rather than pick one. The two disabled baselines tell the other
 half of the story: the neutral duck, balance network running, is caught 2.9 times per round and scores 0;
-the frozen duck, no network at all, falls over in every round — Pollen's gait does the balancing, the
+the frozen duck, no network at all, falls over in every round. Pollen's gait does the balancing and the
 strategy layer does the playing.
 
 Every number above maps to a file in `evidence/README.md`; every shipped asset and checkpoint is
@@ -132,12 +132,12 @@ bonus per tag, evolved against the **frozen** learned Duck-Man on the training p
 Mean Duck-Man score ± std over held-out seeds 0-19; tags = lives lost per round; catches = ghosts caught per round.
 <!-- league:end -->
 
-Read the table as a textbook case of co-evolution after one round. The learned ghosts found the learned
+The table shows what one round of co-evolution does. The learned ghosts found the learned
 Duck-Man's corner-camping habit and annihilate it: 426 → 18, three tags every round, zero catches. But they
 **overfit to that one opponent**: the scripted planner, which sweeps the maze instead of camping, scores 379
-against them with only 0.35 tags per round — the learned ghosts are waiting in the wrong corner. So one
+against them with only 0.35 tags per round, because the learned ghosts are waiting in the wrong corner. So one
 round of learning produced ghosts that are lethal against the policy they trained against and harmless against
-a different one. That is the point of the experiment and also its honest limit: it is one round of an arms
+a different one. That is both the point of the experiment and its limit: it is one round of an arms
 race, run in the last hours before the deadline. The shipped Duck-Man, all headline numbers and the video use the scripted arcade ghosts; the
 learned ghosts are an extra result (`checkpoints/ghosts_final.npz`, `python -m duckman.eval --ghosts learned`,
 `python -m duckman.league`). The obvious next step is to evolve the Duck-Man back against them.
@@ -172,7 +172,7 @@ checkpoint by its held-out score would make the held-out numbers meaningless, so
 Seeds 0-9 per cell. 6.5-8.2 V is the per-env battery range Pollen randomises during gait training; every duck's actuators run at the given voltage.
 <!-- robustness:end -->
 
-The whole system — five gaits, the stand-up policy, the strategy — runs under the same BAM voltage model
+The whole system (five gaits, the stand-up policy, the strategy) runs under the same BAM voltage model
 Pollen randomises during training. Across the full 6.5–8.2 V range the learned strategy stays ahead of the
 planner and no duck fails to stand; the gaits are more fall-prone at both extremes, exactly as the
 actuator model predicts.
@@ -194,13 +194,13 @@ actuator model predicts.
 
 ![Where each Duck-Man spends its time](training/strategy/heatmap.png)
 
-The heat map is the honest picture: the learned Duck-Man **camps the bottom-right pellet corner** for
+The heat map tells the story: the learned Duck-Man **camps the bottom-right pellet corner** for
 about a third of each round, waits for ghosts to come to it, takes the pellet when they are close and
 then hunts them during the power window. It reaches its first pellet later than the planner (41 s vs
 11 s), catches twice as many ghosts, and pays for the ambush with more tags. The planner sweeps the maze
 methodically. Neither behaviour was scripted into the network; the camping strategy is what evolution
 found under a score that pays 200 for a ghost and 10 for a coin. We consider it a real, if slightly
-cheeky, result — and it is exactly the kind of exploit an objective score invites.
+cheeky, result, and exactly the kind of exploit an objective score invites.
 
 ## Reproduce
 
@@ -260,7 +260,7 @@ changed, and it is burned into the frame.
 - **Face-up recovery does not work.** The stand-up policy rises from sitting (5/5) and face-down
   (6/6) but not from its back (0/8 across roll angles) after 7,000 iterations, nor after a further 1,100
   iterations with 60% face-up spawns (`training/standup/README.md`, negative result). A Duck-Man knocked
-  onto its back stays down and loses its remaining lives to tags — a fair knockout, but a gap. For
+  onto its back stays down and loses its remaining lives to tags. That is a fair knockout, but a gap. For
   context: no published Microduck policy we could find (Pollen's set, 31 community repos, every other
   entry) recovers from face-up either; ours is the only recovery skill in the field at all.
 - The learned strategy is aggressive: it usually spends all three lives by ~160 s hunting ghosts.

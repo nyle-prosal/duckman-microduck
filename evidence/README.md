@@ -1,4 +1,4 @@
-# Evidence index — where every number in the README comes from
+# Evidence index: where every number in the README comes from
 
 | Claim in README | Produced by | File |
 |---|---|---|

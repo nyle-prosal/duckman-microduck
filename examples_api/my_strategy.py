@@ -5,7 +5,7 @@
 A strategy is any object with reset(seed) and choose(view, cell, options) -> next cell or None (stay).
 `view` is a duckman.game.GameView (positions, cells, coin/pellet states, ghost modes, power timer, lives,
 clock); `options` are the walkable neighbour cells. The scripted navigator and Pollen's learned gait do
-the rest, so your code never touches joints or physics — which is also what the causality tests assert.
+the rest, so your code never touches joints or physics, which is also what the causality tests assert.
 """
 import argparse
 import sys

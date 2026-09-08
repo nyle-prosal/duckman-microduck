@@ -17,7 +17,7 @@ DEFAULT_POSE = np.array([0.0, -0.0873, -0.4579, -0.0049, 0.4530, 0.3491, 0.3491,
                          0.0, 0.0873, 0.4579, 0.0049, -0.4530], dtype=np.float32)
 OBS_DIM, ACT_DIM = 61, 14
 
-# BAM M6 defaults — mirror _BAM_ACTUATOR_KWARGS in microduck_rl/robot/microduck_constants.py
+# BAM M6 defaults, mirroring _BAM_ACTUATOR_KWARGS in microduck_rl/robot/microduck_constants.py
 BAM = dict(motor_name="xl330", model="m6", kp_fw=200.0, vin=7.4, vin_drop_gain=0.1, vin_min=6.0,
            max_current=None, solref_friction=(-5.0e4, -2.0e2),
            solimp_friction=(0.99, 0.9999, 0.001, 0.5, 2.0))

@@ -1,4 +1,4 @@
-# Duck-Man strategy network — training record, including what failed
+# Duck-Man strategy network: training record, including what failed
 
 Strategy network: 76 inputs (5×5 local wall and token masks, ghost offsets and modes, nearest pellet,
 power timer, lives, clock, coins left, scatter flag, heading) → 64 → 64 → 5 logits (E, W, S, N, stay),
@@ -9,7 +9,7 @@ wall-illegal moves masked. 9,413 parameters. Queried when the Duck-Man reaches a
 |---|---|---|---|---|
 | run 1 (15 gens) | random | evolution strategies, pop 48, σ 0.1, lr 0.02, 2 random seeds/gen | fitness −170 → −15 best; the game rules were still being balanced during this run | pure ES from scratch learns, but slowly and noisily; rounds ended with 3 lives lost |
 | run 2 (4 gens) | run-1 weights, +1 input | same, under the final rules | ≈ −120 | restarted when the rules changed (every rule change invalidates a policy) |
-| **behaviour cloning** | — | 40 planner rounds on seeds 2000–2039, 8,928 decisions, cross-entropy, 300 epochs | 96% agreement; ≈ 312 mean score on held-out seeds 0–3 (planner 370) | a strong, honest warm start; the network is *not* the planner (it plays worse, then better) |
+| **behaviour cloning** | n/a | 40 planner rounds on seeds 2000–2039, 8,928 decisions, cross-entropy, 300 epochs | 96% agreement; ≈ 312 mean score on held-out seeds 0–3 (planner 370) | a strong warm start; the network is *not* the planner (it plays worse, then better) |
 | run 3 (10 gens) | cloned net | ES σ 0.03, lr 0.01, **no elitism** | fitness 23 → 100 (gen 3) → −33 (gen 9) | **FAILED as a process**: Adam-normalised steps random-walked a good policy off a cliff within 8 generations. First attempt with σ 0.1 was worse: the population mean fell from 303 to 196 in one generation |
 | **run 4 (30 gens)** | run-3 generation 3 | ES σ 0.03, lr 0.005, **elitism**: the best policy on the full 6-seed pool is kept; the top individual is re-scored on the pool and adopted if it wins; revert to the elite after 3 stale generations | fitness 95 → **200** (gen 20, shipped); pool mean score 462 at best; a further 4 gens on 2026-09-07 did not beat it | elitism turned a noisy random walk into monotone progress |
 
