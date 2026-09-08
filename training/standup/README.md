@@ -28,3 +28,14 @@ reward weights there, not because the policy degrades.
 Full checkpoints (`model_*.pt`, ~5 MB each) and raw tensorboard event files are kept out of the
 submission ZIP; they are available on request and were produced exactly by the command in the top-level
 README.
+
+## Face-up retry (2026-09-08, negative result)
+
+Resumed from the 7,000 checkpoint on a HIM Arena `gpu-l4-workspace` (NVIDIA L4, 2.9 s/iteration) with one
+edit to Pollen's curriculum: the final stage spawns face-up with probability 0.60 instead of the default. Ran
+7,000 → 8,099 iterations (about 55 minutes) before the machine's 2 h lifetime ended; `faceup_retry_reward.csv`
+is the mean-reward curve. Reward went flat at 27–29 from iteration 7,100 onwards (lower than the 35 of the
+shipped run because the harder spawns are now most of the mix). Measured with the same CPU harness on the
+`model_8000` export, 8 yaws each: sitting-low spawn 8/8 (shipped policy 2/8), face-down 8/8, **face-up 0/8**.
+Since the goal, face-up recovery, did not emerge and the in-game behaviour was validated on the shipped file,
+the entry keeps `standup.onnx` unchanged; the export is kept out of the ZIP.

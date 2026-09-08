@@ -258,7 +258,8 @@ changed, and it is burned into the frame.
 - Pollen's gait walks at ~0.15 m/s and cannot strafe, so the game is slow and turn-heavy; 2×
   playback is used for watchability.
 - **Face-up recovery does not work.** The stand-up policy rises from sitting (5/5) and face-down
-  (6/6) but not from its back (0/8 across roll angles) after 7,000 iterations. A Duck-Man knocked
+  (6/6) but not from its back (0/8 across roll angles) after 7,000 iterations, nor after a further 1,100
+  iterations with 60% face-up spawns (`training/standup/README.md`, negative result). A Duck-Man knocked
   onto its back stays down and loses its remaining lives to tags — a fair knockout, but a gap. For
   context: no published Microduck policy we could find (Pollen's set, 31 community repos, every other
   entry) recovers from face-up either; ours is the only recovery skill in the field at all.
