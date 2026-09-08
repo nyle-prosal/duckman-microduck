@@ -13,12 +13,7 @@
 
 **Caption**
 
-> Maze tag for 5 real Microducks in MuJoCo with Pollen's BAM actuator model. Trained here: a stand-up
-> policy (PPO on Pollen's Microduck task, one GPU) and the Duck-Man's strategy network (imitation of our
-> scripted planner, then evolution strategies in-sim on a laptop). Over 60 held-out seeds: learned 406,
-> scripted planner 360, disabled baselines 0. Ghosts and cell navigation are scripted; every gait is
-> Pollen's learned policy; coins count only when physically knocked over. Balance assistance: none.
-> Simulation only.
+> Maze tag for 5 real Microducks in MuJoCo (Pollen's BAM actuators). Trained here: a stand-up policy (PPO) and the Duck-Man strategy net (imitation, then evolution in-sim); ghosts scripted, gaits Pollen's. 60 held-out seeds: learned 406, planner 360, disabled 0. Sim only.
 
 **Publish command**
 
