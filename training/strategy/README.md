@@ -20,3 +20,11 @@ time); `curves.png` overlays all four. The shipped checkpoint is `checkpoints/st
 What the trained policy does that the planner never does: it uses power pellets to **hunt ghosts** (+200
 each), 0.25 catches per round vs 0.10 for the planner over 20 held-out seeds, at the cost of spending its
 lives faster. Whether that trade is worth it is what the paired statistics in the top-level README measure.
+
+## Round 2 (not part of the entry)
+
+After the learned ghosts were trained we started re-evolving the Duck-Man against a mix of scripted and
+learned ghosts (`train_es --ghosts mixed`, resumed from `strategy_final.npz`). One generation ran on a laptop
+(best individual fitness 237.5) before memory ran out, and the HIM Arena machines we moved it to were capped
+at 16 GB / 13.6 CPU cores, so no further generation completed before the deadline. The shipped strategy is the
+round-1 elite benchmarked above; round 2 is listed under next ideas.
