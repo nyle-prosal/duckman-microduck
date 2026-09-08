@@ -15,10 +15,16 @@
 
 > Maze tag for 5 real Microducks in MuJoCo (Pollen's BAM actuators). Trained here: a stand-up policy (PPO) and the Duck-Man strategy net (imitation, then evolution in-sim); ghosts scripted, gaits Pollen's. 60 held-out seeds: learned 406, planner 360, disabled 0. Sim only.
 
-**Publish command**
+**Published**
+
+Uploaded through the HIM Arena web form on 2026-09-08 (the CLI rejected the challenge id that day):
+https://arena.himrobotics.com/uploads/source_b69ff406a5b1b17ca51c (upload id `source_b69ff406a5b1b17ca51c`,
+kind policy + simulator, status ready). ZIP SHA-256 on the page: `855d6b24ffc1227fb2d5f093d12e3c3fd6a6c465b3360fa47adb612337940113`.
+
+The equivalent CLI command:
 
 ```
-him upload ./submission.zip --video ./result.mp4 --kind both --robot microduck --simulator mujoco \
+him upload ./submission.zip --video ./result.mp4 --kind policy --robot microduck --simulator mujoco \
   --challenge microduck-sports-sim-2026 --name "Duck-Man: maze tag for Microduck" \
   --caption "<caption above>" --run-command "./run.sh" --ready --yes --json
 ```
