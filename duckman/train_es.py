@@ -24,20 +24,21 @@ from .strategy_net import MLP, NetStrategy, N_FEATURES
 _GAMES = {}
 
 
-def _game(seed):
-    if seed not in _GAMES:
-        if len(_GAMES) >= 6:
+def _game(seed, kind="scripted"):
+    key = (seed, kind)
+    if key not in _GAMES:
+        if len(_GAMES) >= 12:
             _GAMES.clear()
-        from .eval import resolve_recovery
+        from .eval import resolve_recovery, make_ghosts
         rec = resolve_recovery("auto")
-        _GAMES[seed] = Game(Maze(), seed, DuckManPolicy(NetStrategy(MLP(N_FEATURES)), rec),
-                            default_ghosts("standup" if rec == "standup" else "none"))
-    return _GAMES[seed]
+        _GAMES[key] = Game(Maze(), seed, DuckManPolicy(NetStrategy(MLP(N_FEATURES)), rec), make_ghosts(kind, rec))
+    return _GAMES[key]
 
 
 def rollout(args):
-    flat, seed, max_t = args
-    g = _game(seed)
+    flat, seed, max_t = args[:3]
+    kind = args[3] if len(args) > 3 else "scripted"
+    g = _game(seed, kind)
     g.policies["P_"].strategy.mlp.set_flat(flat)
     g.reset()
     r = g.run(max_t=max_t)
@@ -52,7 +53,8 @@ SEED_POOL = [1000, 1001, 1002, 1003, 1004, 1005]   # training layouts; evaluatio
 
 
 def train(run_name, generations, pop=64, sigma=0.1, lr=0.02, seeds_per_gen=4, workers=10, max_t=CLOCK_S,
-          root=ROOT / "runs", resume=None, master_seed=0):
+          root=ROOT / "runs", resume=None, master_seed=0, ghosts="scripted", fresh_bar=False):
+    kinds = ["scripted", "learned"] if ghosts == "mixed" else [ghosts]
     out = Path(root) / run_name
     out.mkdir(parents=True, exist_ok=True)
     rng = np.random.default_rng(master_seed)
@@ -62,7 +64,7 @@ def train(run_name, generations, pop=64, sigma=0.1, lr=0.02, seeds_per_gen=4, wo
         np.savez(out / "gen_0000.npz", flat=theta, n_in=N_FEATURES)
     m, v = np.zeros_like(theta), np.zeros_like(theta)
     best_fit, best_theta, stale = -np.inf, theta.copy(), 0
-    if resume is not None and "fit" in np.load(resume):
+    if resume is not None and not fresh_bar and "fit" in np.load(resume):
         best_fit = float(np.load(resume)["fit"])      # resuming from an elite: only a better policy may replace it
     half = pop // 2
     start_gen = 1
@@ -81,17 +83,19 @@ def train(run_name, generations, pop=64, sigma=0.1, lr=0.02, seeds_per_gen=4, wo
                 eps = rng.standard_normal((half, theta.size)).astype(np.float32)
                 eps = np.concatenate([eps, -eps])
                 seeds = [int(s) for s in rng.choice(SEED_POOL, size=min(seeds_per_gen, len(SEED_POOL)), replace=False)]
-                jobs = [(theta + sigma * eps[i], s, max_t) for i in range(pop) for s in seeds] + [(theta, s, max_t) for s in SEED_POOL]
-                res = pool.map(rollout, jobs, chunksize=1)
-                cand = res[:pop * seeds_per_gen]
-                per = np.array([fitness(r) for r in cand]).reshape(pop, seeds_per_gen).mean(1)
-                base = res[pop * seeds_per_gen:]          # the unperturbed policy on the WHOLE pool
+                cand_jobs = [(theta + sigma * eps[i], s, max_t, k) for i in range(pop) for s in seeds for k in kinds]
+                base_jobs = [(theta, s, max_t, k) for s in SEED_POOL for k in kinds]
+                res = pool.map(rollout, cand_jobs + base_jobs, chunksize=1)
+                ncand = pop * seeds_per_gen * len(kinds)
+                cand = res[:ncand]
+                per = np.array([fitness(r) for r in cand]).reshape(pop, seeds_per_gen * len(kinds)).mean(1)
+                base = res[ncand:]                         # the unperturbed policy on the WHOLE pool (x ghost kinds)
                 theta_fit = float(np.mean([fitness(r) for r in base]))
                 theta_score = float(np.mean([r["score"] for r in base]))
                 # (1+lambda)-style elitism: re-score the top individual on the whole pool and adopt it if it wins
                 top = int(per.argmax())
                 top_theta = (theta + sigma * eps[top]).astype(np.float32)
-                top_res = pool.map(rollout, [(top_theta, s, max_t) for s in SEED_POOL], chunksize=1)
+                top_res = pool.map(rollout, [(top_theta, s, max_t, k) for s in SEED_POOL for k in kinds], chunksize=1)
                 top_fit = float(np.mean([fitness(r) for r in top_res]))
                 improved = False
                 for cand_fit, cand_theta, tag in ((theta_fit, theta, "theta"), (top_fit, top_theta, "top individual")):
@@ -136,8 +140,11 @@ def main():
     ap.add_argument("--lr", type=float, default=0.02)
     ap.add_argument("--resume")
     ap.add_argument("--master-seed", type=int, default=0)
+    ap.add_argument("--ghosts", default="scripted", help="scripted | mixed (scripted and learned ghosts, both count)")
+    ap.add_argument("--fresh-bar", action="store_true", help="do not inherit the resumed elite's fitness bar (new objective)")
     a = ap.parse_args()
-    train(a.run, a.generations, a.pop, a.sigma, a.lr, a.seeds, a.workers, a.max_t, resume=a.resume, master_seed=a.master_seed)
+    train(a.run, a.generations, a.pop, a.sigma, a.lr, a.seeds, a.workers, a.max_t, resume=a.resume, master_seed=a.master_seed,
+          ghosts=a.ghosts, fresh_bar=a.fresh_bar)
 
 
 if __name__ == "__main__":
